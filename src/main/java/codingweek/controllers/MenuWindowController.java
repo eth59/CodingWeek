@@ -114,22 +114,13 @@ public class MenuWindowController {
 //        }
 //    }
 
+    @SuppressWarnings("deprecation")
     private void openWebpage(String url) {
         try {
-            URI uri = new URI(url);
-
-            // 1) Tenter d'utiliser la classe Desktop, si supportée
-            if (Desktop.isDesktopSupported()) {
-                Desktop desktop = Desktop.getDesktop();
-                if (desktop.isSupported(Desktop.Action.BROWSE)) {
-                    desktop.browse(uri);
-                    return; // On quitte la méthode si tout s'est bien passé
-                }
-            }
-
             // 2) Si Desktop non supporté ou browse non disponible,
             //    on tente manuellement selon l'OS.
             String osName = System.getProperty("os.name").toLowerCase();
+            System.out.println(osName);
 
             if (osName.contains("mac")) {
                 // Sur MacOS, la commande 'open' lance le navigateur par défaut
@@ -149,7 +140,7 @@ public class MenuWindowController {
                 System.err.println("Système non supporté pour l'ouverture de lien : " + osName);
             }
 
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
