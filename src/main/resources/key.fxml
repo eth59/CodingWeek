@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<GridPane fx:id="gridPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.KeyController">
+    <!-- Grille pour afficher les couleurs -->
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <rowConstraints>
+        <RowConstraints minHeight="50" prefHeight="50" />
+        <RowConstraints minHeight="50" prefHeight="50" />
+        <RowConstraints minHeight="50" prefHeight="50" />
+        <RowConstraints minHeight="50" prefHeight="50" />
+        <RowConstraints minHeight="50" prefHeight="50" />
+    </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints minWidth="50" prefWidth="50" />
+        <ColumnConstraints minWidth="50" prefWidth="50" />
+        <ColumnConstraints minWidth="50" prefWidth="50" />
+        <ColumnConstraints minWidth="50" prefWidth="50" />
+        <ColumnConstraints minWidth="50" prefWidth="50" />
+    </columnConstraints>
+</GridPane>
