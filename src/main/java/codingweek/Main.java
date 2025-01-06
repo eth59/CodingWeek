@@ -22,9 +22,9 @@ public class Main extends Application {
 
     private void loadGuesserView(Stage primaryStage) {
         try {
-            URL guesserViewURL = getClass().getResource("/GuesserView.fxml");
+            URL guesserViewURL = getClass().getResource("/guesserView.fxml");
             if (guesserViewURL == null) {
-                System.err.println("Could not find GuesserView.fxml");
+                System.err.println("Could not find guesserView.fxml");
                 System.exit(1);
             }
             Parent guesserView = FXMLLoader.load(guesserViewURL);
@@ -40,7 +40,7 @@ public class Main extends Application {
 
             primaryStage.show();
         } catch (IOException e) {
-            System.err.println("Failed to load GuesserView.fxml: " + e.getMessage());
+            System.err.println("Failed to load guesserView.fxml: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
@@ -48,9 +48,9 @@ public class Main extends Application {
 
     private void loadSpyView(Stage primaryStage) {
         try {
-            URL spyViewURL = getClass().getResource("/SpyView.fxml");
+            URL spyViewURL = getClass().getResource("/spyView.fxml");
             if (spyViewURL == null) {
-                System.err.println("Could not find SpyView.fxml");
+                System.err.println("Could not find spyView.fxml");
                 System.exit(1);
             }
             Parent spyView = FXMLLoader.load(spyViewURL);
@@ -69,7 +69,7 @@ public class Main extends Application {
 
             spyStage.show();
         } catch (IOException e) {
-            System.err.println("Failed to load SpyView.fxml: " + e.getMessage());
+            System.err.println("Failed to load spyView.fxml: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
