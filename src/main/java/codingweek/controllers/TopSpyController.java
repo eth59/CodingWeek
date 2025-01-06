@@ -1,11 +1,12 @@
 package codingweek.controllers;
 
+import codingweek.Observer;
 import codingweek.models.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class TopSpyController {
+public class TopSpyController implements Observer {
     @FXML
     Label turnLabel;
 
@@ -16,6 +17,27 @@ public class TopSpyController {
 
     public void initialize() {
         game = Game.getInstance();
+        if (game.isSpyTurn() && game.isBlueTurn()) {
+            turnLabel.setText("C'est au tour de l'espion bleu");
+        } else if (game.isSpyTurn() && !game.isBlueTurn()) {
+            turnLabel.setText("C'est au tour de l'espion rouge");
+        } else if (!game.isSpyTurn() && game.isBlueTurn()) {
+            turnLabel.setText("C'est au tour du devin bleu");
+        } else {
+            turnLabel.setText("C'est au tour du devin rouge");
+        }
+    }
+
+    public void reagir() {
+        if (game.isSpyTurn() && game.isBlueTurn()) {
+            turnLabel.setText("C'est au tour de l'espion bleu");
+        } else if (game.isSpyTurn() && !game.isBlueTurn()) {
+            turnLabel.setText("C'est au tour de l'espion rouge");
+        } else if (!game.isSpyTurn() && game.isBlueTurn()) {
+            turnLabel.setText("C'est au tour du devin bleu");
+        } else {
+            turnLabel.setText("C'est au tour du devin rouge");
+        }
     }
 
     public void submitClue() {

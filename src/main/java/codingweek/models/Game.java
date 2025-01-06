@@ -3,7 +3,7 @@ package codingweek.models;
 import java.io.Serializable;
 import java.util.Stack;
 
-public class Game implements Serializable {
+public class Game extends Subject implements Serializable {
     private int boardSize;
     private int timeLimit; // in seconds
     private boolean blueTurn; // true for blue, false for red
@@ -54,6 +54,14 @@ public class Game implements Serializable {
 
     public Guess getLastGuess() {
         return guesses.peek();
+    }
+
+    public boolean isBlueTurn() {
+        return blueTurn;
+    }
+
+    public boolean isSpyTurn() {
+        return spyTurn;
     }
 
     public int submitClue(String clue, int clueNb) {
