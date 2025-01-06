@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.DemoControleur"
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             prefWidth="800" prefHeight="600">
    <top>
-      <fx:include source="menuBar.fxml" />
+<!--      <fx:include source="menuBar.fxml" />-->
    </top>
    <center>
       <VBox>
-         <fx:include source="topGuesser.fxml" />
+<!--         <fx:include source="topGuesser.fxml" />-->
          <fx:include source="board.fxml" />
       </VBox>
    </center>
