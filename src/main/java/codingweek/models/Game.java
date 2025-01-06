@@ -68,6 +68,7 @@ public class Game extends Subject implements Serializable {
         if (clueIsValid(clue) && 0 < clueNb && clueNb <= (int) Math.pow(this.boardSize, 2) && this.spyTurn) {
             Guess guess = new Guess(clue, clueNb);
             addGuess(guess);
+            notifierObservateurs();
             return 1;
         } else {
             return 0;

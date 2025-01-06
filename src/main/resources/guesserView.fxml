@@ -9,7 +9,7 @@
    </top>
    <center>
       <VBox>
-         <!-- <fx:include source="topGuesser.fxml" /> -->
+         <fx:include source="topGuesser.fxml" />
          <fx:include source="guessBoard.fxml" />
       </VBox>
    </center>
