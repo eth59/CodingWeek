@@ -5,10 +5,14 @@
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.DemoControleur"
             prefWidth="800" prefHeight="600">
+   <top>
+      <fx:include source="menuBar.fxml" />
+   </top>
    <center>
-      <Label fx:id="versionLabel" text="Hello, World!" />
-
-      <VBox fx:id="plateauContainer" />
+      <VBox>
+         <fx:include source="topGuesser.fxml" />
+         <fx:include source="board.fxml" />
+      </VBox>
    </center>
 </BorderPane>
 
