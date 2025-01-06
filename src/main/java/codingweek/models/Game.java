@@ -10,15 +10,15 @@ public class Game implements Serializable {
     private boolean spyTurn; // true for spy, false for guesser
     private Stack<Guess> guesses;
     private Board board;
-    private Game instance;
+    private static Game instance;
 
     private Game() {
-        this.board = new Board();
+        this.board = Board.getInstance();
         this.boardSize = 5;
         this.timeLimit = 60;
     }
 
-    public Game getInstance() {
+    public static Game getInstance() {
         if (instance == null) {
             instance = new Game();
         }

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Board {
     private ArrayList<Card> cards; // Doit être de taille boardSize * boardSize (25 par défaut)
-    private Board instance;
+    private static Board instance;
 
     private Board() {
         this.cards = new ArrayList<Card>();
     }
 
-    public Board getInstance() {
+    public static Board getInstance() {
         if (instance == null) {
             instance = new Board();
         }
