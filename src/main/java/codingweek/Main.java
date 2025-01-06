@@ -12,33 +12,67 @@ import java.net.URL;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        // Charger la première vue (GuesserView)
-        URL guesserViewURL = getClass().getResource("/GuesserView.fxml");
-        if (guesserViewURL == null) {
-            System.err.println("Could not find GuesserView.fxml");
+    public void start(Stage primaryStage) {
+        // Load and display the Guesser View
+        loadGuesserView(primaryStage);
+
+        // Load and display the Spy View in a new stage
+        loadSpyView(primaryStage);
+    }
+
+    private void loadGuesserView(Stage primaryStage) {
+        try {
+            URL guesserViewURL = getClass().getResource("/GuesserView.fxml");
+            if (guesserViewURL == null) {
+                System.err.println("Could not find GuesserView.fxml");
+                System.exit(1);
+            }
+            Parent guesserView = FXMLLoader.load(guesserViewURL);
+            Scene guesserScene = new Scene(guesserView, 800, 600);
+            primaryStage.setScene(guesserScene);
+            primaryStage.setTitle("Guesser Window");
+
+            // Set position and size explicitly
+            primaryStage.setWidth(800);
+            primaryStage.setHeight(600);
+            primaryStage.setX(100);
+            primaryStage.setY(100);
+
+            primaryStage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load GuesserView.fxml: " + e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         }
-        Parent guesserView = FXMLLoader.load(guesserViewURL);
-        Scene guesserScene = new Scene(guesserView, 800, 600);
-        primaryStage.setScene(guesserScene);
-        primaryStage.setTitle("Guesser Window");
-        primaryStage.show();
+    }
 
-        // Charger la deuxième vue (SpyView) dans une nouvelle fenêtre
-        URL spyViewURL = getClass().getResource("/SpyView.fxml");
-        if (spyViewURL == null) {
-            System.err.println("Could not find SpyView.fxml");
+    private void loadSpyView(Stage primaryStage) {
+        try {
+            URL spyViewURL = getClass().getResource("/SpyView.fxml");
+            if (spyViewURL == null) {
+                System.err.println("Could not find SpyView.fxml");
+                System.exit(1);
+            }
+            Parent spyView = FXMLLoader.load(spyViewURL);
+            Scene spyScene = new Scene(spyView, 800, 600);
+
+            // Create a new stage for the Spy View
+            Stage spyStage = new Stage();
+            spyStage.setScene(spyScene);
+            spyStage.setTitle("Spy Window");
+
+            // Set position and size explicitly
+            spyStage.setWidth(800);
+            spyStage.setHeight(600);
+            spyStage.setX(primaryStage.getX() + primaryStage.getWidth() + 20); // 20px gap
+            spyStage.setY(primaryStage.getY()); // Align vertically with Guesser
+
+            spyStage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load SpyView.fxml: " + e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         }
-        Parent spyView = FXMLLoader.load(spyViewURL);
-        Scene spyScene = new Scene(spyView, 800, 600);
-
-        // Créer une nouvelle fenêtre (Stage) pour SpyView
-        Stage spyStage = new Stage();
-        spyStage.setScene(spyScene);
-        spyStage.setTitle("Spy Window");
-        spyStage.show();
     }
 
     public static void main(String[] args) {
