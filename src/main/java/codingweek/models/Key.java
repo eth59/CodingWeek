@@ -8,19 +8,22 @@ import java.util.Random;
 
 public class Key {
 
-    // Dimensions de la grille (5x5 pour cet exemple)
-    private static final int LIGNES = 5;
-    private static final int COLONNES = 5;
+    // Instance unique de la classe Key (Singleton)
+    private static Key instance;
 
     // Matrice de couleurs représentant la grille
     private Color[][] grille;
 
-    // Instance unique de la classe GrilleCodeNames (Singleton)
-    private static Key instance;
+    // Dimensions de la grille (prises depuis Game)
+    private int lignes;
+    private int colonnes;
 
     // Constructeur privé pour empêcher la création d'instances en dehors de la classe
     private Key() {
-        grille = new Color[LIGNES][COLONNES];
+        Game game = Game.getInstance(); // Récupérer l'instance du jeu
+        this.lignes = game.getBoardSize(); // Taille du plateau
+        this.colonnes = game.getBoardSize(); // Même valeur pour une grille carrée
+        grille = new Color[lignes][colonnes];
         initialiserGrille();
     }
 
@@ -45,7 +48,8 @@ public class Key {
         couleurs.add(Color.BLACK);    // 1 case noire
 
         // Ajouter des cases blanches pour remplir le reste de la grille
-        int nombreBlanches = LIGNES * COLONNES - couleurs.size();
+        int totalCases = lignes * colonnes;
+        int nombreBlanches = totalCases - couleurs.size();
         for (int i = 0; i < nombreBlanches; i++) {
             couleurs.add(Color.WHITE);  // Cases blanches
         }
@@ -55,8 +59,8 @@ public class Key {
 
         // Remplir la grille avec les couleurs mélangées
         int index = 0;
-        for (int i = 0; i < LIGNES; i++) {
-            for (int j = 0; j < COLONNES; j++) {
+        for (int i = 0; i < lignes; i++) {
+            for (int j = 0; j < colonnes; j++) {
                 grille[i][j] = couleurs.get(index++);
             }
         }
@@ -64,14 +68,14 @@ public class Key {
 
     // Méthode pour définir la couleur d'une case donnée
     public void setCouleur(int ligne, int colonne, Color couleur) {
-        if (ligne >= 0 && ligne < LIGNES && colonne >= 0 && colonne < COLONNES) {
+        if (ligne >= 0 && ligne < lignes && colonne >= 0 && colonne < colonnes) {
             grille[ligne][colonne] = couleur;
         }
     }
 
     // Méthode pour récupérer la couleur d'une case
     public Color getCouleur(int ligne, int colonne) {
-        if (ligne >= 0 && ligne < LIGNES && colonne >= 0 && colonne < COLONNES) {
+        if (ligne >= 0 && ligne < lignes && colonne >= 0 && colonne < colonnes) {
             return grille[ligne][colonne];
         }
         return Color.TRANSPARENT;  // Retourne une couleur transparente si l'index est invalide
@@ -79,8 +83,8 @@ public class Key {
 
     // Méthode pour afficher la grille dans la console (juste à titre d'exemple)
     public void afficherGrille() {
-        for (int i = 0; i < LIGNES; i++) {
-            for (int j = 0; j < COLONNES; j++) {
+        for (int i = 0; i < lignes; i++) {
+            for (int j = 0; j < colonnes; j++) {
                 System.out.print(grille[i][j].toString() + " ");
             }
             System.out.println();
