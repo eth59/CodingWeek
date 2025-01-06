@@ -11,8 +11,8 @@
       <VBox>
          <!-- <fx:include source="topSpy.fxml" /> -->
          <HBox>
-            <fx:include source="board.fxml" />
-            <fx:include source="key.fxml" />
+            <fx:include source="spyBoard.fxml" />
+            <!-- <fx:include source="key.fxml" /> -->
          </HBox>
       </VBox>
    </center>
