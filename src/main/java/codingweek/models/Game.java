@@ -1,10 +1,14 @@
 package codingweek.models;
 
 import java.io.Serializable;
+import java.util.Stack;
 
 public class Game implements Serializable {
     private int boardSize;
     private int timeLimit; // in seconds
+    private boolean blueTurn; // true for blue, false for red
+    private boolean spyTurn; // true for spy, false for guesser
+    private Stack<Guess> guesses;
     private Board board;
     private Game instance;
 
