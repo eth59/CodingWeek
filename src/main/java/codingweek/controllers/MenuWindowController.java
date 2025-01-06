@@ -45,6 +45,7 @@ public class MenuWindowController {
         });
     }
 
+    @SuppressWarnings("deprecation")
     private void openWebpage(String url) {
         try {
             // 2) Si Desktop non supporté ou browse non disponible,

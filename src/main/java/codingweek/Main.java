@@ -23,7 +23,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        Game game = Game.getInstance(); // Initialize the game
+        Game.getInstance(); // Initialize the game
         launch();
     }
 }
