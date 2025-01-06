@@ -102,15 +102,55 @@ public class MenuWindowController {
         }
     }
 
+//    private void openWebpage(String url) {
+//        if (Desktop.isDesktopSupported()) {
+//            try {
+//                Desktop.getDesktop().browse(new URI(url));
+//            } catch (IOException | URISyntaxException e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            System.out.println("Desktop non supporté. Impossible d'ouvrir le lien : " + url);
+//        }
+//    }
+
     private void openWebpage(String url) {
-        if (Desktop.isDesktopSupported()) {
-            try {
-                Desktop.getDesktop().browse(new URI(url));
-            } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
+        try {
+            URI uri = new URI(url);
+
+            // 1) Tenter d'utiliser la classe Desktop, si supportée
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                if (desktop.isSupported(Desktop.Action.BROWSE)) {
+                    desktop.browse(uri);
+                    return; // On quitte la méthode si tout s'est bien passé
+                }
             }
-        } else {
-            System.out.println("Desktop non supporté. Impossible d'ouvrir le lien : " + url);
+
+            // 2) Si Desktop non supporté ou browse non disponible,
+            //    on tente manuellement selon l'OS.
+            String osName = System.getProperty("os.name").toLowerCase();
+
+            if (osName.contains("mac")) {
+                // Sur MacOS, la commande 'open' lance le navigateur par défaut
+                Runtime.getRuntime().exec("open " + url);
+            }
+            else if (osName.contains("nix") || osName.contains("nux") || osName.contains("aix")) {
+                // Sur Linux, la commande 'xdg-open' lance le navigateur par défaut
+                Runtime.getRuntime().exec("xdg-open " + url);
+            }
+            else if (osName.contains("win")) {
+                // Sur Windows, la commande 'rundll32' ou 'start'
+                // peut être utilisée, mais en général Desktop devrait marcher
+                // Si besoin, on peut utiliser :
+                Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
+            }
+            else {
+                System.err.println("Système non supporté pour l'ouverture de lien : " + osName);
+            }
+
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
         }
     }
 
