@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane>
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="codingweek.controllers.MenuWindowController"
+    prefWidth="600" prefHeight="400">
+
+<!-- Haut de la fenêtre avec le titre du jeu centré -->
+    <top>
+        <Label
+            text="CodeNames Groupe 25"
+            style="-fx-font-size: 24px; -fx-font-weight: bold;"
+            BorderPane.alignment="CENTER"
+    </top>
+
+<!-- Centre de la fenêtre avec les boutons PLAY et RÈGLES -->
+    <center>
+        <VBox spacing="10" alignment="CENTER">
+            <Button text="PLAY" fx:id="playButton" />
+            <Button text="RÈGLES" fx:id="rulesButton" />
+        </VBox>
+    </center>
+
+<!-- Bas de la fenêtre avec le bouton QUIT à droite -->
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" padding="10">
+            <Button text="Quit" fx:id="quitButton" />
+        </HBox>    </bottom>
+</BorderPane>
