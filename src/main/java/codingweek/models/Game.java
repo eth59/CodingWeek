@@ -1,6 +1,8 @@
 package codingweek.models;
 
-public class Game {
+import java.io.Serializable;
+
+public class Game implements Serializable {
     private int boardSize;
     private int timeLimit; // in seconds
     private Board board;
