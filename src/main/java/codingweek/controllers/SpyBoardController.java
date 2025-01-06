@@ -1,51 +1,45 @@
 package codingweek.controllers;
 
+import codingweek.models.Board;
+import codingweek.models.Card;
+import codingweek.models.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+
+import java.util.List;
 
 public class SpyBoardController {
 
     @FXML
     private GridPane boardGrid;
 
-    // Define the game board size (5x5 grid for Code Names)
-    private static final int GRID_ROWS = 5;
-    private static final int GRID_COLS = 5;
-
-    // Sample words for the board
-    private static final String[] WORDS = {
-        "APPLE", "BANANA", "ORANGE", "WATER", "FIRE",
-        "EARTH", "WIND", "STORM", "TREE", "MOUNTAIN",
-        "HOUSE", "BRIDGE", "LIGHT", "SHADOW", "STONE",
-        "CAR", "PLANE", "SHIP", "TRAIN", "SPACE",
-        "ROBOT", "KNIGHT", "CASTLE", "PRINCE", "PRINCESS"
-    };
+    private final Game game = Game.getInstance();
+    private final Board board = game.getBoard();
 
     public void initialize() {
-        // Populate the board with words
-        populateBoard();
+        int gridSize = game.getBoardSize();
+        populateBoard(gridSize);
     }
 
-    private void populateBoard() {
-        int wordIndex = 0;
+    private void populateBoard(int gridSize) {
+        List<Card> cards = board.getCards();
+        int cardIndex = 0;
 
-        for (int row = 0; row < GRID_ROWS; row++) {
-            for (int col = 0; col < GRID_COLS; col++) {
-                // Create a StackPane to represent each card
+        for (int row = 0; row < gridSize; row++) {
+            for (int col = 0; col < gridSize; col++) {
                 StackPane cardPane = new StackPane();
-                cardPane.setStyle("-fx-border-color: black; -fx-background-color: lightblue; -fx-padding: 10;");
+                Card card = cards.get(cardIndex++);
+
+                // Use card's color for the tile's background
+                cardPane.setStyle("-fx-border-color: black; -fx-background-color: " + card.getColor() + "; -fx-padding: 10;");
                 cardPane.setPrefSize(100, 100);
 
-                // Create a Label for the word
-                Label wordLabel = new Label(WORDS[wordIndex++]);
+                Label wordLabel = new Label(card.getWord());
                 wordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
-
-                // Add the label to the card
                 cardPane.getChildren().add(wordLabel);
 
-                // Add the card to the grid
                 boardGrid.add(cardPane, col, row);
             }
         }
