@@ -4,8 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+
 
 import codingweek.models.PageManager;
 
