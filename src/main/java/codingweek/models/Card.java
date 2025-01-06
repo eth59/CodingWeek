@@ -3,29 +3,48 @@ package codingweek.models;
 public class Card {
 
     // Attributes
-    private String word; // Path to the image of the card
+    private String word;
     private boolean isRevealed = false;
-    private String color; // Color of the card (blue/red/neutral/assassin)
+    private String color; // Color of the card (red, blue, neutral)
+
+    // Predefined colors with their hash codes
+    public static final String RED_COLOR = "#c1121f";
+    public static final String BLUE_COLOR = "#003566";
+    public static final String NEUTRAL_COLOR = "#f0ead2";
 
     // Constructor
-    public Card(String word, String color){
+    public Card(String word, String color) {
         this.word = word;
         this.color = color;
     }
 
-    // Getter
-    public String getWord(){
+    // Getter for word
+    public String getWord() {
         return this.word;
     }
-    public String getColor(){
+
+    // Getter for color
+    public String getColor() {
         return this.color;
     }
 
-    // Setter
-    public void setWord(String word){
+    // Getter for isRevealed
+    public boolean isRevealed() {
+        return this.isRevealed;
+    }
+
+    // Setter for word
+    public void setWord(String word) {
         this.word = word;
     }
-    public void setColor(String color){
+
+    // Setter for color
+    public void setColor(String color) {
         this.color = color;
+    }
+
+    // Setter for isRevealed
+    public void setRevealed(boolean revealed) {
+        this.isRevealed = revealed;
     }
 }

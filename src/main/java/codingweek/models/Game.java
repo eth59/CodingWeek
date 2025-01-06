@@ -18,6 +18,8 @@ public class Game extends Subject implements Serializable {
         this.timeLimit = 60;
         this.spyTurn = true;
         this.guesses = new Stack<Guess>();
+
+        initializeBoard();
     }
 
     public static Game getInstance() {
@@ -76,7 +78,7 @@ public class Game extends Subject implements Serializable {
     }
     
     private boolean clueIsValid(String clue) {
-        // TODO Vérifier que l'indice est valide
+        // TO DO Vérifier que l'indice est valide
         return true;
     }
 
@@ -91,4 +93,21 @@ public class Game extends Subject implements Serializable {
             spyTurn = false;
         }
     }
+
+    private void initializeBoard() {
+        String[] words = {
+            "APPLE", "BANANA", "ORANGE", "WATER", "FIRE",
+            "EARTH", "WIND", "STORM", "TREE", "MOUNTAIN",
+            "HOUSE", "BRIDGE", "LIGHT", "SHADOW", "STONE",
+            "CAR", "PLANE", "SHIP", "TRAIN", "SPACE",
+            "ROBOT", "KNIGHT", "CASTLE", "PRINCE", "PRINCESS"
+        };
+    
+        // Initialize all cards as neutral
+        for (String word : words) {
+            board.addCard(new Card(word, Card.NEUTRAL_COLOR));
+        }
+    }
+    
+    
 }
