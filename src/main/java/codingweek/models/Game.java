@@ -44,4 +44,9 @@ public class Game implements Serializable {
     public Board getBoard() {
         return board;
     }
+
+    public void addGuess(Guess guess) {
+        // Fonction pour ajouter un nouveau guess fait par un espion
+        guesses.push(guess);
+    }
 }
