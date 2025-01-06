@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class BarreMenuControleur {
+public class MenuBarController {
 
     @FXML
     private void Charger(ActionEvent event) {
