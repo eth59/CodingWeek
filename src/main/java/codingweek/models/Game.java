@@ -17,7 +17,10 @@ public class Game extends Subject implements Serializable {
         this.boardSize = 5;
         this.timeLimit = 60;
         this.spyTurn = true;
+        this.blueTurn = true;
         this.guesses = new Stack<Guess>();
+
+        initializeBoard();
     }
 
     public static Game getInstance() {
@@ -53,6 +56,9 @@ public class Game extends Subject implements Serializable {
     }
 
     public Guess getLastGuess() {
+        if (guesses.isEmpty()) {
+            return null;
+        }
         return guesses.peek();
     }
 
@@ -68,6 +74,7 @@ public class Game extends Subject implements Serializable {
         if (clueIsValid(clue) && 0 < clueNb && clueNb <= (int) Math.pow(this.boardSize, 2) && this.spyTurn) {
             Guess guess = new Guess(clue, clueNb);
             addGuess(guess);
+            changeTurn();
             notifierObservateurs();
             return 1;
         } else {
@@ -76,7 +83,7 @@ public class Game extends Subject implements Serializable {
     }
     
     private boolean clueIsValid(String clue) {
-        // TODO Vérifier que l'indice est valide
+        // TO DO Vérifier que l'indice est valide
         return true;
     }
 
@@ -88,7 +95,25 @@ public class Game extends Subject implements Serializable {
             spyTurn = true;
         } else {
             blueTurn = true;
-            spyTurn = false;
+            spyTurn = true;
+        }
+        notifierObservateurs();
+    }
+
+    private void initializeBoard() {
+        String[] words = {
+            "APPLE", "BANANA", "ORANGE", "WATER", "FIRE",
+            "EARTH", "WIND", "STORM", "TREE", "MOUNTAIN",
+            "HOUSE", "BRIDGE", "LIGHT", "SHADOW", "STONE",
+            "CAR", "PLANE", "SHIP", "TRAIN", "SPACE",
+            "ROBOT", "KNIGHT", "CASTLE", "PRINCE", "PRINCESS"
+        };
+    
+        // Initialize all cards as neutral
+        for (String word : words) {
+            board.addCard(new Card(word, Card.NEUTRAL_COLOR));
         }
     }
+    
+    
 }
