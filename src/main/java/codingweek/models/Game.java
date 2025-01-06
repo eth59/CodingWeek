@@ -49,4 +49,8 @@ public class Game implements Serializable {
         // Fonction pour ajouter un nouveau guess fait par un espion
         guesses.push(guess);
     }
+
+    public Guess getLastGuess() {
+        return guesses.peek();
+    }
 }
