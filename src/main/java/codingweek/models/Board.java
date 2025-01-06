@@ -1,8 +1,9 @@
 package codingweek.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Board {
+public class Board implements Serializable{
     private ArrayList<Card> cards; // Doit être de taille boardSize * boardSize (25 par défaut)
     private static Board instance;
 

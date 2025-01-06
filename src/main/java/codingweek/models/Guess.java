@@ -1,6 +1,8 @@
 package codingweek.models;
 
-public class Guess {
+import java.io.Serializable;
+
+public class Guess implements Serializable {
     private String clue;
     private int nbWords; // Le nom est pas fou
 

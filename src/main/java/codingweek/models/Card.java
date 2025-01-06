@@ -1,6 +1,8 @@
 package codingweek.models;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable{
 
     // Attributes
     private String word;

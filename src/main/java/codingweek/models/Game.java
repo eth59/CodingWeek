@@ -1,7 +1,15 @@
 package codingweek.models;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Stack;
+
+import codingweek.Main;
+import javafx.stage.FileChooser;
 
 public class Game extends Subject implements Serializable {
     private int boardSize;
@@ -115,5 +123,66 @@ public class Game extends Subject implements Serializable {
         }
     }
     
-    
+    public void saveGame() {
+        // Sauvegarde de la partie dans un fichier .game
+
+        // On ouvre un FileChooser pour choisir le fichier de sauvegarde
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sauvegarder la partie");
+
+        // On ajoute un filtre pour n'afficher que les fichiers .game
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Game", "*.game"));
+
+        // On ouvre le FileChooser dans le répertoire du .jar
+        String jarDirectory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
+        fileChooser.setInitialDirectory(new File(jarDirectory));
+
+        // On propose un nom de fichier par défaut
+        fileChooser.setInitialFileName("partie.game");
+
+        File selectedFile = fileChooser.showSaveDialog(null);
+        if (selectedFile != null) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(selectedFile))) {
+                oos.writeObject(this);
+            } catch (Exception e) {
+                System.err.println("Erreur lors de la sauvegarde de la partie : " + e.getMessage());
+            }
+        } else {
+            System.err.println("Aucun fichier sélectionné.");
+        }
+    }
+
+    public void loadGame() {
+        // On ouvre un FileChooser pour sélectionner un fichier .game
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Charger une partie");
+
+        // On filtre pour n'avoir que les fichiers .game
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Game", "*.game"));
+
+        // On propose le répertoire courant comme le répertoire du jar
+        String jarDirectory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
+        fileChooser.setInitialDirectory(new File(jarDirectory));
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            // Chargement de la partie depuis le fichier .game
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(selectedFile))) {
+                Game loadedGame = (Game) ois.readObject();
+                this.boardSize = loadedGame.getBoardSize();
+                this.timeLimit = loadedGame.getTimeLimit();
+                this.blueTurn = loadedGame.isBlueTurn();
+                System.out.println("Blue turn: " + this.blueTurn);
+                this.spyTurn = loadedGame.isSpyTurn();
+                System.out.println("Spy turn: " + this.spyTurn);
+                this.guesses = loadedGame.guesses;
+                this.board = loadedGame.board;
+                this.notifierObservateurs(); // Notifie les observateurs que la partie a été modifiée
+            } catch (Exception e) {
+                System.err.println("Erreur lors du chargement de la partie : " + e.getMessage());
+            }
+        } else {
+            System.err.println("Aucun fichier sélectionné.");
+        }
+    }
 }
