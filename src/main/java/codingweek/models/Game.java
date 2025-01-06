@@ -17,6 +17,7 @@ public class Game extends Subject implements Serializable {
         this.boardSize = 5;
         this.timeLimit = 60;
         this.spyTurn = true;
+        this.blueTurn = true;
         this.guesses = new Stack<Guess>();
 
         initializeBoard();
@@ -55,6 +56,9 @@ public class Game extends Subject implements Serializable {
     }
 
     public Guess getLastGuess() {
+        if (guesses.isEmpty()) {
+            return null;
+        }
         return guesses.peek();
     }
 
@@ -70,6 +74,7 @@ public class Game extends Subject implements Serializable {
         if (clueIsValid(clue) && 0 < clueNb && clueNb <= (int) Math.pow(this.boardSize, 2) && this.spyTurn) {
             Guess guess = new Guess(clue, clueNb);
             addGuess(guess);
+            changeTurn();
             notifierObservateurs();
             return 1;
         } else {
@@ -90,8 +95,9 @@ public class Game extends Subject implements Serializable {
             spyTurn = true;
         } else {
             blueTurn = true;
-            spyTurn = false;
+            spyTurn = true;
         }
+        notifierObservateurs();
     }
 
     private void initializeBoard() {

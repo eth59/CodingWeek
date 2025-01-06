@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
+import codingweek.models.Game;
+
 
 
 public class Main extends Application {
@@ -46,6 +48,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        Game game = Game.getInstance(); // Initialize the game
         launch();
     }
 }

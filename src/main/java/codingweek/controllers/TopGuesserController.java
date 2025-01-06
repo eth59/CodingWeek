@@ -15,6 +15,7 @@ public class TopGuesserController implements Observer {
     public void initialize() {
         game = Game.getInstance();
         game.ajouterObservateur(this);
+        reagir();
     }
 
     public void reagir() {
