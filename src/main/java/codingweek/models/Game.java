@@ -16,6 +16,8 @@ public class Game implements Serializable {
         this.board = Board.getInstance();
         this.boardSize = 5;
         this.timeLimit = 60;
+        this.spyTurn = true;
+        this.guesses = new Stack<Guess>();
     }
 
     public static Game getInstance() {
@@ -52,5 +54,32 @@ public class Game implements Serializable {
 
     public Guess getLastGuess() {
         return guesses.peek();
+    }
+
+    public int submitClue(String clue, int clueNb) {
+        if (clueIsValid(clue) && 0 < clueNb && clueNb <= (int) Math.pow(this.boardSize, 2) && this.spyTurn) {
+            Guess guess = new Guess(clue, clueNb);
+            addGuess(guess);
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
+    private boolean clueIsValid(String clue) {
+        // TODO Vérifier que l'indice est valide
+        return true;
+    }
+
+    public void changeTurn() {
+        if (spyTurn) {
+            spyTurn = false;
+        } else if (blueTurn) {
+            blueTurn = false;
+            spyTurn = true;
+        } else {
+            blueTurn = true;
+            spyTurn = false;
+        }
     }
 }
