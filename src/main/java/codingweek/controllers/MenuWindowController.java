@@ -7,7 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 public class MenuWindowController {
@@ -33,7 +36,8 @@ public class MenuWindowController {
 
         rulesButton.setOnAction(e -> {
             System.out.println("Le bouton Règles a été cliqué !");
-            // Logique pour afficher les règles
+            String url = "https://iello.fr/wp-content/uploads/2016/10/Codenames_rulebook_FR-web_2018.pdf";
+            openWebpage(url);
         });
 
         quitButton.setOnAction(e -> {
@@ -95,6 +99,18 @@ public class MenuWindowController {
             System.err.println("Failed to load spyView.fxml: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
+        }
+    }
+
+    private void openWebpage(String url) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Desktop non supporté. Impossible d'ouvrir le lien : " + url);
         }
     }
 
