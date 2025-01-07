@@ -25,8 +25,18 @@ public class ConfigWindowController {
 
     private PageManager pageManager;
 
+    public ConfigWindowController() {
+        pageManager = PageManager.getInstance();
+    }
+
     @FXML
     private void initialize() {
+
+        playButton.setOnAction(e -> {
+            System.out.println("Le bouton Play a été cliqué !");
+            pageManager.loadGuesserView();
+            pageManager.loadSpyView();
+        });
 
         toggleButton.selectedProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal) {
@@ -58,11 +68,6 @@ public class ConfigWindowController {
             System.exit(0);
         });
 
-        playButton.setOnAction(e -> {
-            System.out.println("Le bouton Play a été cliqué !");
-            pageManager.loadGuesserView();
-            pageManager.loadSpyView();
-        });
     }
 
 
