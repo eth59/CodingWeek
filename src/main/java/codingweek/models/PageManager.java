@@ -6,7 +6,6 @@ import java.net.URL;
 import codingweek.controllers.GuesserBoardController;
 import codingweek.controllers.GuesserViewController;
 import codingweek.controllers.SpyBoardController;
-import codingweek.controllers.SpyViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -73,21 +72,6 @@ public class PageManager {
             FXMLLoader loader = new FXMLLoader(spyViewURL);
             Parent spyView = loader.load();
             Scene spyScene = new Scene(spyView, 800, 600);
-            
-// Get the SpyViewController
-            SpyViewController spyViewController = loader.getController();
-            if (spyViewController != null) {
-                System.out.println("SpyViewController initialized.");
-                // Retrieve SpyBoardController from SpyViewController
-                spyBoardController = spyViewController.getspyBoardController();
-                if (spyBoardController != null) {
-                    System.out.println("SpyBoardController successfully linked via SpyViewController.");
-                } else {
-                    System.err.println("SpyBoardController is null after loading SpyViewController.");
-                }
-            } else {
-                System.err.println("SpyViewController is null.");
-            }
 
             spyStage = new Stage();
             spyStage.setScene(spyScene);

@@ -71,7 +71,7 @@ public class Key {
             couleurs.add(Color.web(Card.NEUTRAL_COLOR));
         }
 
-        if (Game.getInstance().isBlueTurn()) {
+        if (blueTurn) {
             couleurs.add(Color.web(Card.BLUE_COLOR));
         } else {
             couleurs.add(Color.web(Card.RED_COLOR));

@@ -2,7 +2,6 @@ package codingweek.models;
 import codingweek.Observer;
 import java.util.ArrayList;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Card implements Serializable, Observer {
@@ -12,7 +11,6 @@ public class Card implements Serializable, Observer {
     private ArrayList<String> forbiddenWords;
     private boolean isRevealed = false;
     private String color; // Color of the card (red, blue, neutral)
-    private ArrayList<String> forbiddenWords;
 
     // Predefined colors with their hash codes
     public static final String RED_COLOR = "#c1121f";
