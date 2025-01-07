@@ -7,8 +7,6 @@ import codingweek.models.PageManager;
 
 import codingweek.models.Game;
 
-
-
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
