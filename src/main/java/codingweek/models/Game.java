@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
 import javafx.stage.FileChooser;
@@ -93,7 +94,12 @@ public class Game extends Subject implements Serializable {
     }
     
     private boolean clueIsValid(String clue) {
-        // TO DO Vérifier que l'indice est valide
+        clue = clue.toLowerCase();
+        for (Card card : board.getCards()) {
+            if (!card.isRevealed() && (card.getWord().equals(clue) || card.getForbiddenWords().contains(clue) || Arrays.asList("gauche", "droite", "haut", "bas", "centre").contains(clue))) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -112,9 +118,14 @@ public class Game extends Subject implements Serializable {
 
     private void initializeBoard() {
         try {
+            ArrayList<String> cardName = new ArrayList<String>();
             ArrayList<Card> cards = JsonReader.jsonReader("mots.json", this.category);
             Collections.shuffle(cards);
             for (int i = 0; i < 25; i++) {
+                cardName.add(cards.get(i).getWord());
+            }
+            for (int i = 0; i < 25; i++) {
+                cards.get(i).addForbiddenWords(cardName);
                 board.addCard(cards.get(i));
             }
         } catch (Exception e) {
