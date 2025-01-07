@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="codingweek.controllers.ConfigWindowController"
+        prefWidth="600" prefHeight="400">
+    <!-- Haut de la fenêtre avec le titre du jeu centré -->
+    <top>
+        <Label
+                text="CodeNames Groupe 25"
+                style="-fx-font-size: 24px; -fx-font-weight: bold;"
+                BorderPane.alignment="CENTER"/>
+    </top>
+
+    <!-- Centre de la fenêtre avec les textfileds TAILLE GRILLE, THEMATIQUE, POSSIBILITE TEMPS REFLEXION  -->
+    <center>
+        <VBox spacing="10" alignment="CENTER">
+            <Label text="Taille de la grille :" />
+            <TextField promptText="Entrez un entier entre 3 et 7"/>
+            <VBox spacing="10">
+                <Label text="Thème :"/>
+                <RadioButton fx:id="theme1" text="Aucun" />
+                <RadioButton fx:id="theme2" text="Animaux" />
+                <RadioButton fx:id="theme3" text="Thème 3" />
+            </VBox>
+            <ToggleButton fx:id="toggleButton"
+                          text="Temps limité" />
+            <Button text="PLAY" fx:id="playButton" />
+        </VBox>
+    </center>
+
+    <!-- Bas de la fenêtre avec le bouton QUIT à droite -->
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" >
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Button text="Quit" fx:id="quitButton" />
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -27,8 +27,7 @@ public class MenuWindowController {
 
         playButton.setOnAction(e -> {
             System.out.println("Le bouton Play a été cliqué !");
-            pageManager.loadGuesserView();
-            pageManager.loadSpyView();
+            pageManager.loadConfigWindowView();
         });
 
         rulesButton.setOnAction(e -> {
@@ -74,7 +73,5 @@ public class MenuWindowController {
             e.printStackTrace();
         }
     }
-
-    
 
 }
