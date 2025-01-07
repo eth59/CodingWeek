@@ -19,7 +19,7 @@
                 BorderPane.alignment="CENTER"/>
     </top>
 
-    <!-- Centre de la fenêtre avec les textfileds TAILLE GRILLE, THEMATIQUE, POSSIBILITE TEMPS REFLEXION  -->
+    <!-- Centre de la fenêtre avec les textfileds TAILLE GRILLE, THEMATIQUE, POSSIBILITE TEMPS REFLEXION, MODE IMAGE/MOT  -->
     <center>
         <VBox spacing="10" alignment="CENTER">
             <Label text="Taille de la grille :" />
@@ -32,6 +32,11 @@
             </VBox>
             <ToggleButton fx:id="toggleButton"
                           text="Temps limité" />
+            <VBox spacing="10">
+                <Label text="Mode :"/>
+                <RadioButton fx:id="mode1" text="Mots" />
+                <RadioButton fx:id="mode2" text="Images" />
+            </VBox>
             <Button text="PLAY" fx:id="playButton" />
         </VBox>
     </center>
