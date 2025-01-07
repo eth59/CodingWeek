@@ -8,26 +8,26 @@ import java.util.Random;
 
 public class Key {
 
-    // Instance unique de la classe Key (Singleton)
+    // Singleton instance
     private static Key instance;
 
-    // Matrice de couleurs représentant la grille
+    // Grid matrix representing the key
     private Color[][] grille;
 
-    // Dimensions de la grille (prises depuis Game)
+    // Grid dimensions (taken from Game)
     private int lignes;
     private int colonnes;
 
-    // Constructeur privé pour empêcher la création d'instances en dehors de la classe
+    // Private constructor to prevent instantiation
     private Key() {
-        Game game = Game.getInstance(); // Récupérer l'instance du jeu
-        this.lignes = game.getBoardSize(); // Taille du plateau
-        this.colonnes = game.getBoardSize(); // Même valeur pour une grille carrée
+        Game game = Game.getInstance(); // Get the Game instance
+        this.lignes = game.getBoardSize(); // Board size
+        this.colonnes = game.getBoardSize(); // Same value for a square grid
         grille = new Color[lignes][colonnes];
         initialiserGrille();
     }
 
-    // Méthode pour récupérer l'instance unique
+    // Method to get the singleton instance
     public static Key getInstance() {
         if (instance == null) {
             instance = new Key();
@@ -35,29 +35,29 @@ public class Key {
         return instance;
     }
 
-    // Méthode d'initialisation de la grille avec des couleurs aléatoires contrôlées
+    // Initialize the grid with controlled random colors
     private void initialiserGrille() {
-        // Créer une liste de couleurs avec exactement 8 bleues, 8 rouges, 1 noire et le reste blanches
+        // Create a list of colors with exactly 8 blue, 8 red, 1 black, and the rest neutral
         List<Color> couleurs = new ArrayList<>();
 
-        // Ajouter les couleurs spécifiques dans la liste
+        // Add specific colors to the list
         for (int i = 0; i < 8; i++) {
-            couleurs.add(Color.BLUE);  // 8 cases bleues
-            couleurs.add(Color.RED);   // 8 cases rouges
+            couleurs.add(Color.web(Card.BLUE_COLOR)); // 8 blue tiles
+            couleurs.add(Color.web(Card.RED_COLOR));  // 8 red tiles
         }
-        couleurs.add(Color.BLACK);    // 1 case noire
+        couleurs.add(Color.BLACK); // 1 black tile
 
-        // Ajouter des cases blanches pour remplir le reste de la grille
+        // Add neutral tiles to fill the rest of the grid
         int totalCases = lignes * colonnes;
-        int nombreBlanches = totalCases - couleurs.size();
-        for (int i = 0; i < nombreBlanches; i++) {
-            couleurs.add(Color.WHITE);  // Cases blanches
+        int nombreNeutres = totalCases - couleurs.size();
+        for (int i = 0; i < nombreNeutres; i++) {
+            couleurs.add(Color.web(Card.NEUTRAL_COLOR)); // Neutral tiles
         }
 
-        // Mélanger les couleurs pour qu'elles soient placées aléatoirement
+        // Shuffle colors randomly
         Collections.shuffle(couleurs, new Random());
 
-        // Remplir la grille avec les couleurs mélangées
+        // Fill the grid with the shuffled colors
         int index = 0;
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
@@ -66,22 +66,22 @@ public class Key {
         }
     }
 
-    // Méthode pour définir la couleur d'une case donnée
+    // Set the color of a specific grid cell
     public void setCouleur(int ligne, int colonne, Color couleur) {
         if (ligne >= 0 && ligne < lignes && colonne >= 0 && colonne < colonnes) {
             grille[ligne][colonne] = couleur;
         }
     }
 
-    // Méthode pour récupérer la couleur d'une case
+    // Get the color of a specific grid cell
     public Color getCouleur(int ligne, int colonne) {
         if (ligne >= 0 && ligne < lignes && colonne >= 0 && colonne < colonnes) {
             return grille[ligne][colonne];
         }
-        return Color.TRANSPARENT;  // Retourne une couleur transparente si l'index est invalide
+        return Color.TRANSPARENT; // Return transparent color if the index is invalid
     }
 
-    // Méthode pour afficher la grille dans la console (juste à titre d'exemple)
+    // Display the grid in the console (for debugging purposes)
     public void afficherGrille() {
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
