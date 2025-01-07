@@ -162,8 +162,8 @@ public class Game extends Subject implements Serializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Game", "*.game"));
 
         // On propose le répertoire courant comme le répertoire du jar
-        String jarDirectory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
-        fileChooser.setInitialDirectory(new File(jarDirectory));
+        String userDirectory = System.getProperty("user.home");
+        fileChooser.setInitialDirectory(new File(userDirectory));
 
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
