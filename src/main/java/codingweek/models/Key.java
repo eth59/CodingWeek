@@ -1,4 +1,5 @@
 package codingweek.models;
+import codingweek.Observer;
 
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
@@ -11,22 +12,26 @@ public class Key {
     // Singleton instance
     private static Key instance;
 
-    // Matrice grille pour representer la grille
+    // Grid to represent the grid
     private Color[][] grille;
 
-    // Dimension des grilles recuperer depuis Game
+    // Grid dimensions from Game
     private int lignes;
     private int colonnes;
 
+    // Observers (Cards)
+    private final List<Observer> cards = new ArrayList<>();
+
     private Key() {
-        Game game = Game.getInstance(); // Recupere la session du Game
-        this.lignes = game.getBoardSize(); // Taille du plateau
-        this.colonnes = game.getBoardSize(); // Meme valeurs que lignes pour avoir un carre
+        Game game = Game.getInstance();
+        this.lignes = game.getBoardSize();
+        this.colonnes = game.getBoardSize();
         grille = new Color[lignes][colonnes];
         initialiserGrille();
+        assignColorsToCards(); // Assign colors directly to cards
     }
 
-    // Method pour recuperer l'instance de Key
+    // Singleton getInstance method
     public static Key getInstance() {
         if (instance == null) {
             instance = new Key();
@@ -34,29 +39,45 @@ public class Key {
         return instance;
     }
 
-    // Initialise la grille avec des couleurs aleatoires 
+    public int getLignes() { return lignes; }
+    public int getColonnes() { return colonnes; }
+
+    // Register a card as an observer
+    public void addObserver(Observer observer) {
+        cards.add(observer);
+    }
+
+    // Notify all card observers
+    private void notifyObservers() {
+        for (Observer observer : cards) {
+            observer.reagir();
+        }
+    }
+
+    // Initialize the grid with random colors
     private void initialiserGrille() {
-        // Create a list of colors with exactly 8 blue, 8 red, 1 black, and the rest neutral
         List<Color> couleurs = new ArrayList<>();
 
-        // Ajoute les couleurs specifiques
         for (int i = 0; i < 8; i++) {
-            couleurs.add(Color.web(Card.BLUE_COLOR)); // 8 tiles bleues
-            couleurs.add(Color.web(Card.RED_COLOR));  // 8 tiles rouges
+            couleurs.add(Color.web(Card.BLUE_COLOR));
+            couleurs.add(Color.web(Card.RED_COLOR));
         }
-        couleurs.add(Color.BLACK); // 1 tile noire
+        couleurs.add(Color.BLACK);
 
-        // Ajoute des tiles neutrales pour le reste des cellules
         int totalCases = lignes * colonnes;
         int nombreNeutres = totalCases - couleurs.size();
-        for (int i = 0; i < nombreNeutres; i++) {
+        for (int i = 0; i < nombreNeutres - 1; i++) {
             couleurs.add(Color.web(Card.NEUTRAL_COLOR));
         }
 
-        // Shuffle couleurs aleatoirement
+        if (Game.getInstance().isBlueTurn()) {
+            couleurs.add(Color.web(Card.BLUE_COLOR));
+        } else {
+            couleurs.add(Color.web(Card.RED_COLOR));
+        }
+
         Collections.shuffle(couleurs, new Random());
 
-        // Rempli la grille avec les couleurs aleatoires
         int index = 0;
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
@@ -65,28 +86,28 @@ public class Key {
         }
     }
 
-    // Defini la couleur d'une cellule specifique
-    public void setCouleur(int ligne, int colonne, Color couleur) {
-        if (ligne >= 0 && ligne < lignes && colonne >= 0 && colonne < colonnes) {
-            grille[ligne][colonne] = couleur;
+    // Assign colors from the grid to the corresponding cards
+    private void assignColorsToCards() {
+        Game game = Game.getInstance();
+        Board board = game.getBoard();
+        List<Card> cards = board.getCards();
+
+        for (int i = 0; i < cards.size(); i++) {
+            int row = i / lignes;
+            int col = i % colonnes;
+            String color = getCouleur(row, col).toString();
+            cards.get(i).setColor(color);
         }
+
+        // Notify all observers
+        notifyObservers();
     }
 
-    // Recupere la couleur d'une cellule specifique
     public Color getCouleur(int ligne, int colonne) {
         if (ligne >= 0 && ligne < lignes && colonne >= 0 && colonne < colonnes) {
             return grille[ligne][colonne];
         }
-        return Color.TRANSPARENT; // Return transparent color if the index is invalid
+        return Color.TRANSPARENT;
     }
 
-    // Affiche la grille dans le terminal pour debugger
-    public void afficherGrille() {
-        for (int i = 0; i < lignes; i++) {
-            for (int j = 0; j < colonnes; j++) {
-                System.out.print(grille[i][j].toString() + " ");
-            }
-            System.out.println();
-        }
-    }
 }

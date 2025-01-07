@@ -19,6 +19,8 @@ public class Game extends Subject implements Serializable {
     private Stack<Guess> guesses;
     private Board board;
     private static Game instance;
+    private String category;
+    private final boolean[][] revealedTiles;
 
     private Game() {
         this.board = Board.getInstance();
@@ -27,6 +29,7 @@ public class Game extends Subject implements Serializable {
         this.spyTurn = true;
         this.blueTurn = true;
         this.guesses = new Stack<Guess>();
+        revealedTiles = new boolean[boardSize][boardSize];
 
         initializeBoard();
     }
@@ -93,6 +96,16 @@ public class Game extends Subject implements Serializable {
     private boolean clueIsValid(String clue) {
         // TO DO Vérifier que l'indice est valide
         return true;
+    }
+
+    // Marque qu'une case du plateau a ete revelee
+    public void revealTile(int row, int col) {
+        revealedTiles[row][col] = true;
+    }
+
+    // Verfier si une case du plateau est revelée
+    public boolean isTileRevealed(int row, int col) {
+        return revealedTiles[row][col];
     }
 
     public void changeTurn() {

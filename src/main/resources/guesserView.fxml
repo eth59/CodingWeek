@@ -10,7 +10,7 @@
    <center>
       <VBox>
          <fx:include source="topGuesser.fxml" />
-         <fx:include source="guessBoard.fxml" />
+         <fx:include source="guessBoard.fxml" fx:id="guesserBoard" />
          <Button fx:id="btnTurn" text="Passer le tour" />
       </VBox>
    </center>
