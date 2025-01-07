@@ -25,7 +25,7 @@ public class GameOverController {
 
     @FXML
     public void initialize() {
-        Image img = new Image(getClass().getResourceAsStream("/figures/GameOVer.png"));
+        Image img = new Image(getClass().getResourceAsStream("/Images/GameOver.png"));
         imageCenter.setImage(img);
 
         // Gérer l'action sur le bouton Accueil

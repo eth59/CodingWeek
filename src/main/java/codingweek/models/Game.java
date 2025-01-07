@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
 import javafx.stage.FileChooser;
+import codingweek.models.PageManager;
 
 public class Game extends Subject implements Serializable {
     private int boardSize;
@@ -24,6 +25,7 @@ public class Game extends Subject implements Serializable {
     private final boolean[][] revealedTiles;
     private int nbCardReturned;
     private int clueNb; // Nombre donné par l'espion
+    private PageManager pageManager;
 
     private Game() {
         this.board = Board.getInstance();
@@ -35,7 +37,6 @@ public class Game extends Subject implements Serializable {
         this.guesses = new Stack<Guess>();
         revealedTiles = new boolean[boardSize][boardSize];
         this.nbCardReturned = 0;
-
         initializeBoard();
     }
 
@@ -237,7 +238,7 @@ public class Game extends Subject implements Serializable {
             
         } else if (card.getColor().equals("0x000000ff")) {
             // assassin
-            System.exit(0);
+            pageManager.loadGameOverView();
         } else {
             // opponent's card
             changeTurn();
@@ -247,4 +248,9 @@ public class Game extends Subject implements Serializable {
     public int getNbCardsReturned() {
         return this.nbCardReturned;
     }
+
+    public void setPageManager() {
+        pageManager = PageManager.getInstance();
+    }
+
 }
