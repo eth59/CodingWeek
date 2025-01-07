@@ -36,8 +36,4 @@ public class GuesserViewController implements codingweek.Observer {
         }
     }
 
-    // Expose methods to interact with GuesserBoardController if needed
-    public GuesserBoardController getGuesserBoardController() {
-        return guesserBoardController;
-    }
 }
