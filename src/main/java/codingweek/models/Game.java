@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Stack;
 import javafx.stage.FileChooser;
 
@@ -17,6 +19,7 @@ public class Game extends Subject implements Serializable {
     private Stack<Guess> guesses;
     private Board board;
     private static Game instance;
+    private String category;
 
     private Game() {
         this.board = Board.getInstance();
@@ -24,6 +27,7 @@ public class Game extends Subject implements Serializable {
         this.timeLimit = 60;
         this.spyTurn = true;
         this.blueTurn = true;
+        this.category = "Animaux";
         this.guesses = new Stack<Guess>();
 
         initializeBoard();
@@ -107,17 +111,14 @@ public class Game extends Subject implements Serializable {
     }
 
     private void initializeBoard() {
-        String[] words = {
-            "APPLE", "BANANA", "ORANGE", "WATER", "FIRE",
-            "EARTH", "WIND", "STORM", "TREE", "MOUNTAIN",
-            "HOUSE", "BRIDGE", "LIGHT", "SHADOW", "STONE",
-            "CAR", "PLANE", "SHIP", "TRAIN", "SPACE",
-            "ROBOT", "KNIGHT", "CASTLE", "PRINCE", "PRINCESS"
-        };
-    
-        // Initialize all cards as neutral
-        for (String word : words) {
-            board.addCard(new Card(word, Card.NEUTRAL_COLOR));
+        try {
+            ArrayList<Card> cards = JsonReader.jsonReader("mots.json", this.category);
+            Collections.shuffle(cards);
+            for (int i = 0; i < 25; i++) {
+                board.addCard(cards.get(i));
+            }
+        } catch (Exception e) {
+            System.err.println("Erreur lors de l'initialisation du plateau : " + e.getMessage());
         }
     }
     
