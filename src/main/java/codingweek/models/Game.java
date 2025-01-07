@@ -23,7 +23,7 @@ public class Game extends Subject implements Serializable {
         this.boardSize = 5;
         this.timeLimit = 60;
         this.spyTurn = true;
-        this.blueTurn = true;
+        this.blueTurn = Math.random() > 0.5;
         this.guesses = new Stack<Guess>();
 
         initializeBoard();

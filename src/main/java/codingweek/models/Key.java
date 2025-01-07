@@ -38,6 +38,7 @@ public class Key {
     private void initialiserGrille() {
         // Create a list of colors with exactly 8 blue, 8 red, 1 black, and the rest neutral
         List<Color> couleurs = new ArrayList<>();
+        boolean blueTurn = Game.getInstance().isBlueTurn();
 
         // Ajoute les couleurs specifiques
         for (int i = 0; i < 8; i++) {
@@ -49,8 +50,14 @@ public class Key {
         // Ajoute des tiles neutrales pour le reste des cellules
         int totalCases = lignes * colonnes;
         int nombreNeutres = totalCases - couleurs.size();
-        for (int i = 0; i < nombreNeutres; i++) {
+        for (int i = 0; i < nombreNeutres-1; i++) {
             couleurs.add(Color.web(Card.NEUTRAL_COLOR));
+        }
+
+        if (blueTurn) {
+            couleurs.add(Color.web(Card.BLUE_COLOR));
+        } else {
+            couleurs.add(Color.web(Card.RED_COLOR));
         }
 
         // Shuffle couleurs aleatoirement
