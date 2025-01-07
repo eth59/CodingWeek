@@ -22,18 +22,19 @@ public class GuesserBoardController {
     public void initialize() {
         int gridSize = game.getBoardSize();
         populateBoard(gridSize);
+
     }
 
     private void populateBoard(int gridSize) {
-        List<Card> cards = board.getCards(); // Get the list of cards from the board
+        List<Card> cards = board.getCards(); 
         int cardIndex = 0;
 
         for (int row = 0; row < gridSize; row++) {
             for (int col = 0; col < gridSize; col++) {
                 StackPane cardPane = new StackPane();
-                Card card = cards.get(cardIndex++); // Get the corresponding card
+                Card card = cards.get(cardIndex++); 
 
-                // Default style for unrevealed cards
+                
                 cardPane.setStyle("-fx-border-color: black; -fx-background-color: lightgrey; -fx-padding: 10;");
                 cardPane.setPrefSize(100, 100);
 
@@ -41,7 +42,7 @@ public class GuesserBoardController {
                 wordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
                 cardPane.getChildren().add(wordLabel);
 
-                // Set click handler for revealing the card
+                
                 cardPane.setOnMouseClicked(event -> onCardClicked(cardPane, card));
 
                 boardGrid.add(cardPane, col, row);
@@ -60,11 +61,11 @@ public class GuesserBoardController {
             return;
         }
 
-        // Reveal the card by changing its appearance
+        
         String cssColor = convertColorToCSS(card.getColor());
         tile.setStyle("-fx-border-color: black; -fx-background-color: " + cssColor + "; -fx-padding: 10;");
 
-        // Set the card's isRevealed property to true
+        
         card.setRevealed(true);
 
         game.returnCard(card);
@@ -73,11 +74,11 @@ public class GuesserBoardController {
         game.notifierObservateurs();
     }
 
-    // Utility method to convert JavaFX color strings to CSS-compatible format
+    
     private String convertColorToCSS(String javafxColor) {
         if (javafxColor.startsWith("0x")) {
-            return "#" + javafxColor.substring(2, 8); // Extract #RRGGBB part
+            return "#" + javafxColor.substring(2, 8); 
         }
-        return javafxColor; // Return as-is if already in correct format
+        return javafxColor; 
     }
 }
