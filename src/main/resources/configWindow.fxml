@@ -36,6 +36,7 @@
                 <Label text="Mode :"/>
                 <RadioButton fx:id="mode1" text="Mots" />
                 <RadioButton fx:id="mode2" text="Images" />
+            </VBox>
             <Button text="PLAY" fx:id="playButton" />
         </VBox>
     </center>
