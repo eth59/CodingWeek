@@ -11,23 +11,22 @@ public class Key {
     // Singleton instance
     private static Key instance;
 
-    // Grid matrix representing the key
+    // Matrice grille pour representer la grille
     private Color[][] grille;
 
-    // Grid dimensions (taken from Game)
+    // Dimension des grilles recuperer depuis Game
     private int lignes;
     private int colonnes;
 
-    // Private constructor to prevent instantiation
     private Key() {
-        Game game = Game.getInstance(); // Get the Game instance
-        this.lignes = game.getBoardSize(); // Board size
-        this.colonnes = game.getBoardSize(); // Same value for a square grid
+        Game game = Game.getInstance(); // Recupere la session du Game
+        this.lignes = game.getBoardSize(); // Taille du plateau
+        this.colonnes = game.getBoardSize(); // Meme valeurs que lignes pour avoir un carre
         grille = new Color[lignes][colonnes];
         initialiserGrille();
     }
 
-    // Method to get the singleton instance
+    // Method pour recuperer l'instance de Key
     public static Key getInstance() {
         if (instance == null) {
             instance = new Key();
@@ -35,29 +34,29 @@ public class Key {
         return instance;
     }
 
-    // Initialize the grid with controlled random colors
+    // Initialise la grille avec des couleurs aleatoires 
     private void initialiserGrille() {
         // Create a list of colors with exactly 8 blue, 8 red, 1 black, and the rest neutral
         List<Color> couleurs = new ArrayList<>();
 
-        // Add specific colors to the list
+        // Ajoute les couleurs specifiques
         for (int i = 0; i < 8; i++) {
-            couleurs.add(Color.web(Card.BLUE_COLOR)); // 8 blue tiles
-            couleurs.add(Color.web(Card.RED_COLOR));  // 8 red tiles
+            couleurs.add(Color.web(Card.BLUE_COLOR)); // 8 tiles bleues
+            couleurs.add(Color.web(Card.RED_COLOR));  // 8 tiles rouges
         }
-        couleurs.add(Color.BLACK); // 1 black tile
+        couleurs.add(Color.BLACK); // 1 tile noire
 
-        // Add neutral tiles to fill the rest of the grid
+        // Ajoute des tiles neutrales pour le reste des cellules
         int totalCases = lignes * colonnes;
         int nombreNeutres = totalCases - couleurs.size();
         for (int i = 0; i < nombreNeutres; i++) {
-            couleurs.add(Color.web(Card.NEUTRAL_COLOR)); // Neutral tiles
+            couleurs.add(Color.web(Card.NEUTRAL_COLOR));
         }
 
-        // Shuffle colors randomly
+        // Shuffle couleurs aleatoirement
         Collections.shuffle(couleurs, new Random());
 
-        // Fill the grid with the shuffled colors
+        // Rempli la grille avec les couleurs aleatoires
         int index = 0;
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
@@ -66,14 +65,14 @@ public class Key {
         }
     }
 
-    // Set the color of a specific grid cell
+    // Defini la couleur d'une cellule specifique
     public void setCouleur(int ligne, int colonne, Color couleur) {
         if (ligne >= 0 && ligne < lignes && colonne >= 0 && colonne < colonnes) {
             grille[ligne][colonne] = couleur;
         }
     }
 
-    // Get the color of a specific grid cell
+    // Recupere la couleur d'une cellule specifique
     public Color getCouleur(int ligne, int colonne) {
         if (ligne >= 0 && ligne < lignes && colonne >= 0 && colonne < colonnes) {
             return grille[ligne][colonne];
@@ -81,7 +80,7 @@ public class Key {
         return Color.TRANSPARENT; // Return transparent color if the index is invalid
     }
 
-    // Display the grid in the console (for debugging purposes)
+    // Affiche la grille dans le terminal pour debugger
     public void afficherGrille() {
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
