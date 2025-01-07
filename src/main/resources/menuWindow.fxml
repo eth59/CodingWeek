@@ -10,11 +10,14 @@
 <BorderPane
         xmlns:fx="http://javafx.com/fxml"
         fx:controller="codingweek.controllers.MenuWindowController"
-        prefWidth="600" prefHeight="400">
+        prefWidth="600" prefHeight="400"
+        style="-fx-background-image: url('/Images/Fond.png'); 
+               -fx-background-size: cover; 
+               -fx-background-repeat: no-repeat;">
 <!-- Haut de la fenêtre avec le titre du jeu centré -->
     <top>
         <Label
-            text="CodeNames Groupe 25"
+            text="Groupe 25"
             style="-fx-font-size: 24px; -fx-font-weight: bold;"
             BorderPane.alignment="CENTER"/>
     </top>
@@ -22,8 +25,16 @@
 <!-- Centre de la fenêtre avec les boutons PLAY et RÈGLES -->
     <center>
         <VBox spacing="10" alignment="CENTER">
-            <Button text="PLAY" fx:id="playButton" />
-            <Button text="RÈGLES" fx:id="rulesButton" />
+            <Button text="PLAY" fx:id="playButton" 
+                    style="-fx-background-color:  rgb(120,169,62); 
+                   -fx-text-fill: white; 
+                   -fx-font-size: 18px; 
+                   -fx-background-radius: 20;"/>
+            <Button text="RÈGLES" fx:id="rulesButton"
+                    style="-fx-background-color: rgb(147, 147, 147); 
+                   -fx-text-fill: white; 
+                   -fx-font-size: 18px; 
+                   -fx-background-radius: 20;" />
         </VBox>
     </center>
 
@@ -33,7 +44,11 @@
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
-            <Button text="Quit" fx:id="quitButton" />
+            <Button text="Quit" fx:id="quitButton" 
+                    style="-fx-background-color: rgb(180, 73, 55); 
+                   -fx-text-fill: white; 
+                   -fx-font-size: 18px; 
+                   -fx-background-radius: 20;"/>
         </HBox>
     </bottom>
 </BorderPane>

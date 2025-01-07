@@ -2,9 +2,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.TopSpyController">
-    <Label fx:id="turnLabel" text="Au tour de l'équipe rouge"/>
+    <Label fx:id="turnLabel" text="Au tour de l'équipe rouge" style="-fx-font-weight: bold;" alignment="CENTER"/>
     <HBox>
         <TextField fx:id="clueField" promptText="Entrez un indice"/>
         <TextField fx:id="numberField" promptText="Entrez un nombre"/>
