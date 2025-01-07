@@ -32,8 +32,8 @@ public class SpyBoardController {
                 StackPane cardPane = new StackPane();
                 Card card = cards.get(cardIndex++);
 
-                // Use card's color for the tile's background
-                cardPane.setStyle("-fx-border-color: black; -fx-background-color: " + card.getColor() + "; -fx-padding: 10;");
+                // Couleur par defaut des tiles pas revelees
+                cardPane.setStyle("-fx-border-color: black; -fx-background-color: lightgrey; -fx-padding: 10;");
                 cardPane.setPrefSize(100, 100);
 
                 Label wordLabel = new Label(card.getWord());
@@ -43,5 +43,9 @@ public class SpyBoardController {
                 boardGrid.add(cardPane, col, row);
             }
         }
+    }
+
+    public void onTileChange(int row, int col) {
+        System.out.println("Tile at (" + row + ", " + col + ") has been changed.");
     }
 }

@@ -21,6 +21,7 @@ public class Game extends Subject implements Serializable {
     private Board board;
     private static Game instance;
     private String category;
+    private final boolean[][] revealedTiles;
 
     private Game() {
         this.board = Board.getInstance();
@@ -30,6 +31,7 @@ public class Game extends Subject implements Serializable {
         this.blueTurn = Math.random() > 0.5;
         this.category = "Métier";
         this.guesses = new Stack<Guess>();
+        revealedTiles = new boolean[boardSize][boardSize];
 
         initializeBoard();
     }
@@ -101,6 +103,16 @@ public class Game extends Subject implements Serializable {
             }
         }
         return true;
+    }
+
+    // Marque qu'une case du plateau a ete revelee
+    public void revealTile(int row, int col) {
+        revealedTiles[row][col] = true;
+    }
+
+    // Verfier si une case du plateau est revelée
+    public boolean isTileRevealed(int row, int col) {
+        return revealedTiles[row][col];
     }
 
     public void changeTurn() {

@@ -3,6 +3,10 @@ package codingweek.models;
 import java.io.IOException;
 import java.net.URL;
 
+import codingweek.controllers.GuesserBoardController;
+import codingweek.controllers.GuesserViewController;
+import codingweek.controllers.SpyBoardController;
+import codingweek.controllers.SpyViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,10 +17,13 @@ public class PageManager {
     private Stage primaryStage, spyStage;
     private static PageManager instance;
 
+    private SpyBoardController spyBoardController;
+    private GuesserBoardController guesserBoardController;
+
     private PageManager() {
         primaryStage = new Stage();
     }
-    
+
     public static PageManager getInstance() {
         if (instance == null) {
             instance = new PageManager();
@@ -28,15 +35,23 @@ public class PageManager {
         try {
             URL guesserViewURL = getClass().getResource("/guesserView.fxml");
             if (guesserViewURL == null) {
-                System.err.println("Could not find guesserView.fxml");
-                System.exit(1);
+                throw new IOException("Could not find guesserView.fxml");
             }
-            Parent guesserView = FXMLLoader.load(guesserViewURL);
+            FXMLLoader loader = new FXMLLoader(guesserViewURL);
+            Parent guesserView = loader.load();
             Scene guesserScene = new Scene(guesserView, 800, 600);
+
+            GuesserViewController guesserViewController = loader.getController();
+
+            // Debugging output
+            System.out.println("GuesserViewController initialized.");
+            if (guesserViewController.getGuesserBoardController() != null) {
+                System.out.println("GuesserBoardController successfully linked.");
+            }
+
             primaryStage.setScene(guesserScene);
             primaryStage.setTitle("Guesser Window");
 
-            // Set position and size explicitly
             primaryStage.setWidth(800);
             primaryStage.setHeight(600);
             primaryStage.setX(100);
@@ -46,7 +61,6 @@ public class PageManager {
         } catch (IOException e) {
             System.err.println("Failed to load guesserView.fxml: " + e.getMessage());
             e.printStackTrace();
-            System.exit(1);
         }
     }
 
@@ -54,28 +68,40 @@ public class PageManager {
         try {
             URL spyViewURL = getClass().getResource("/spyView.fxml");
             if (spyViewURL == null) {
-                System.err.println("Could not find spyView.fxml");
-                System.exit(1);
+                throw new IOException("Could not find spyView.fxml");
             }
-            Parent spyView = FXMLLoader.load(spyViewURL);
+            FXMLLoader loader = new FXMLLoader(spyViewURL);
+            Parent spyView = loader.load();
             Scene spyScene = new Scene(spyView, 800, 600);
+            
+// Get the SpyViewController
+            SpyViewController spyViewController = loader.getController();
+            if (spyViewController != null) {
+                System.out.println("SpyViewController initialized.");
+                // Retrieve SpyBoardController from SpyViewController
+                spyBoardController = spyViewController.getspyBoardController();
+                if (spyBoardController != null) {
+                    System.out.println("SpyBoardController successfully linked via SpyViewController.");
+                } else {
+                    System.err.println("SpyBoardController is null after loading SpyViewController.");
+                }
+            } else {
+                System.err.println("SpyViewController is null.");
+            }
 
-            // Create a new stage for the Spy View
             spyStage = new Stage();
             spyStage.setScene(spyScene);
             spyStage.setTitle("Spy Window");
 
-            // Set position and size explicitly
             spyStage.setWidth(800);
             spyStage.setHeight(600);
-            spyStage.setX(primaryStage.getX() + primaryStage.getWidth() + 20); // 20px gap
-            spyStage.setY(primaryStage.getY()); // Align vertically with Guesser
+            spyStage.setX(primaryStage.getX() + primaryStage.getWidth() + 20);
+            spyStage.setY(primaryStage.getY());
 
             spyStage.show();
         } catch (IOException e) {
             System.err.println("Failed to load spyView.fxml: " + e.getMessage());
             e.printStackTrace();
-            System.exit(1);
         }
     }
 
@@ -83,23 +109,23 @@ public class PageManager {
         try {
             URL menuViewURL = getClass().getResource("/menuWindow.fxml");
             if (menuViewURL == null) {
-                System.err.println("Could not find menuWindow.fxml");
-                System.exit(1);
+                throw new IOException("Could not find menuWindow.fxml");
             }
-            Parent menuView = FXMLLoader.load(menuViewURL);
+            FXMLLoader loader = new FXMLLoader(menuViewURL);
+            Parent menuView = loader.load();
             Scene menuScene = new Scene(menuView, 800, 600);
             primaryStage.setScene(menuScene);
             primaryStage.setTitle("Menu Window");
-            // Set position and size explicitly
+
             primaryStage.setWidth(800);
             primaryStage.setHeight(600);
             primaryStage.setX(100);
             primaryStage.setY(100);
+
             primaryStage.show();
         } catch (IOException e) {
             System.err.println("Failed to load menuWindow.fxml: " + e.getMessage());
             e.printStackTrace();
-            System.exit(1);
         }
     }
 
@@ -128,9 +154,20 @@ public class PageManager {
     }
 
     public void closeSpyView() {
-        spyStage.close();
+        if (spyStage != null) {
+            spyStage.close();
+        }
     }
-    public void setPrimaryStage(Stage primaryStage2) {
-        this.primaryStage = primaryStage2;
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    public SpyBoardController getSpyBoardController() {
+        return spyBoardController;
+    }
+
+    public GuesserBoardController getGuesserBoardController() {
+        return guesserBoardController;
     }
 }
