@@ -106,6 +106,7 @@ public class PageManager {
 
     public void loadConfigWindowView(){
         try {
+            closeSpyView();
             URL configViewURL = getClass().getResource("/configWindow.fxml");
             if (configViewURL == null){
                 System.err.println("Could not find configWindow.fxml");
@@ -130,6 +131,7 @@ public class PageManager {
 
     public void loadGameOverView(){
         try {
+            closeSpyView();
             loadGameOverSpyView();
             URL gameOverViewURL = getClass().getResource("/gameOverView.fxml");
             if (gameOverViewURL == null){
