@@ -25,6 +25,9 @@ class Word {
 
     @JsonProperty("interdits")
     public List<String> interdits;
+
+    @JsonProperty("chemin")
+    public String chemin;
 }
 
 public class JsonReader {

@@ -27,7 +27,7 @@ public class Game extends Subject implements Serializable {
         this.timeLimit = 60;
         this.spyTurn = true;
         this.blueTurn = true;
-        this.category = "Animaux";
+        this.category = "Métier";
         this.guesses = new Stack<Guess>();
 
         initializeBoard();
