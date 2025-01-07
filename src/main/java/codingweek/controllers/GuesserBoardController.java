@@ -3,6 +3,7 @@ package codingweek.controllers;
 import codingweek.models.Board;
 import codingweek.models.Card;
 import codingweek.models.Game;
+import codingweek.models.Key;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -17,6 +18,7 @@ public class GuesserBoardController {
 
     private final Game game = Game.getInstance();
     private final Board board = game.getBoard();
+    private final Key key = Key.getInstance(); // Recupere l'instance de la clef pour les couleurs
 
     public void initialize() {
         int gridSize = game.getBoardSize();
@@ -32,7 +34,7 @@ public class GuesserBoardController {
                 StackPane cardPane = new StackPane();
                 Card card = cards.get(cardIndex++);
 
-                // Default color for unrevealed tiles
+                // Couleur par defaut des tiles pas revelees
                 cardPane.setStyle("-fx-border-color: black; -fx-background-color: lightgrey; -fx-padding: 10;");
                 cardPane.setPrefSize(100, 100);
 
@@ -40,16 +42,27 @@ public class GuesserBoardController {
                 wordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
                 cardPane.getChildren().add(wordLabel);
 
-                // Set onClick behavior to reveal the card's color
-                cardPane.setOnMouseClicked(event -> onTileClicked(cardPane, card));
+                // Fonction onclick pour changer la couleur des tiles
+                final int currentRow = row;
+                final int currentCol = col;
+                cardPane.setOnMouseClicked(event -> onTileClicked(cardPane, currentRow, currentCol));
 
                 boardGrid.add(cardPane, col, row);
             }
         }
     }
 
-    private void onTileClicked(StackPane tile, Card card) {
-        // Reveal the card's color when clicked
-        tile.setStyle("-fx-border-color: black; -fx-background-color: " + card.getColor() + "; -fx-padding: 10;");
+    private void onTileClicked(StackPane tile, int row, int col) {
+        // Recupere la couleur des tiles depuis la clef pour les afficher
+        String color = toHex(key.getCouleur(row, col));
+        tile.setStyle("-fx-border-color: black; -fx-background-color: " + color.toString() + "; -fx-padding: 10;");
+    }
+
+    // Fonction pour reconvertir les couleurs reelles en hexadecimales
+    private String toHex(javafx.scene.paint.Color color) {
+        int r = (int) (color.getRed() * 255);
+        int g = (int) (color.getGreen() * 255);
+        int b = (int) (color.getBlue() * 255);
+        return String.format("#%02X%02X%02X", r, g, b);
     }
 }
