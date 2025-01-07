@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import codingweek.controllers.GuesserBoardController;
-import codingweek.controllers.GuesserViewController;
 import codingweek.controllers.SpyBoardController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,14 +38,6 @@ public class PageManager {
             FXMLLoader loader = new FXMLLoader(guesserViewURL);
             Parent guesserView = loader.load();
             Scene guesserScene = new Scene(guesserView, 800, 600);
-
-            GuesserViewController guesserViewController = loader.getController();
-
-            // Debugging output
-            System.out.println("GuesserViewController initialized.");
-            if (guesserViewController.getGuesserBoardController() != null) {
-                System.out.println("GuesserBoardController successfully linked.");
-            }
 
             primaryStage.setScene(guesserScene);
             primaryStage.setTitle("Guesser Window");
