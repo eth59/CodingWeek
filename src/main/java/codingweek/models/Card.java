@@ -1,10 +1,9 @@
 package codingweek.models;
-import codingweek.Observer;
-import java.util.ArrayList;
-import java.io.Serializable;
-import java.util.Arrays;
 
-public class Card implements Serializable, Observer {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Card extends Subject implements Serializable {
 
     // Attributes
     private String word;
@@ -19,16 +18,9 @@ public class Card implements Serializable, Observer {
 
     // Constructor
     public Card(String word, String color) {
-        this.forbiddenWords = new ArrayList<String>(Arrays.asList("un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix-sept", "dix-huit", "dix-neuf", "vingt", "vingt-et-un", "vingt-deux", "vingt-trois", "vingt-quatre", "vingt-cinq", "vingt-six", "vingt-sept", "vingt-huit", "vingt-neuf", "trente", "trente-et-un", "trente-deux", "trente-trois", "trente-quatre", "trente-cinq", "trente-six", "trente-sept", "trente-huit", "trente-neuf", "quarante", "quarante-et-un", "quarante-deux", "quarante-trois", "quarante-quatre", "quarante-cinq", "quarante-six", "quarante-sept", "quarante-huit", "quarante-neuf", "cinquante", "cinquante-et-un", "cinquante-deux", "cinquante-trois", "cinquante-quatre", "cinquante-cinq", "cinquante-six", "cinquante-sept", "cinquante-huit", "cinquante-neuf", "soixante", "soixante-et-un", "soixante-deux", "soixante-trois", "soixante-quatre", "soixante-cinq", "soixante-six", "soixante-sept", "soixante-huit", "soixante-neuf", "soixante-dix", "soixante-et-onze", "soixante-douze", "soixante-treize", "soixante-quatorze", "soixante-quinze", "soixante-seize", "soixante-dix-sept", "soixante-dix-huit", "soixante-dix-neuf", "quatre-vingts", "quatre-vingt-un", "quatre-vingt-deux", "quatre-vingt-trois", "quatre-vingt-quatre", "quatre-vingt-cinq", "quatre-vingt-six", "quatre-vingt-sept", "quatre-vingt-huit", "quatre-vingt-neuf", "quatre-vingt-dix", "quatre-vingt-onze", "quatre-vingt-douze", "quatre-vingt-treize", "quatre-vingt-quatorze", "quatre-vingt-quinze", "quatre-vingt-seize", "quatre-vingt-dix-sept", "quatre-vingt-dix-huit", "quatre-vingt-dix-neuf", "cent"));
+        this.forbiddenWords = new ArrayList<>();
         this.word = word;
         this.color = color;
-    }
-
-    // Observer method to update the card's color
-    @Override
-    public void reagir() {
-        // Ensure the card retains its assigned color
-        System.out.println("Card '" + word + "' reacting: Color is " + this.color);
     }
 
     // Getters and Setters
@@ -37,7 +29,14 @@ public class Card implements Serializable, Observer {
     public boolean isRevealed() { return this.isRevealed; }
     public void setWord(String word) { this.word = word; }
     public void setColor(String color) { this.color = color; }
-    public void setRevealed(boolean revealed) { this.isRevealed = revealed; }
+
+    
+    public void setRevealed(boolean revealed) {
+        this.isRevealed = revealed;
+        notifierObservateurs();; 
+    }
+
     public ArrayList<String> getForbiddenWords() { return this.forbiddenWords; }
     public void addForbiddenWords(ArrayList<String> forbiddenWords) { this.forbiddenWords.addAll(forbiddenWords); }
+    
 }

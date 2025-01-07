@@ -18,10 +18,6 @@ public class GuesserViewController {
         btnTurn.setOnAction(e -> {
             turn();
         });
-        System.out.println("GuesserViewController initialized.");
-        if (guesserBoardController != null) {
-            System.out.println("GuesserBoardController successfully linked.");
-        }
     }
 
     private void turn() {
@@ -30,8 +26,4 @@ public class GuesserViewController {
         }
     }
 
-    // Expose methods to interact with GuesserBoardController if needed
-    public GuesserBoardController getGuesserBoardController() {
-        return guesserBoardController;
-    }
 }
