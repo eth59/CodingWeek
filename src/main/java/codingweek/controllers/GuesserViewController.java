@@ -4,7 +4,7 @@ import codingweek.models.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class GuesserViewController {
+public class GuesserViewController implements codingweek.Observer {
     @FXML
     Button btnTurn;
 
@@ -15,12 +15,18 @@ public class GuesserViewController {
 
     public void initialize() {
         game = Game.getInstance();
+        game.ajouterObservateur(this);
         btnTurn.setOnAction(e -> {
             turn();
         });
-        System.out.println("GuesserViewController initialized.");
-        if (guesserBoardController != null) {
-            System.out.println("GuesserBoardController successfully linked.");
+        btnTurn.setDisable(true);
+    }
+
+    public void reagir() {
+        if (game.getNbCardsReturned() < 1) {
+            btnTurn.setDisable(true);
+        } else {
+            btnTurn.setDisable(false);
         }
     }
 

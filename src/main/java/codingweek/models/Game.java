@@ -22,6 +22,8 @@ public class Game extends Subject implements Serializable {
     private static Game instance;
     private String category;
     private final boolean[][] revealedTiles;
+    private int nbCardReturned;
+    private int clueNb; // Nombre donné par l'espion
 
     private Game() {
         this.board = Board.getInstance();
@@ -32,6 +34,7 @@ public class Game extends Subject implements Serializable {
         this.category = "Métier";
         this.guesses = new Stack<Guess>();
         revealedTiles = new boolean[boardSize][boardSize];
+        this.nbCardReturned = 0;
 
         initializeBoard();
     }
@@ -87,6 +90,7 @@ public class Game extends Subject implements Serializable {
         if (clueIsValid(clue) && 0 < clueNb && clueNb <= (int) Math.pow(this.boardSize, 2) && this.spyTurn) {
             Guess guess = new Guess(clue, clueNb);
             addGuess(guess);
+            this.clueNb = clueNb; 
             changeTurn();
             notifierObservateurs();
             return 1;
@@ -116,6 +120,7 @@ public class Game extends Subject implements Serializable {
     }
 
     public void changeTurn() {
+        this.nbCardReturned = 0;
         if (spyTurn) {
             spyTurn = false;
         } else if (blueTurn) {
@@ -207,5 +212,39 @@ public class Game extends Subject implements Serializable {
         } else {
             System.err.println("Aucun fichier sélectionné.");
         }
+    }
+
+    public void returnCard(Card card) {
+        // Black : 0x000000ff
+        // Red : 0xc1121fff
+        // Blue : 0x003566ff
+        // Neutral : 0xf0ead2ff
+        if (blueTurn && card.getColor().equals("0x003566ff")) {
+            // blue team's turn and card is blue
+            this.nbCardReturned += 1;
+            if (this.nbCardReturned == this.clueNb + 1) {
+                changeTurn();
+            }
+        } else if (!blueTurn && card.getColor().equals("0xc1121fff")) {
+            // red team's turn and card is red
+            this.nbCardReturned += 1;
+            if (this.nbCardReturned == this.clueNb + 1) {
+                changeTurn();
+            }
+        } else if (card.getColor().equals("0xf0ead2ff")) {
+            // neutral
+            changeTurn();
+            
+        } else if (card.getColor().equals("0x000000ff")) {
+            // assassin
+            System.exit(0);
+        } else {
+            // opponent's card
+            changeTurn();
+        }
+    }
+
+    public int getNbCardsReturned() {
+        return this.nbCardReturned;
     }
 }
