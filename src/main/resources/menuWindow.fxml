@@ -14,41 +14,58 @@
         style="-fx-background-image: url('/Images/Fond.png'); 
                -fx-background-size: cover; 
                -fx-background-repeat: no-repeat;">
-<!-- Haut de la fenêtre avec le titre du jeu centré -->
+
+    <!-- TOP : on encapsule le Label et le bouton "RÈGLES" dans un BorderPane -->
     <top>
-        <Label
-            text="Groupe 25"
-            style="-fx-font-size: 24px; -fx-font-weight: bold;"
-            BorderPane.alignment="CENTER"/>
+        <BorderPane>
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <!-- Titre centré -->
+            <center>
+                <Label
+                        text="Groupe 25"
+                        style="-fx-font-size: 24px; -fx-font-weight: bold;"
+                        BorderPane.alignment="CENTER"/>
+            </center>
+
+            <!-- Bouton "RÈGLES" à gauche -->
+            <left>
+                <Button text="Règles" fx:id="rulesButton"
+                        style="-fx-background-color: rgb(147, 147, 147);
+                               -fx-text-fill: white;
+                               -fx-font-size: 18px;
+                               -fx-background-radius: 20;"
+                        BorderPane.alignment="CENTER"/>
+            </left>
+        </BorderPane>
     </top>
 
-<!-- Centre de la fenêtre avec les boutons PLAY et RÈGLES -->
+    <!-- CENTRE : juste le bouton "PLAY" (on retire "RÈGLES" d’ici) -->
     <center>
         <VBox spacing="10" alignment="CENTER">
-            <Button text="PLAY" fx:id="playButton" 
-                    style="-fx-background-color:  rgb(120,169,62); 
-                   -fx-text-fill: white; 
-                   -fx-font-size: 18px; 
-                   -fx-background-radius: 20;"/>
-            <Button text="RÈGLES" fx:id="rulesButton"
-                    style="-fx-background-color: rgb(147, 147, 147); 
-                   -fx-text-fill: white; 
-                   -fx-font-size: 18px; 
-                   -fx-background-radius: 20;" />
+            <padding>
+                <Insets top="230"/>
+            </padding>
+            <Button text="PLAY" fx:id="playButton"
+                    style="-fx-background-color:  rgb(120,169,62);
+                           -fx-text-fill: white;
+                           -fx-font-size: 18px;
+                           -fx-background-radius: 20;"/>
         </VBox>
     </center>
 
-<!-- Bas de la fenêtre avec le bouton QUIT à droite -->
+    <!-- BOTTOM : bouton "Quit" à droite -->
     <bottom>
         <HBox alignment="CENTER_RIGHT" >
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
-            <Button text="Quit" fx:id="quitButton" 
-                    style="-fx-background-color: rgb(180, 73, 55); 
-                   -fx-text-fill: white; 
-                   -fx-font-size: 18px; 
-                   -fx-background-radius: 20;"/>
+            <Button text="Quit" fx:id="quitButton"
+                    style="-fx-background-color: rgb(180, 73, 55);
+                           -fx-text-fill: white;
+                           -fx-font-size: 18px;
+                           -fx-background-radius: 20;"/>
         </HBox>
     </bottom>
 </BorderPane>
