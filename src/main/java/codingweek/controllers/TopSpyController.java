@@ -5,8 +5,6 @@ import codingweek.models.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.animation.Timeline;
-import javafx.scene.control.Label;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
 

@@ -5,9 +5,6 @@ import codingweek.models.Game;
 import codingweek.models.Guess;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.control.Label;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
 
