@@ -12,9 +12,12 @@ import java.io.IOException;
 public class ConfigWindowController {
 
     // Attributes
-    private ToggleGroup myToggleGroup = new ToggleGroup();
+    private ToggleGroup myToggleGroup1 = new ToggleGroup();
+    private ToggleGroup myToggleGroup2 = new ToggleGroup();
     @FXML
     private RadioButton theme1, theme2, theme3;
+    @FXML
+    private RadioButton mode1, mode2;
     @FXML
     private Button quitButton;
 
@@ -46,11 +49,11 @@ public class ConfigWindowController {
             }
         });
 
-        theme1.setToggleGroup(myToggleGroup);
-        theme2.setToggleGroup(myToggleGroup);
-        theme3.setToggleGroup(myToggleGroup);
+        theme1.setToggleGroup(myToggleGroup1);
+        theme2.setToggleGroup(myToggleGroup1);
+        theme3.setToggleGroup(myToggleGroup1);
 
-        myToggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+        myToggleGroup1.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             // newToggle est le Toggle (RadioButton) sélectionné
             if (newToggle == theme1) {
                 System.out.println("Thème 1 sélectionné");
@@ -60,6 +63,19 @@ public class ConfigWindowController {
             }
             else if (newToggle == theme3) {
                 System.out.println("Thème 3 sélectionné");
+            }
+        });
+
+        mode1.setToggleGroup(myToggleGroup2);
+        mode2.setToggleGroup(myToggleGroup2);
+
+        myToggleGroup2.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            // newToggle est le Toggle (RadioButton) sélectionné
+            if (newToggle == mode1) {
+                System.out.println("Mode 'mots' sélectionné");
+            }
+            else if (newToggle == mode2) {
+                System.out.println("Mode 'images' sélectionné");
             }
         });
 
