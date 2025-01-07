@@ -31,27 +31,27 @@ public class TopGuesserController implements Observer {
 
     public void reagir() {
         if (game.isSpyTurn() && game.isBlueTurn()) {
-            turnLabel.setText("C'est au tour de l'espion bleu");
+            turnLabel.setText("C'est au tour de l'espion bleu !");
             turnLabel.setStyle("-fx-text-fill: blue;");
             stopFading();
         } else if (game.isSpyTurn() && !game.isBlueTurn()) {
-            turnLabel.setText("C'est au tour de l'espion rouge");
+            turnLabel.setText("C'est au tour de l'espion rouge !");
             turnLabel.setStyle("-fx-text-fill: red;");
             stopFading();
         } else if (!game.isSpyTurn() && game.isBlueTurn()) {
-            turnLabel.setText("C'est au tour du devin bleu");
+            turnLabel.setText("C'est au tour du devin bleu !");
             turnLabel.setStyle("-fx-text-fill: blue;");
             startFading();
         } else {
-            turnLabel.setText("C'est au tour du devin rouge");
+            turnLabel.setText("C'est au tour du devin rouge !");
             turnLabel.setStyle("-fx-text-fill: red;");
             startFading();
         }
 
         Guess lastGuess = game.getLastGuess();
         if (lastGuess != null) {
-            clueLabel.setText(lastGuess.getClue());
-            numberLabel.setText(Integer.toString(lastGuess.getNbWords()));
+            clueLabel.setText("Indice : "+lastGuess.getClue());
+            numberLabel.setText("          Nombre de mot à deviner : "+Integer.toString(lastGuess.getNbWords()));
         }
     }
 
@@ -62,7 +62,6 @@ public class TopGuesserController implements Observer {
     // Méthode pour arrêter l'animation de fondu
     private void stopFading() {
         if (fadeTransition != null) {
-            System.out.println("coucou");
             fadeTransition.stop();  // Arrêter l'animation
             turnLabel.setOpacity(1.0);  // Assurer que le label reste visible
         }

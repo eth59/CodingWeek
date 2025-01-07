@@ -33,19 +33,19 @@ public class TopSpyController implements Observer {
 
     public void reagir() {
         if (game.isSpyTurn() && game.isBlueTurn()) {
-            turnLabel.setText("C'est au tour de l'espion bleu");
+            turnLabel.setText("C'est au tour de l'espion bleu !");
             turnLabel.setStyle("-fx-text-fill: blue;");
             startFading();
         } else if (game.isSpyTurn() && !game.isBlueTurn()) {
-            turnLabel.setText("C'est au tour de l'espion rouge");
+            turnLabel.setText("C'est au tour de l'espion rouge !");
             turnLabel.setStyle("-fx-text-fill: red;");
             startFading();
         } else if (!game.isSpyTurn() && game.isBlueTurn()) {
-            turnLabel.setText("C'est au tour du devin bleu");
+            turnLabel.setText("C'est au tour du devin bleu !");
             turnLabel.setStyle("-fx-text-fill: blue;");
             stopFading();
         } else {
-            turnLabel.setText("C'est au tour du devin rouge");
+            turnLabel.setText("C'est au tour du devin rouge !");
             turnLabel.setStyle("-fx-text-fill: red;");
             stopFading();
         }
