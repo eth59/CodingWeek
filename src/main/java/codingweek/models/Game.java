@@ -7,8 +7,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Stack;
-
-import codingweek.Main;
 import javafx.stage.FileChooser;
 
 public class Game extends Subject implements Serializable {
