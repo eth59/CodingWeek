@@ -1,5 +1,5 @@
 package codingweek.models;
-
+import java.util.ArrayList;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -9,7 +9,11 @@ public class Card extends Subject implements Serializable {
     private String word;
     private ArrayList<String> forbiddenWords;
     private boolean isRevealed = false;
-    private String color; // Color of the card (red, blue, neutral)
+    private String color;
+    // Black : 0x000000ff
+    // Red : 0xc1121fff
+    // Blue : 0x003566ff
+    // Neutral : 0xf0ead2ff
 
     // Predefined colors with their hash codes
     public static final String RED_COLOR = "#c1121f";
