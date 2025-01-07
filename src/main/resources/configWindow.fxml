@@ -24,10 +24,9 @@
         <VBox spacing="10" alignment="CENTER">
             <TextField text="Taille de la grille :" promptText="Entrez un entier entre 3 et 7"/>
             <VBox spacing="10">
-                <ToggleGroup fx:id="myToggleGroup" />
-                <RadioButton fx:id="theme1" text="Thème 1" toggleGroup="$myToggleGroup"/>
-                <RadioButton fx:id="theme2" text="Thème 2" toggleGroup="$myToggleGroup"/>
-                <RadioButton fx:id="theme3" text="Thème 3" toggleGroup="$myToggleGroup"/>
+                <RadioButton fx:id="theme1" text="Thème 1" />
+                <RadioButton fx:id="theme2" text="Thème 2" />
+                <RadioButton fx:id="theme3" text="Thème 3" />
             </VBox>
             <ToggleButton fx:id="toggleButton"
                           text="Temps limité" />

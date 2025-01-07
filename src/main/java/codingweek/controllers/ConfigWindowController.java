@@ -12,12 +12,12 @@ import java.io.IOException;
 public class ConfigWindowController {
 
     // Attributes
-    @FXML
-    private ToggleGroup myToggleGroup;
+    private ToggleGroup myToggleGroup = new ToggleGroup();
     @FXML
     private RadioButton theme1, theme2, theme3;
     @FXML
     private Button quitButton;
+
     @FXML
     private ToggleButton toggleButton;
     @FXML
@@ -27,6 +27,7 @@ public class ConfigWindowController {
 
     @FXML
     private void initialize() {
+
         toggleButton.selectedProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal) {
                 System.out.println("ToggleButton est enclenché !");
@@ -34,6 +35,10 @@ public class ConfigWindowController {
                 System.out.println("ToggleButton est relâché !");
             }
         });
+
+        theme1.setToggleGroup(myToggleGroup);
+        theme2.setToggleGroup(myToggleGroup);
+        theme3.setToggleGroup(myToggleGroup);
 
         myToggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             // newToggle est le Toggle (RadioButton) sélectionné
