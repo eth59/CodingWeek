@@ -1,31 +1,61 @@
 package codingweek.controllers;
 
+import codingweek.models.Game;
+import codingweek.models.Key;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import codingweek.models.Key;
 
 public class KeyController {
 
     @FXML
     private GridPane gridPane;
 
+    private static final double CELL_SIZE = 25.0; // taille fixe des cellules
+
     @FXML
     public void initialize() {
-        // Récupérer l'instance unique de Key
+        // Recupere la session et la taille du plateau
+        Game game = Game.getInstance();
+        int boardSize = game.getBoardSize(); 
+
+        // Peuple la grille avec la taille du plateau
+        populateKeyGrid(boardSize);
+
+    }
+
+    private void populateKeyGrid(int boardSize) {
+        // Recupere une instance de clef unique
         Key key = Key.getInstance();
 
-        // Parcourir la grille et remplir la GridPane avec des rectangles colorés
-        for (int i = 0; i < 5; i++) { // Assumer une grille 5x5
-            for (int j = 0; j < 5; j++) {
-                // Créer un rectangle pour représenter une case
-                Rectangle rect = new Rectangle(50, 50);
-                rect.setFill(key.getCouleur(i, j)); // Définir la couleur de la case
-                rect.setStroke(Color.BLACK); // Bordure noire pour démarquer les cases
+        // Vide la grille pour eviter les doublons lors des refresh
+        gridPane.getChildren().clear();
+        gridPane.getRowConstraints().clear();
+        gridPane.getColumnConstraints().clear();
 
-                // Ajouter le rectangle à la GridPane
-                gridPane.add(rect, j, i);
+        // Etabli les colonnes et les lignes d'apres la taille du plateau
+        for (int i = 0; i < boardSize; i++) {
+            RowConstraints row = new RowConstraints();
+            row.setPrefHeight(CELL_SIZE);
+            gridPane.getRowConstraints().add(row);
+
+            ColumnConstraints col = new ColumnConstraints();
+            col.setPrefWidth(CELL_SIZE);
+            gridPane.getColumnConstraints().add(col);
+        }
+
+        // Peupler la grille avec les couleurs
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                Rectangle rect = new Rectangle(CELL_SIZE, CELL_SIZE); // Cellules bien carres
+                rect.setFill(key.getCouleur(row, col)); // Recupere la couleur depuis le Key modele
+                rect.setStroke(Color.BLACK); // Rebord
+
+                // Ajoute le carre a la grille
+                gridPane.add(rect, col, row);
             }
         }
     }
