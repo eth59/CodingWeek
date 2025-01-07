@@ -50,6 +50,10 @@ public class GuesserBoardController {
     }
 
     private void onCardClicked(StackPane tile, Card card) {
+        if (game.isSpyTurn()) {
+            System.out.println("C'est au tour des espions.");
+            return;
+        }
         // Check if the card is already revealed
         if (card.isRevealed()) {
             System.out.println("Card '" + card.getWord() + "' is already revealed.");
@@ -62,6 +66,8 @@ public class GuesserBoardController {
 
         // Set the card's isRevealed property to true
         card.setRevealed(true);
+
+        game.returnCard(card);
 
         // Notify observers about the card being revealed
         game.notifierObservateurs();
