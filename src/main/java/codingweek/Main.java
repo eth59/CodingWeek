@@ -1,13 +1,8 @@
 package codingweek;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import codingweek.models.PageManager;
-
 import codingweek.models.Game;
-
-
 
 public class Main extends Application {
     @Override

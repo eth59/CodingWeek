@@ -57,6 +57,7 @@ public class Key {
     // Initialize the grid with random colors
     private void initialiserGrille() {
         List<Color> couleurs = new ArrayList<>();
+        boolean blueTurn = Game.getInstance().isBlueTurn();
 
         for (int i = 0; i < 8; i++) {
             couleurs.add(Color.web(Card.BLUE_COLOR));

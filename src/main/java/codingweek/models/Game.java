@@ -6,9 +6,10 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Stack;
-
-import codingweek.Main;
 import javafx.stage.FileChooser;
 
 public class Game extends Subject implements Serializable {
@@ -27,7 +28,8 @@ public class Game extends Subject implements Serializable {
         this.boardSize = 5;
         this.timeLimit = 60;
         this.spyTurn = true;
-        this.blueTurn = true;
+        this.blueTurn = Math.random() > 0.5;
+        this.category = "Métier";
         this.guesses = new Stack<Guess>();
         revealedTiles = new boolean[boardSize][boardSize];
 
@@ -94,7 +96,12 @@ public class Game extends Subject implements Serializable {
     }
     
     private boolean clueIsValid(String clue) {
-        // TO DO Vérifier que l'indice est valide
+        clue = clue.toLowerCase();
+        for (Card card : board.getCards()) {
+            if (!card.isRevealed() && (card.getWord().equals(clue) || card.getForbiddenWords().contains(clue) || Arrays.asList("gauche", "droite", "haut", "bas", "centre").contains(clue))) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -122,17 +129,19 @@ public class Game extends Subject implements Serializable {
     }
 
     private void initializeBoard() {
-        String[] words = {
-            "APPLE", "BANANA", "ORANGE", "WATER", "FIRE",
-            "EARTH", "WIND", "STORM", "TREE", "MOUNTAIN",
-            "HOUSE", "BRIDGE", "LIGHT", "SHADOW", "STONE",
-            "CAR", "PLANE", "SHIP", "TRAIN", "SPACE",
-            "ROBOT", "KNIGHT", "CASTLE", "PRINCE", "PRINCESS"
-        };
-    
-        // Initialize all cards as neutral
-        for (String word : words) {
-            board.addCard(new Card(word, Card.NEUTRAL_COLOR));
+        try {
+            ArrayList<String> cardName = new ArrayList<String>();
+            ArrayList<Card> cards = JsonReader.jsonReader("mots.json", this.category);
+            Collections.shuffle(cards);
+            for (int i = 0; i < 25; i++) {
+                cardName.add(cards.get(i).getWord());
+            }
+            for (int i = 0; i < 25; i++) {
+                cards.get(i).addForbiddenWords(cardName);
+                board.addCard(cards.get(i));
+            }
+        } catch (Exception e) {
+            System.err.println("Erreur lors de l'initialisation du plateau : " + e.getMessage());
         }
     }
     
@@ -147,8 +156,9 @@ public class Game extends Subject implements Serializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Game", "*.game"));
 
         // On ouvre le FileChooser dans le répertoire du .jar
-        String jarDirectory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
-        fileChooser.setInitialDirectory(new File(jarDirectory));
+        String userDirectory = System.getProperty("user.home");
+        fileChooser.setInitialDirectory(new File(userDirectory));
+
 
         // On propose un nom de fichier par défaut
         fileChooser.setInitialFileName("partie.game");
@@ -174,8 +184,8 @@ public class Game extends Subject implements Serializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Game", "*.game"));
 
         // On propose le répertoire courant comme le répertoire du jar
-        String jarDirectory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
-        fileChooser.setInitialDirectory(new File(jarDirectory));
+        String userDirectory = System.getProperty("user.home");
+        fileChooser.setInitialDirectory(new File(userDirectory));
 
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
