@@ -103,10 +103,33 @@ public class PageManager {
         }
     }
 
+    public void loadConfigWindowView(){
+        try {
+            URL configViewURL = getClass().getResource("/configWindow.fxml");
+            if (configViewURL == null){
+                System.err.println("Could not find configWindow.fxml");
+                System.exit(1);
+            }
+            Parent configView = FXMLLoader.load(configViewURL);
+            Scene configScene = new Scene(configView, 800, 600);
+            primaryStage.setScene(configScene);
+            primaryStage.setTitle("Configuration Window");
+            // Set position and size explicitly
+            primaryStage.setWidth(800);
+            primaryStage.setHeight(600);
+            primaryStage.setX(100);
+            primaryStage.setY(100);
+            primaryStage.show();
+        } catch (IOException e){
+            System.err.println("Failed to load configWindow.fxml: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
     public void closeSpyView() {
         spyStage.close();
     }
-
     public void setPrimaryStage(Stage primaryStage2) {
         this.primaryStage = primaryStage2;
     }
