@@ -3,16 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.TopSpyController">
     <Label fx:id="turnLabel" text="Au tour de l'équipe rouge" style="-fx-font-weight: bold;" alignment="CENTER"/>
-    <HBox>
+    <HBox spacing="10" style="-fx-padding: 20;">
         <TextField fx:id="clueField" promptText="Entrez un indice"/>
         <TextField fx:id="numberField" promptText="Entrez un nombre"/>
         <Button text="Valider" onAction="#submitClue"
                 style="-fx-background-color: rgb(120, 169, 62);
                            -fx-text-fill: white;
-                           -fx-font-size: 18px;
+                           -fx-font-size: 15px;
                            -fx-background-radius: 20;"/>
     </HBox>
 </VBox>
