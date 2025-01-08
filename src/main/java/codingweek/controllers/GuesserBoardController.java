@@ -26,38 +26,42 @@ public class GuesserBoardController {
     }
 
     private void populateBoard(int gridSize) {
-        List<Card> cards = board.getCards(); 
+        List<Card> cards = board.getCards();
+        int totalCards = gridSize * gridSize; // Verifie le nombre de cartes
+        if (cards.size() != totalCards) {
+            throw new IllegalStateException("Il n'y a pas assez de cartes.");
+        }
+    
         int cardIndex = 0;
-
         for (int row = 0; row < gridSize; row++) {
             for (int col = 0; col < gridSize; col++) {
                 StackPane cardPane = new StackPane();
-                Card card = cards.get(cardIndex++); 
-
-                
+                Card card = cards.get(cardIndex++);
+    
                 cardPane.setStyle("-fx-border-color: black; -fx-background-color: lightgrey; -fx-padding: 10;");
                 cardPane.setPrefSize(100, 100);
-
+    
                 Label wordLabel = new Label(card.getWord());
                 wordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
                 cardPane.getChildren().add(wordLabel);
-
-                
+    
                 cardPane.setOnMouseClicked(event -> onCardClicked(cardPane, card));
-
+    
                 boardGrid.add(cardPane, col, row);
             }
         }
     }
+    
+    
 
     private void onCardClicked(StackPane tile, Card card) {
         if (game.isSpyTurn()) {
             System.out.println("C'est au tour des espions.");
             return;
         }
-        // Check if the card is already revealed
+        // Verifie si la carte a ete revelee
         if (card.isRevealed()) {
-            System.out.println("Card '" + card.getWord() + "' is already revealed.");
+            System.out.println("La carte '" + card.getWord() + "' a ete revelee.");
             return;
         }
 
@@ -70,7 +74,7 @@ public class GuesserBoardController {
 
         game.returnCard(card);
 
-        // Notify observers about the card being revealed
+        // Notifie les observateurs que la carte a ete revelee
         game.notifierObservateurs();
     }
 

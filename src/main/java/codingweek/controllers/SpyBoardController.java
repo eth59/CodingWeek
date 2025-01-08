@@ -71,22 +71,28 @@ public class SpyBoardController implements Observer {
 
     private void populateBoard(int gridSize) {
         List<Card> cards = board.getCards();
+        int totalCards = gridSize * gridSize; // Verifie le nombre de cartes
+        if (cards.size() != totalCards) {
+            throw new IllegalStateException("Il n'y a pas assez de cartes.");
+        }
+    
         int cardIndex = 0;
-
         for (int row = 0; row < gridSize; row++) {
             for (int col = 0; col < gridSize; col++) {
                 StackPane cardPane = new StackPane();
                 Card card = cards.get(cardIndex++);
-
+    
                 cardPane.setStyle("-fx-border-color: black; -fx-background-color: lightgrey; -fx-padding: 10;");
                 cardPane.setPrefSize(100, 100);
-
+    
                 Label wordLabel = new Label(card.getWord());
                 wordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
                 cardPane.getChildren().add(wordLabel);
-
+    
                 boardGrid.add(cardPane, col, row);
             }
         }
     }
+    
+    
 }
