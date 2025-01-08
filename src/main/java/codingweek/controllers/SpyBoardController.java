@@ -82,7 +82,11 @@ public class SpyBoardController implements Observer {
                 StackPane cardPane = new StackPane();
                 Card card = cards.get(cardIndex++);
     
-                cardPane.setStyle("-fx-border-color: black; -fx-background-color: lightgrey; -fx-padding: 10;");
+                cardPane.setStyle("-fx-border-color: black; " +
+                        "-fx-background-color: lightgrey; " +
+                        "-fx-padding: 10;" +
+                        "-fx-background-radius: 15; " +
+                        "-fx-border-radius: 15;");
                 cardPane.setPrefSize(100, 100);
     
                 Label wordLabel = new Label(card.getWord());
