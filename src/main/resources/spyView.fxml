@@ -4,7 +4,11 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefWidth="800" prefHeight="600">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="codingweek.controllers.SpyViewController"
+            prefWidth="800" prefHeight="600"
+            fx:id="rootPane">
    <top>
       <fx:include source="menuBar.fxml" />
    </top>

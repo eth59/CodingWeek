@@ -21,10 +21,10 @@ public class SpyBoardController implements Observer {
 
     @Override
     public void reagir() {
+        updateBackgroundColor();
         updateRevealedTiles();
     }
-    
-    
+
     private void updateRevealedTiles() {
         List<Card> cards = board.getCards();
         int gridSize = game.getBoardSize();
@@ -38,14 +38,18 @@ public class SpyBoardController implements Observer {
     
                     if (cardPane != null) {
                         String backgroundColor = convertColorToCSS(card.getColor());
-                        cardPane.setStyle("-fx-border-color: black; -fx-background-color: " + backgroundColor + "; -fx-padding: 10;");
+                        cardPane.setStyle("-fx-border-color: black; -fx-background-color: " +
+                                backgroundColor +
+                                "; -fx-padding: 10;" +
+                                "-fx-background-radius: 15; " +
+                                "-fx-border-radius: 15;");
                     }
                 }
             }
         }
+
     }
-    
-    
+
     private StackPane getNodeByRowColumnIndex(int row, int col, GridPane gridPane) {
         for (javafx.scene.Node node : gridPane.getChildren()) {
             if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col) {
@@ -55,7 +59,6 @@ public class SpyBoardController implements Observer {
         return null;
     }
 
-    
     private String convertColorToCSS(String javafxColor) {
         if (javafxColor.startsWith("0x")) {
             return "#" + javafxColor.substring(2, 8); 
@@ -64,9 +67,12 @@ public class SpyBoardController implements Observer {
     }
 
     public void initialize() {
+        game.ajouterObservateur(this);
+        updateBackgroundColor();
         int gridSize = game.getBoardSize();
         populateBoard(gridSize);
         board.addCardObservers(this);
+
     }
 
     private void populateBoard(int gridSize) {
@@ -97,6 +103,14 @@ public class SpyBoardController implements Observer {
             }
         }
     }
-    
-    
+
+    private void updateBackgroundColor() {
+        Boolean currentTeam = game.isBlueTurn();
+        if (currentTeam) {
+            boardGrid.setStyle("-fx-padding: 20; -fx-background-color: #85C4FF;");
+        } else {
+            boardGrid.setStyle("-fx-padding: 20; -fx-background-color: #F6A2A7;");
+        }
+    }
+
 }
