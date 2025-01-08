@@ -46,6 +46,7 @@ public class Game extends Subject implements Serializable {
     public void initializeGame(int boardSize, String category) {
         this.boardSize = boardSize;
         this.category = category;
+        this.guesses.clear();
         this.revealedTiles = new boolean[boardSize][boardSize];
         initializeRevealedTiles();
         initializeBoard();
