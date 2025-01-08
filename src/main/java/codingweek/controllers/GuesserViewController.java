@@ -89,6 +89,39 @@ public class GuesserViewController implements codingweek.Observer {
         timeline.play();
     }
 
+    public void startAnimationAndCountdown() {
+        currentFrame = 0;
+        sandTimerView.setVisible(true);
+        timeRemaining = 10;  // Réinitialiser le temps restant
+        timeLabel.setText(String.valueOf(timeRemaining));
+
+        // Animation du sablier
+        animationTimeline = new Timeline(
+            new KeyFrame(Duration.seconds(1), event -> {
+                sandTimerView.setImage(getFrame(currentFrame));
+                currentFrame = (currentFrame + 1) % FRAME_COUNT;
+            })
+        );
+        animationTimeline.setCycleCount(FRAME_COUNT);
+        animationTimeline.play();
+
+        // Décompte du temps restant
+        countdownTimeline = new Timeline(
+            new KeyFrame(Duration.seconds(1), event -> {
+                timeRemaining--;
+                timeLabel.setText(String.valueOf(timeRemaining));
+                if (timeRemaining <= 0) {
+                    animationTimeline.stop();
+                    countdownTimeline.stop();
+                    System.out.println("Temps écoulé !");
+                    changeTurn();  // Appelle une méthode pour changer de tour
+                }
+            })
+        );
+        countdownTimeline.setCycleCount(timeRemaining);
+        countdownTimeline.play();
+    }
+
     private void turn() {
         if (!game.isSpyTurn()) {
             game.changeTurn();

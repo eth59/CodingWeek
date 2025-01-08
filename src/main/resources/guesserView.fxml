@@ -14,8 +14,8 @@
          <HBox>
             <fx:include source="guessBoard.fxml" fx:id="guesserBoard" />
             <VBox>
+               <Label fx:id="timeLabel" text="Temps restant : 60" />
                <ImageView fx:id="sandTimerView" fitWidth="150" layoutX="0" layoutY="0" />
-               <Label fx:id="lblTimer" text="Temps restant : 60" />
             </VBox>
          </HBox>
          <Button fx:id="btnTurn" text="Passer le tour" />
