@@ -32,10 +32,14 @@ public class GuesserBoardController {
         for (int row = 0; row < gridSize; row++) {
             for (int col = 0; col < gridSize; col++) {
                 StackPane cardPane = new StackPane();
-                Card card = cards.get(cardIndex++); 
+                Card card = cards.get(cardIndex++);
 
-                
-                cardPane.setStyle("-fx-border-color: black; -fx-background-color: lightgrey; -fx-padding: 10;");
+
+                cardPane.setStyle("-fx-border-color: black; " +
+                        "-fx-background-color: lightgrey; " +
+                        "-fx-padding: 10; " +
+                        "-fx-background-radius: 15; " +
+                        "-fx-border-radius: 15;");
                 cardPane.setPrefSize(100, 100);
 
                 Label wordLabel = new Label(card.getWord());
@@ -63,7 +67,11 @@ public class GuesserBoardController {
 
         
         String cssColor = convertColorToCSS(card.getColor());
-        tile.setStyle("-fx-border-color: black; -fx-background-color: " + cssColor + "; -fx-padding: 10;");
+        tile.setStyle("-fx-border-color: black; " +
+                "-fx-background-color: " + cssColor + "; " +
+                "-fx-padding: 10; " +
+                "-fx-background-radius: 15; " +
+                "-fx-border-radius: 15;");
 
         
         card.setRevealed(true);
