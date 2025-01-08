@@ -32,7 +32,12 @@ public class GuesserBoardController implements codingweek.Observer {
     }
 
     private void populateBoard(int gridSize) {
-        List<Card> cards = board.getCards(); 
+        List<Card> cards = board.getCards();
+        int totalCards = gridSize * gridSize; // Verifie le nombre de cartes
+        if (cards.size() != totalCards) {
+            throw new IllegalStateException("Il n'y a pas assez de cartes.");
+        }
+
         int cardIndex = 0;
 
         for (int row = 0; row < gridSize; row++) {
@@ -52,13 +57,14 @@ public class GuesserBoardController implements codingweek.Observer {
                 wordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
                 cardPane.getChildren().add(wordLabel);
 
-                
                 cardPane.setOnMouseClicked(event -> onCardClicked(cardPane, card));
 
                 boardGrid.add(cardPane, col, row);
             }
         }
     }
+
+
 
     private void onCardClicked(StackPane tile, Card card) {
         if (game.isSpyTurn()) {
@@ -67,7 +73,7 @@ public class GuesserBoardController implements codingweek.Observer {
         }
         // Check if the card is already revealed
         if (card.isRevealed()) {
-            System.out.println("Card '" + card.getWord() + "' is already revealed.");
+            System.out.println("La carte '" + card.getWord() + "' a ete revelee.");
             return;
         }
 
@@ -84,10 +90,11 @@ public class GuesserBoardController implements codingweek.Observer {
 
         game.returnCard(card);
 
-        // Notify observers about the card being revealed
+        // Notifie les observateurs que la carte a ete revelee
         game.notifierObservateurs();
     }
 
+    
     private String convertColorToCSS(String javafxColor) {
         if (javafxColor.startsWith("0x")) {
             return "#" + javafxColor.substring(2, 8); 

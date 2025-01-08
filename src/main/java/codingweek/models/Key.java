@@ -54,31 +54,33 @@ public class Key {
         }
     }
 
-    // Initialize the grid with random colors
     private void initialiserGrille() {
         List<Color> couleurs = new ArrayList<>();
         boolean blueTurn = Game.getInstance().isBlueTurn();
-
-        for (int i = 0; i < 8; i++) {
+        int totalCards = lignes * colonnes; // Dynamically calculate the number of cards
+    
+        // Add blue and red team colors
+        for (int i = 0; i < (totalCards / 3); i++) { // Adjust ratio as needed
             couleurs.add(Color.web(Card.BLUE_COLOR));
             couleurs.add(Color.web(Card.RED_COLOR));
         }
         couleurs.add(Color.BLACK);
-
-        int totalCases = lignes * colonnes;
-        int nombreNeutres = totalCases - couleurs.size();
-        for (int i = 0; i < nombreNeutres - 1; i++) {
+    
+        // Fill remaining spaces with neutral colors
+        int nombreNeutres = totalCards - couleurs.size();
+        for (int i = 0; i < nombreNeutres; i++) {
             couleurs.add(Color.web(Card.NEUTRAL_COLOR));
         }
-
+    
+        // Ensure the starting team's extra card
         if (blueTurn) {
             couleurs.add(Color.web(Card.BLUE_COLOR));
         } else {
             couleurs.add(Color.web(Card.RED_COLOR));
         }
-
+    
+        // Shuffle and assign colors to the grid
         Collections.shuffle(couleurs, new Random());
-
         int index = 0;
         for (int i = 0; i < lignes; i++) {
             for (int j = 0; j < colonnes; j++) {
@@ -86,6 +88,7 @@ public class Key {
             }
         }
     }
+    
 
     // Assign colors from the grid to the corresponding cards
     private void assignColorsToCards() {
@@ -110,5 +113,4 @@ public class Key {
         }
         return Color.TRANSPARENT;
     }
-
 }
