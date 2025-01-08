@@ -61,6 +61,8 @@ public class GuesserViewController implements codingweek.Observer {
         }
         if (game.isTimerRunning()) {
             startAnimationAndCountdown();
+        } else {
+            stopTimeLine();
         }
     }
 
@@ -118,13 +120,20 @@ public class GuesserViewController implements codingweek.Observer {
         timeLabel.setText("Temps restant : " + timeRemaining);
         timeLabel.setVisible(true);
         if (timeRemaining <= 0) {
-            timeLabel.setVisible(false);
-            sandTimerView.setVisible(false);
+            stopTimeLine();
             turn();
-            timeline.stop();
-            timelineRunning = false;
         }
         updateBackground();
+    }
+
+    private void stopTimeLine() {
+        if (timeline != null) {
+            timeLabel.setVisible(false);
+            sandTimerView.setVisible(false);
+            timeline.stop();
+            timelineRunning = false;
+            updateBackground();
+        }
     }
 
     private void turn() {
