@@ -22,8 +22,13 @@ public class Key {
     // Observers (Cards)
     private final List<Observer> cards = new ArrayList<>();
 
+    private Game game;
+
     private Key() {
-        Game game = Game.getInstance();
+        game = Game.getInstance();
+    }
+
+    public void newKey() {
         this.lignes = game.getBoardSize();
         this.colonnes = game.getBoardSize();
         grille = new Color[lignes][colonnes];
@@ -66,17 +71,19 @@ public class Key {
         }
         couleurs.add(Color.BLACK);
     
+        // Ensure the starting team's extra card
+        if (blueTurn) {
+            System.out.println("extra for blue");
+            couleurs.add(Color.web(Card.BLUE_COLOR));
+        } else {
+            System.out.println("extra for red");
+            couleurs.add(Color.web(Card.RED_COLOR));
+        }
+
         // Fill remaining spaces with neutral colors
         int nombreNeutres = totalCards - couleurs.size();
         for (int i = 0; i < nombreNeutres; i++) {
             couleurs.add(Color.web(Card.NEUTRAL_COLOR));
-        }
-    
-        // Ensure the starting team's extra card
-        if (blueTurn) {
-            couleurs.add(Color.web(Card.BLUE_COLOR));
-        } else {
-            couleurs.add(Color.web(Card.RED_COLOR));
         }
     
         // Shuffle and assign colors to the grid
