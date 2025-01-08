@@ -55,4 +55,18 @@ public class JsonReader {
         }
         return cardList;
     }
+
+    // Mehtode pour recuperer la liste des categories du fichier JSON
+    public static Map<String, Category> getCategories(String filePath) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        InputStream inputStream = JsonReader.class.getClassLoader().getResourceAsStream(filePath);
+    
+        if (inputStream == null) {
+            throw new IllegalArgumentException("File not found: " + filePath);
+        }
+    
+        Root root = objectMapper.readValue(inputStream, Root.class);
+        return root.categories;
+    }
 }
+
