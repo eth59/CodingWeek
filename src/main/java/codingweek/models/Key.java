@@ -110,5 +110,4 @@ public class Key {
         }
         return Color.TRANSPARENT;
     }
-
 }
