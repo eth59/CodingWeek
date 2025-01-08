@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.GuesserViewController" prefWidth="800" prefHeight="600">
    <top>
@@ -10,7 +11,10 @@
    <center>
       <VBox>
          <fx:include source="topGuesser.fxml" />
-         <fx:include source="guessBoard.fxml" fx:id="guesserBoard" />
+         <HBox>
+            <fx:include source="guessBoard.fxml" fx:id="guesserBoard" />
+            <ImageView fx:id="sandTimerView" fitWidth="150" layoutX="0" layoutY="0" />
+         </HBox>
          <Button fx:id="btnTurn" text="Passer le tour" />
       </VBox>
    </center>
