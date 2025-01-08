@@ -26,6 +26,7 @@ public class Game extends Subject implements Serializable {
     private int nbCardReturned;
     private int clueNb; // Nombre donné par l'espion
     private PageManager pageManager;
+    private boolean isTimerRunning;
     private int blueReturned; // Nombre de carte bleu retournée
     private int redReturned; // Nombre de carte rouge retournée
     private boolean blueBegin;
@@ -33,7 +34,7 @@ public class Game extends Subject implements Serializable {
     private Game() {
         this.board = Board.getInstance();
         this.boardSize = 5;
-        this.timeLimit = 60;
+        this.timeLimit = 15;
         this.spyTurn = true;
         this.blueTurn = Math.random() > 0.5;
         this.blueBegin = blueTurn;
@@ -151,12 +152,15 @@ public class Game extends Subject implements Serializable {
         this.nbCardReturned = 0;
         if (spyTurn) {
             spyTurn = false;
+            startTimer();
         } else if (blueTurn) {
             blueTurn = false;
             spyTurn = true;
+            stopTimer();
         } else {
             blueTurn = true;
             spyTurn = true;
+            stopTimer();
         }
         notifierObservateurs();
     }
@@ -326,4 +330,17 @@ public class Game extends Subject implements Serializable {
         pageManager = PageManager.getInstance();
     }
 
+    public void startTimer() {
+        isTimerRunning = true;
+        notifierObservateurs();
+    }
+
+    private void stopTimer() {
+        isTimerRunning = false;
+        notifierObservateurs();
+    }
+
+    public boolean isTimerRunning() {
+        return isTimerRunning;
+    }
 }
