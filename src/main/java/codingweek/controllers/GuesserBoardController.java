@@ -64,8 +64,6 @@ public class GuesserBoardController implements codingweek.Observer {
         }
     }
 
-
-
     private void onCardClicked(StackPane tile, Card card) {
         if (game.isSpyTurn()) {
             System.out.println("C'est au tour des espions.");
@@ -94,7 +92,6 @@ public class GuesserBoardController implements codingweek.Observer {
         game.notifierObservateurs();
     }
 
-    
     private String convertColorToCSS(String javafxColor) {
         if (javafxColor.startsWith("0x")) {
             return "#" + javafxColor.substring(2, 8); 
