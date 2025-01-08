@@ -189,6 +189,7 @@ public class Game extends Subject implements Serializable {
     }
     
     private void populateBoard(ArrayList<Card> cards, int totalCards) {
+        board.cleanCards();
         ArrayList<String> cardNames = new ArrayList<>();
         for (int i = 0; i < totalCards; i++) {
             cardNames.add(cards.get(i).getWord());
