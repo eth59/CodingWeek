@@ -3,6 +3,7 @@ package codingweek.controllers;
 import codingweek.models.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 
 public class GuesserViewController implements codingweek.Observer {
     @FXML
@@ -10,6 +11,9 @@ public class GuesserViewController implements codingweek.Observer {
 
     @FXML
     private GuesserBoardController guesserBoardController;
+
+    @FXML
+    private BorderPane rootPane;
 
     private Game game;
 
@@ -20,6 +24,7 @@ public class GuesserViewController implements codingweek.Observer {
             turn();
         });
         btnTurn.setDisable(true);
+        updateBackground();
     }
 
     public void reagir() {
@@ -28,12 +33,28 @@ public class GuesserViewController implements codingweek.Observer {
         } else {
             btnTurn.setDisable(false);
         }
+        updateBackground();
     }
 
     private void turn() {
         if (!game.isSpyTurn()) {
             game.changeTurn();
         }
+    }
+
+
+
+    private void updateBackground() {
+        Boolean currentTeam = game.isBlueTurn();
+        String backgroundColor;
+
+        if (currentTeam) {
+            backgroundColor = "#85C4FF";
+        } else {
+            backgroundColor = "#F6A2A7";
+        }
+
+        rootPane.setStyle("-fx-background-color: " + backgroundColor + ";");
     }
 
 }
