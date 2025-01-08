@@ -2,6 +2,7 @@ package codingweek.controllers;
 
 import codingweek.models.Game;
 import codingweek.models.JsonReader;
+import codingweek.models.Key;
 import codingweek.models.PageManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -22,10 +23,12 @@ public class ConfigWindowController {
 
     private final Game game;
     private final PageManager pageManager;
+    private final Key key;
 
     public ConfigWindowController() {
         this.game = Game.getInstance();
-        this.pageManager = PageManager.getInstance(); 
+        this.pageManager = PageManager.getInstance();
+        this.key = Key.getInstance();
     }
 
     @FXML
@@ -56,6 +59,9 @@ public class ConfigWindowController {
     
             // Initialiser le jeu apres que les configurations sont choisies
             game.initializeGame(boardSize, selectedCategory);
+
+            // Initialiser la key
+            key.newKey();
     
             // Charger les autres fenetres
             pageManager.loadGuesserView();

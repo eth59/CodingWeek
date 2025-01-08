@@ -7,16 +7,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.ConfigWindowController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.ConfigWindowController" style="-fx-background-image: url('/Images/Configuration.png'); 
+               -fx-background-size: 100% 100%; ; 
+               -fx-background-repeat: no-repeat;">
     <children>
         <VBox spacing="10" alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-            <Label text="Game Configuration" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <Label text="Game Configuration" style="-fx-font-size: 16px; -fx-font-weight: bold;-fx-text-fill: white;" />
             <HBox spacing="10" alignment="CENTER">
-                <Label text="Board Size:" />
+                <Label text="Board Size :" style = "-fx-text-fill: white;" />
                 <TextField fx:id="boardSizeInput" promptText="Enter a size (3-7)" />
             </HBox>
             <HBox spacing="10" alignment="CENTER">
-                <Label text="Select Category:" />
+                <Label text="Select Category :" style = "-fx-text-fill: white;"/>
                 <ComboBox fx:id="categoryDropdown" />
             </HBox>
             <Button text="Start Game" onAction="#onStartGame" />
