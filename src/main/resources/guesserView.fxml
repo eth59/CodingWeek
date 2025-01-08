@@ -15,7 +15,11 @@
       <VBox>
          <fx:include source="topGuesser.fxml" />
          <fx:include source="guessBoard.fxml" fx:id="guesserBoard" />
-         <Button fx:id="btnTurn" text="Passer le tour" />
+         <Button fx:id="btnTurn" text="Passer le tour"
+                 style="-fx-background-color: rgb(230, 218, 198);
+                           -fx-text-fill: black;
+                           -fx-font-size: 18px;
+                           -fx-background-radius: 20;"/>
       </VBox>
    </center>
 </BorderPane>
