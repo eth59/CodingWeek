@@ -42,8 +42,6 @@ public class GuesserViewController implements codingweek.Observer {
         }
     }
 
-
-
     private void updateBackground() {
         Boolean currentTeam = game.isBlueTurn();
         String backgroundColor;

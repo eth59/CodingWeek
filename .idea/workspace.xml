@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="83372ad7-72fe-46c5-a396-cdebba7870fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codingweek/controllers/GuesserBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codingweek/controllers/GuesserBoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/codingweek/controllers/GuesserViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codingweek/controllers/GuesserViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/guesserView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/guesserView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

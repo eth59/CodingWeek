@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 
 import java.util.List;
 
-public class GuesserBoardController {
+public class GuesserBoardController implements codingweek.Observer {
 
     @FXML
     private GridPane boardGrid;
@@ -22,7 +22,13 @@ public class GuesserBoardController {
     public void initialize() {
         int gridSize = game.getBoardSize();
         populateBoard(gridSize);
+        updateBackgroundColor();
+        game.ajouterObservateur(this);
+    }
 
+    @Override
+    public void reagir() {
+        updateBackgroundColor();
     }
 
     private void populateBoard(int gridSize) {
@@ -82,11 +88,20 @@ public class GuesserBoardController {
         game.notifierObservateurs();
     }
 
-    
     private String convertColorToCSS(String javafxColor) {
         if (javafxColor.startsWith("0x")) {
             return "#" + javafxColor.substring(2, 8); 
         }
         return javafxColor; 
     }
+
+    private void updateBackgroundColor() {
+        Boolean currentTeam = game.isBlueTurn();
+        if (currentTeam) {
+            boardGrid.setStyle("-fx-padding: 20; -fx-background-color: #85C4FF;");
+        } else {
+            boardGrid.setStyle("-fx-padding: 20; -fx-background-color: #F6A2A7;");
+        }
+    }
+
 }
