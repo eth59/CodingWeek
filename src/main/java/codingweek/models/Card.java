@@ -1,7 +1,6 @@
 package codingweek.models;
 import java.util.ArrayList;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Card extends Subject implements Serializable {
 
