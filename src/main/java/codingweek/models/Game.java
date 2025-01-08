@@ -300,18 +300,18 @@ public class Game extends Subject implements Serializable {
             changeTurn();
         }
         if (blueBegin) { // Bleu commençe
-            if (blueReturned == 9) {
+            if (blueReturned == boardSize*boardSize/3+1) {
                 changeTurn();
                 pageManager.loadGameOverView();
-            } else if (redReturned == 8) {
+            } else if (redReturned == boardSize*boardSize/3) {
                 changeTurn();
                 pageManager.loadGameOverView();
             }
         } else if (!blueBegin) { // Rouge commençe
-            if (redReturned == 9) {
+            if (redReturned == boardSize*boardSize/3 + 1) {
                 changeTurn();
                 pageManager.loadGameOverView();
-            } else if (blueReturned == 8) {
+            } else if (blueReturned == boardSize*boardSize/3) {
                 changeTurn();
                 pageManager.loadGameOverView();
             }
