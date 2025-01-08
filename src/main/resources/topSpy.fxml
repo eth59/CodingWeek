@@ -9,6 +9,10 @@
     <HBox>
         <TextField fx:id="clueField" promptText="Entrez un indice"/>
         <TextField fx:id="numberField" promptText="Entrez un nombre"/>
-        <Button text="Valider" onAction="#submitClue"/>
+        <Button text="Valider" onAction="#submitClue"
+                style="-fx-background-color: rgb(120, 169, 62);
+                           -fx-text-fill: white;
+                           -fx-font-size: 18px;
+                           -fx-background-radius: 20;"/>
     </HBox>
 </VBox>

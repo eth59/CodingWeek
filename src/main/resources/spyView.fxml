@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefWidth="800" prefHeight="600">
    <top>
       <fx:include source="menuBar.fxml" />
@@ -11,6 +12,9 @@
       <VBox>
          <fx:include source="topSpy.fxml" />
          <HBox>
+            <padding>
+               <Insets top="30"/>
+            </padding>
             <fx:include source="spyBoard.fxml" fx:id="spyBoard"/>
             <fx:include source="key.fxml" />
          </HBox>
