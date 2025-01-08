@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -18,6 +19,9 @@ public class GuesserViewController implements codingweek.Observer {
 
     @FXML
     private ImageView sandTimerView;
+
+    @FXML
+    private Label lblTimer;
 
     private Game game;
 
@@ -38,6 +42,20 @@ public class GuesserViewController implements codingweek.Observer {
             turn();
         });
         btnTurn.setDisable(true);
+    }
+
+    public void reagir() {
+        if (game.getNbCardsReturned() < 1) {
+            btnTurn.setDisable(true);
+        } else {
+            btnTurn.setDisable(false);
+        }
+        if (game.isTimerRunning()) {
+            sandTimerView.setVisible(true);
+            startSpriteAnimation();
+        } else {
+            sandTimerView.setVisible(false);
+        }
     }
 
     private void loadFrames() {
@@ -69,20 +87,6 @@ public class GuesserViewController implements codingweek.Observer {
         );
         timeline.setCycleCount(FRAME_COUNT);
         timeline.play();
-    }
-
-    public void reagir() {
-        if (game.getNbCardsReturned() < 1) {
-            btnTurn.setDisable(true);
-        } else {
-            btnTurn.setDisable(false);
-        }
-        if (game.isTimerRunning()) {
-            sandTimerView.setVisible(true);
-            startSpriteAnimation();
-        } else {
-            sandTimerView.setVisible(false);
-        }
     }
 
     private void turn() {
