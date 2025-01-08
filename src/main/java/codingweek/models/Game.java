@@ -10,13 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
-import javafx.util.Duration;
 
 public class Game extends Subject implements Serializable {
     private int boardSize;
@@ -31,20 +25,18 @@ public class Game extends Subject implements Serializable {
     private int nbCardReturned;
     private int clueNb; // Nombre donné par l'espion
     private PageManager pageManager;
-    private Timeline timeline;
     private boolean isTimerRunning;
 
     private Game() {
         this.board = Board.getInstance();
         this.boardSize = 5;
-        this.timeLimit = 10;
+        this.timeLimit = 15;
         this.spyTurn = true;
         this.blueTurn = Math.random() > 0.5;
         this.category = "Métier";
         this.guesses = new Stack<Guess>();
         revealedTiles = new boolean[boardSize][boardSize];
         this.nbCardReturned = 0;
-        isTimerRunning = false;
         initializeBoard();
     }
 
@@ -266,26 +258,12 @@ public class Game extends Subject implements Serializable {
 
     public void startTimer() {
         isTimerRunning = true;
-        System.out.println("Début du timer");
-        timeline = new Timeline(new KeyFrame(
-            Duration.seconds(this.timeLimit),
-            new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    System.out.println("Temps écoulé");
-                    changeTurn();
-                }
-            }));
-        timeline.setCycleCount(1);
-        timeline.play();
+        notifierObservateurs();
     }
 
     private void stopTimer() {
         isTimerRunning = false;
-        System.out.println("Arrêt du timer");
-        if (timeline != null) {
-            timeline.stop();
-        }
+        notifierObservateurs();
     }
 
     public boolean isTimerRunning() {

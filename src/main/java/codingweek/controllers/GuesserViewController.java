@@ -25,21 +25,22 @@ public class GuesserViewController implements codingweek.Observer {
 
     private Game game;
 
-    private static final int FRAME_COUNT = 11; // Nombre de frames dans le sprite
+    private static final int FRAME_COUNT = 10; // Nombre de frames dans le sprite
     private Image[] blueFrames;
     private Image[] redFrames;
     private int currentFrame = 0;
     private int timeRemaining;
-    private Timeline animationTimeline, countdownTimeline;
+    private Timeline timeline;
+    private boolean timelineRunning = false;
 
     public void initialize() {
         game = Game.getInstance();
         game.ajouterObservateur(this);
 
-        timeRemaining = game.getTimeLimit();
         loadFrames();
         sandTimerView.setPreserveRatio(true); 
         sandTimerView.setVisible(false);
+        timeLabel.setVisible(false);
 
         btnTurn.setOnAction(e -> {
             turn();
@@ -54,56 +55,70 @@ public class GuesserViewController implements codingweek.Observer {
             btnTurn.setDisable(false);
         }
         if (game.isTimerRunning()) {
-            sandTimerView.setVisible(true);
             startAnimationAndCountdown();
-        } else {
-            sandTimerView.setVisible(false);
         }
     }
 
     private void loadFrames() {
         blueFrames = new Image[FRAME_COUNT];
         for (int i = 0; i < FRAME_COUNT; i++) {
-            System.out.println("/Images/hourglass_blue/frame_" + String.format("%02d", i+1) + ".png"); 
             blueFrames[i] = new Image(getClass().getResourceAsStream("/Images/hourglass_blue/frame_" + String.format("%02d", i+1) + ".png"));
         }
         sandTimerView.setImage(blueFrames[0]);
 
         redFrames = new Image[FRAME_COUNT];
         for (int i = 0; i < FRAME_COUNT; i++) {
-            System.out.println("/Images/hourglass_red/frame_" + String.format("%02d", i+1) + ".png"); 
             redFrames[i] = new Image(getClass().getResourceAsStream("/Images/hourglass_red/frame_" + String.format("%02d", i+1) + ".png"));
         }
         sandTimerView.setImage(redFrames[0]);
     }
 
-    public void startAnimationAndCountdown() {
-        animationTimeline = new Timeline(
-            new KeyFrame(Duration.seconds((double) game.getTimeLimit() / FRAME_COUNT), event -> {
-                if (game.isBlueTurn()) {
-                    sandTimerView.setImage(blueFrames[currentFrame]);
-                } else {
-                    sandTimerView.setImage(redFrames[currentFrame]);
-                }
-                currentFrame = (currentFrame + 1) % FRAME_COUNT;
-            })
-        );
-        animationTimeline.setCycleCount(FRAME_COUNT);
-        animationTimeline.play();
+    private void startAnimationAndCountdown() {
+        // Réinitialisation
+        if (!timelineRunning) { // Sinon ça se lance 3 fois à cause des réactions
+            timelineRunning = true;
+            currentFrame = 0;
+            timeRemaining = game.getTimeLimit();  // Remets le temps restant à la durée du jeu
+            timeLabel.setText("Temps restant : " + timeRemaining);
+            timeLabel.setVisible(true);
 
-        countdownTimeline = new Timeline(
-            new KeyFrame(Duration.seconds(1), event -> {
-                timeRemaining--;
-                timeLabel.setText("Temps restant : " + String.valueOf(timeRemaining));
-                if (timeRemaining <= 0) {
-                    animationTimeline.stop();
-                    countdownTimeline.stop();
-                    game.changeTurn();
-                }
-            })
-        );
-        countdownTimeline.setCycleCount(timeRemaining);
-        countdownTimeline.play();
+            if (game.isBlueTurn()) {
+                sandTimerView.setImage(blueFrames[currentFrame]);
+                sandTimerView.setVisible(true);
+            } else {
+                sandTimerView.setImage(redFrames[currentFrame]);
+                sandTimerView.setVisible(true);
+            }
+
+            timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    action();
+                })
+            );
+            timeline.setCycleCount(game.getTimeLimit());
+            timeline.play();
+        }
+    }
+    
+    private void action() {
+        currentFrame = (currentFrame + 1) % 10;
+        if (game.isBlueTurn()) {
+            sandTimerView.setImage(blueFrames[currentFrame]);
+            sandTimerView.setVisible(true);
+        } else {
+            sandTimerView.setImage(redFrames[currentFrame]);
+            sandTimerView.setVisible(true);
+        }
+        timeRemaining--;
+        timeLabel.setText("Temps restant : " + timeRemaining);
+        timeLabel.setVisible(true);
+        if (timeRemaining <= 0) {
+            timeLabel.setVisible(false);
+            sandTimerView.setVisible(false);
+            turn();
+            timeline.stop();
+            timelineRunning = false;
+        }
     }
 
     private void turn() {
