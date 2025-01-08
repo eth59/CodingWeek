@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
 import javafx.stage.FileChooser;
-import codingweek.models.PageManager;
 
 public class Game extends Subject implements Serializable {
     private int boardSize;
