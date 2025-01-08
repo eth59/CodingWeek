@@ -21,7 +21,7 @@ public class GuesserViewController implements codingweek.Observer {
     private ImageView sandTimerView;
 
     @FXML
-    private Label lblTimer;
+    private Label timeLabel;
 
     private Game game;
 
@@ -29,11 +29,14 @@ public class GuesserViewController implements codingweek.Observer {
     private Image[] blueFrames;
     private Image[] redFrames;
     private int currentFrame = 0;
+    private int timeRemaining;
+    private Timeline animationTimeline, countdownTimeline;
 
     public void initialize() {
         game = Game.getInstance();
         game.ajouterObservateur(this);
 
+        timeRemaining = game.getTimeLimit();
         loadFrames();
         sandTimerView.setPreserveRatio(true); 
         sandTimerView.setVisible(false);
@@ -52,7 +55,7 @@ public class GuesserViewController implements codingweek.Observer {
         }
         if (game.isTimerRunning()) {
             sandTimerView.setVisible(true);
-            startSpriteAnimation();
+            startAnimationAndCountdown();
         } else {
             sandTimerView.setVisible(false);
         }
@@ -74,8 +77,8 @@ public class GuesserViewController implements codingweek.Observer {
         sandTimerView.setImage(redFrames[0]);
     }
 
-    public void startSpriteAnimation() {
-        Timeline timeline = new Timeline(
+    public void startAnimationAndCountdown() {
+        animationTimeline = new Timeline(
             new KeyFrame(Duration.seconds((double) game.getTimeLimit() / FRAME_COUNT), event -> {
                 if (game.isBlueTurn()) {
                     sandTimerView.setImage(blueFrames[currentFrame]);
@@ -85,36 +88,17 @@ public class GuesserViewController implements codingweek.Observer {
                 currentFrame = (currentFrame + 1) % FRAME_COUNT;
             })
         );
-        timeline.setCycleCount(FRAME_COUNT);
-        timeline.play();
-    }
-
-    public void startAnimationAndCountdown() {
-        currentFrame = 0;
-        sandTimerView.setVisible(true);
-        timeRemaining = 10;  // Réinitialiser le temps restant
-        timeLabel.setText(String.valueOf(timeRemaining));
-
-        // Animation du sablier
-        animationTimeline = new Timeline(
-            new KeyFrame(Duration.seconds(1), event -> {
-                sandTimerView.setImage(getFrame(currentFrame));
-                currentFrame = (currentFrame + 1) % FRAME_COUNT;
-            })
-        );
         animationTimeline.setCycleCount(FRAME_COUNT);
         animationTimeline.play();
 
-        // Décompte du temps restant
         countdownTimeline = new Timeline(
             new KeyFrame(Duration.seconds(1), event -> {
                 timeRemaining--;
-                timeLabel.setText(String.valueOf(timeRemaining));
+                timeLabel.setText("Temps restant : " + String.valueOf(timeRemaining));
                 if (timeRemaining <= 0) {
                     animationTimeline.stop();
                     countdownTimeline.stop();
-                    System.out.println("Temps écoulé !");
-                    changeTurn();  // Appelle une méthode pour changer de tour
+                    game.changeTurn();
                 }
             })
         );
