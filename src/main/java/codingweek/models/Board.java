@@ -37,4 +37,8 @@ public class Board implements Serializable{
             card.ajouterObservateur(object);
         }
     }
+
+    public void cleanCards() {
+        this.cards.clear();
+    }
 }

@@ -113,12 +113,12 @@ public class PageManager {
                 System.exit(1);
             }
             Parent configView = FXMLLoader.load(configViewURL);
-            Scene configScene = new Scene(configView, 800, 600);
+            Scene configScene = new Scene(configView, 490, 250);
             primaryStage.setScene(configScene);
             primaryStage.setTitle("Configuration Window");
             // Set position and size explicitly
-            primaryStage.setWidth(800);
-            primaryStage.setHeight(600);
+            primaryStage.setWidth(490);
+            primaryStage.setHeight(250);
             primaryStage.setX(100);
             primaryStage.setY(100);
             primaryStage.show();

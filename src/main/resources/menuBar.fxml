@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
 <MenuBar xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.MenuBarController">
     <Menu text="Menu">
         <MenuItem text="Charger" onAction="#Charger"/>
         <MenuItem text="Sauvegarder" onAction="#Sauvegarder"/>
         <MenuItem text="Retour Acceuil" onAction="#RetourAcceuil"/>
+    </Menu>
+    <Menu text="Leader Board">
+        <!-- Add MenuItems for Leader Board here -->
+        <MenuItem text="View Leader Board"/>
+        <MenuItem text="Reset Leader Board"/>
     </Menu>
 </MenuBar>

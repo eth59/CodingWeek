@@ -1,89 +1,89 @@
 package codingweek.controllers;
 
+import codingweek.models.Game;
+import codingweek.models.JsonReader;
+import codingweek.models.Key;
 import codingweek.models.PageManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
+import java.io.IOException;
+import java.util.Map;
 
 public class ConfigWindowController {
 
-    // Attributes
-    private ToggleGroup myToggleGroup1 = new ToggleGroup();
-    private ToggleGroup myToggleGroup2 = new ToggleGroup();
     @FXML
-    private RadioButton theme1, theme2, theme3;
-    @FXML
-    private RadioButton mode1, mode2;
-    @FXML
-    private Button quitButton;
+    private TextField boardSizeInput;
 
     @FXML
-    private ToggleButton toggleButton;
-    @FXML
-    private Button playButton;
+    private ComboBox<String> categoryDropdown;
 
-    private PageManager pageManager;
+    private final Game game;
+    private final PageManager pageManager;
+    private final Key key;
 
     public ConfigWindowController() {
-        pageManager = PageManager.getInstance();
+        this.game = Game.getInstance();
+        this.pageManager = PageManager.getInstance();
+        this.key = Key.getInstance();
     }
 
     @FXML
-    private void initialize() {
-
-        playButton.setOnAction(e -> {
-            System.out.println("Le bouton Play a été cliqué !");
-            pageManager.loadGuesserView();
-            pageManager.loadSpyView();
-        });
-
-        toggleButton.selectedProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal) {
-                System.out.println("ToggleButton est enclenché !");
-            } else {
-                System.out.println("ToggleButton est relâché !");
-            }
-        });
-
-        theme1.setToggleGroup(myToggleGroup1);
-        theme2.setToggleGroup(myToggleGroup1);
-        theme3.setToggleGroup(myToggleGroup1);
-
-        myToggleGroup1.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
-            // newToggle est le Toggle (RadioButton) sélectionné
-            if (newToggle == theme1) {
-                System.out.println("Thème 1 sélectionné");
-            }
-            else if (newToggle == theme2) {
-                System.out.println("Thème 2 sélectionné");
-            }
-            else if (newToggle == theme3) {
-                System.out.println("Thème 3 sélectionné");
-            }
-        });
-
-        mode1.setToggleGroup(myToggleGroup2);
-        mode2.setToggleGroup(myToggleGroup2);
-
-        myToggleGroup2.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
-            // newToggle est le Toggle (RadioButton) sélectionné
-            if (newToggle == mode1) {
-                System.out.println("Mode 'mots' sélectionné");
-            }
-            else if (newToggle == mode2) {
-                System.out.println("Mode 'images' sélectionné");
-            }
-        });
-
-        quitButton.setOnAction(e -> {
-            System.out.println("Le bouton Quit a été cliqué !");
-            System.exit(0);
-        });
-
+    public void initialize() {
+        // Affecte et affiche les categories du JSON dans le dropdown
+        try {
+            Map<String, ?> categories = JsonReader.getCategories("mots.json");
+            categoryDropdown.getItems().addAll(categories.keySet());
+        } catch (IOException e) {
+            showError("Error dans le chargement des categories", "Incapable de charger les categories depuis mots.json.");
+        }
     }
 
+    @FXML
+    private void onStartGame() {
+        try {
+            // Valider et affecter la taille du plateau
+            int boardSize = Integer.parseInt(boardSizeInput.getText());
+            if (boardSize < 3 || boardSize > 6) {
+                throw new IllegalArgumentException("Le tableau doit avoir entre 3 et 6 colonnes et lignes.");
+            }
+    
+            // Valider et affecter la categorie
+            String selectedCategory = categoryDropdown.getValue();
+            if (selectedCategory == null || selectedCategory.isEmpty()) {
+                throw new IllegalArgumentException("Choisissez une categorie.");
+            }
+    
+            // Initialiser le jeu apres que les configurations sont choisies
+            game.initializeGame(boardSize, selectedCategory);
 
+            // Initialiser la key
+            key.newKey();
+    
+            // Charger les autres fenetres
+            pageManager.loadGuesserView();
+            pageManager.loadSpyView();
+    
+            System.out.println("Le jeu commence avec un plateau de " + boardSize + "par " + boardSize + " et la categorie " + selectedCategory);
+    
+        } catch (NumberFormatException e) {
+            showError("Saisie invalide", "La taille du plateau doit etre un entier.");
+        } catch (IllegalArgumentException e) {
+            showError("Saisie invalide", e.getMessage());
+        } catch (Exception e) {
+            showError("Erreur", "Une erreur inconnue s'est produite: " + e.getMessage());
+        }
+    }
+    
+
+    private void showError(String title, String content) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }
-

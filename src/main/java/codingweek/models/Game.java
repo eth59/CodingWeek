@@ -3,6 +3,7 @@ package codingweek.models;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -21,11 +22,14 @@ public class Game extends Subject implements Serializable {
     private Board board;
     private static Game instance;
     private String category;
-    private final boolean[][] revealedTiles;
+    private boolean[][] revealedTiles;
     private int nbCardReturned;
     private int clueNb; // Nombre donné par l'espion
     private PageManager pageManager;
     private boolean isTimerRunning;
+    private int blueReturned; // Nombre de carte bleu retournée
+    private int redReturned; // Nombre de carte rouge retournée
+    private boolean blueBegin;
 
     private Game() {
         this.board = Board.getInstance();
@@ -33,10 +37,19 @@ public class Game extends Subject implements Serializable {
         this.timeLimit = 15;
         this.spyTurn = true;
         this.blueTurn = Math.random() > 0.5;
+        this.blueBegin = blueTurn;
         this.category = "Métier";
         this.guesses = new Stack<Guess>();
         revealedTiles = new boolean[boardSize][boardSize];
         this.nbCardReturned = 0;
+    }
+
+    public void initializeGame(int boardSize, String category) {
+        this.boardSize = boardSize;
+        this.category = category;
+        this.guesses.clear();
+        this.revealedTiles = new boolean[boardSize][boardSize];
+        initializeRevealedTiles();
         initializeBoard();
     }
 
@@ -47,12 +60,19 @@ public class Game extends Subject implements Serializable {
         return instance;
     }
 
+    // Affectation des categories
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public int getBoardSize() {
         return boardSize;
     }
 
     public void setBoardSize(int boardSize) {
         this.boardSize = boardSize;
+        initializeRevealedTiles();
+        initializeBoard();
     }
 
     public int getTimeLimit() {
@@ -110,6 +130,14 @@ public class Game extends Subject implements Serializable {
         return true;
     }
 
+    private void initializeRevealedTiles() {
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                revealedTiles[row][col] = false;
+            }
+        }
+    }
+    
     // Marque qu'une case du plateau a ete revelee
     public void revealTile(int row, int col) {
         revealedTiles[row][col] = true;
@@ -139,21 +167,44 @@ public class Game extends Subject implements Serializable {
 
     private void initializeBoard() {
         try {
-            ArrayList<String> cardName = new ArrayList<String>();
-            ArrayList<Card> cards = JsonReader.jsonReader("mots.json", this.category);
-            Collections.shuffle(cards);
-            for (int i = 0; i < 25; i++) {
-                cardName.add(cards.get(i).getWord());
-            }
-            for (int i = 0; i < 25; i++) {
-                cards.get(i).addForbiddenWords(cardName);
-                board.addCard(cards.get(i));
-            }
+            int totalCards = boardSize * boardSize; // Calcule le nombre de cartes necessaire
+            
+            // Recupere les cartes et les melange
+            ArrayList<Card> cards = getShuffledCards(this.category, totalCards);
+    
+            // Efface et peuple le plateau
+            populateBoard(cards, totalCards);
+    
+            // Reinitialise l'array des revealedTiles pour le plateau de nouvelle taille
+            initializeRevealedTiles();
+    
+            System.out.println("Plateau initialise avec " + totalCards + " cartes pour le pplateau de taille " + boardSize + "x" + boardSize);
         } catch (Exception e) {
-            System.err.println("Erreur lors de l'initialisation du plateau : " + e.getMessage());
+            System.err.println("Erreur lors de l'initialisation du plateau: " + e.getMessage());
         }
     }
     
+    private ArrayList<Card> getShuffledCards(String category, int totalCards) throws IOException {
+        ArrayList<Card> cards = JsonReader.jsonReader("mots.json", category);
+        if (cards.size() < totalCards) {
+            throw new IllegalArgumentException("Pas assez de cartes pour peupler le plateau.");
+        }
+        Collections.shuffle(cards);
+        return new ArrayList<>(cards.subList(0, totalCards));
+    }
+    
+    private void populateBoard(ArrayList<Card> cards, int totalCards) {
+        board.cleanCards();
+        ArrayList<String> cardNames = new ArrayList<>();
+        for (int i = 0; i < totalCards; i++) {
+            cardNames.add(cards.get(i).getWord());
+        }
+        for (int i = 0; i < totalCards; i++) {
+            cards.get(i).addForbiddenWords(cardNames);
+            board.addCard(cards.get(i));
+        }
+    }
+
     public void saveGame() {
         // Sauvegarde de la partie dans un fichier .game
 
@@ -226,12 +277,14 @@ public class Game extends Subject implements Serializable {
         if (blueTurn && card.getColor().equals("0x003566ff")) {
             // blue team's turn and card is blue
             this.nbCardReturned += 1;
+            this.blueReturned +=1;
             if (this.nbCardReturned == this.clueNb + 1) {
                 changeTurn();
             }
         } else if (!blueTurn && card.getColor().equals("0xc1121fff")) {
             // red team's turn and card is red
             this.nbCardReturned += 1;
+            this.redReturned +=1;
             if (this.nbCardReturned == this.clueNb + 1) {
                 changeTurn();
             }
@@ -242,9 +295,30 @@ public class Game extends Subject implements Serializable {
         } else if (card.getColor().equals("0x000000ff")) {
             // assassin
             pageManager.loadGameOverView();
-        } else {
+        } else  if (!blueTurn && card.getColor().equals("0x003566ff")) {
+            this.blueReturned +=1;
             // opponent's card
             changeTurn();
+        } else {
+            this.redReturned +=1;
+            changeTurn();
+        }
+        if (blueBegin) { // Bleu commençe
+            if (blueReturned == boardSize*boardSize/3+1) {
+                changeTurn();
+                pageManager.loadGameOverView();
+            } else if (redReturned == boardSize*boardSize/3) {
+                changeTurn();
+                pageManager.loadGameOverView();
+            }
+        } else if (!blueBegin) { // Rouge commençe
+            if (redReturned == boardSize*boardSize/3 + 1) {
+                changeTurn();
+                pageManager.loadGameOverView();
+            } else if (blueReturned == boardSize*boardSize/3) {
+                changeTurn();
+                pageManager.loadGameOverView();
+            }
         }
     }
 
