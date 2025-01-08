@@ -46,6 +46,11 @@ public class Game extends Subject implements Serializable {
         return instance;
     }
 
+    // Affectation des categories
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public int getBoardSize() {
         return boardSize;
     }
