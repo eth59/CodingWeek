@@ -15,7 +15,7 @@
     <!--    Zone CENTRE : On affiche une image    -->
     <center>
         <ImageView fx:id="imageCenter"
-                   fitWidth="300"
+                   fitWidth="600"
                    preserveRatio="true"
                    pickOnBounds="true" />
     </center>
