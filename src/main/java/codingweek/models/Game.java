@@ -25,6 +25,9 @@ public class Game extends Subject implements Serializable {
     private int nbCardReturned;
     private int clueNb; // Nombre donné par l'espion
     private PageManager pageManager;
+    private int blueReturned; // Nombre de carte bleu retournée
+    private int redReturned; // Nombre de carte rouge retournée
+    private boolean blueBegin;
 
     private Game() {
         this.board = Board.getInstance();
@@ -32,10 +35,13 @@ public class Game extends Subject implements Serializable {
         this.timeLimit = 60;
         this.spyTurn = true;
         this.blueTurn = Math.random() > 0.5;
+        this.blueBegin = blueTurn;
         this.category = "Métier";
         this.guesses = new Stack<Guess>();
         revealedTiles = new boolean[boardSize][boardSize];
         this.nbCardReturned = 0;
+        this.blueReturned = 0;
+        this.redReturned = 0;
         initializeBoard();
     }
 
@@ -222,12 +228,14 @@ public class Game extends Subject implements Serializable {
         if (blueTurn && card.getColor().equals("0x003566ff")) {
             // blue team's turn and card is blue
             this.nbCardReturned += 1;
+            this.blueReturned +=1;
             if (this.nbCardReturned == this.clueNb + 1) {
                 changeTurn();
             }
         } else if (!blueTurn && card.getColor().equals("0xc1121fff")) {
             // red team's turn and card is red
             this.nbCardReturned += 1;
+            this.redReturned +=1;
             if (this.nbCardReturned == this.clueNb + 1) {
                 changeTurn();
             }
@@ -238,9 +246,30 @@ public class Game extends Subject implements Serializable {
         } else if (card.getColor().equals("0x000000ff")) {
             // assassin
             pageManager.loadGameOverView();
-        } else {
+        } else  if (!blueTurn && card.getColor().equals("0x003566ff")) {
+            this.blueReturned +=1;
             // opponent's card
             changeTurn();
+        } else {
+            this.redReturned +=1;
+            changeTurn();
+        }
+        if (blueBegin) { // Bleu commençe
+            if (blueReturned == 9) {
+                changeTurn();
+                pageManager.loadGameOverView();
+            } else if (redReturned == 8) {
+                changeTurn();
+                pageManager.loadGameOverView();
+            }
+        } else if (!blueBegin) { // Rouge commençe
+            if (redReturned == 9) {
+                changeTurn();
+                pageManager.loadGameOverView();
+            } else if (blueReturned == 8) {
+                changeTurn();
+                pageManager.loadGameOverView();
+            }
         }
     }
 
