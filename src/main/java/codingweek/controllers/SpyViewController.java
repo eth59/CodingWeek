@@ -28,12 +28,6 @@ public class SpyViewController implements codingweek.Observer {
         updateBackground();
     }
 
-    private void turn() {
-        if (!game.isSpyTurn()) {
-            game.changeTurn();
-        }
-    }
-
     private void updateBackground() {
         Boolean currentTeam = game.isBlueTurn();
         String backgroundColor;
