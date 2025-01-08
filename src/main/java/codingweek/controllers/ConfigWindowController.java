@@ -44,8 +44,8 @@ public class ConfigWindowController {
         try {
             // Valider et affecter la taille du plateau
             int boardSize = Integer.parseInt(boardSizeInput.getText());
-            if (boardSize < 3 || boardSize > 7) {
-                throw new IllegalArgumentException("Le tableau doit avoir entre 3 et 7 colonnes et lignes.");
+            if (boardSize < 3 || boardSize > 6) {
+                throw new IllegalArgumentException("Le tableau doit avoir entre 3 et 6 colonnes et lignes.");
             }
     
             // Valider et affecter la categorie
