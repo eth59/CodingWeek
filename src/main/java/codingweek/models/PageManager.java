@@ -131,7 +131,6 @@ public class PageManager {
 
     public void loadGameOverViewBlueWin(){
         try {
-            closeSpyView();
             loadGameOverSpyViewBlueWin();
             displayStats();
 
@@ -186,7 +185,6 @@ public class PageManager {
 
     public void loadGameOverSpyViewRedWin() {
         try {
-            displayStats();
             URL spyViewURL = getClass().getResource("/gameOverViewRedWin.fxml");
             if (spyViewURL == null) {
                 throw new IOException("Could not find gameOverViewRedWin.fxml");
@@ -213,7 +211,6 @@ public class PageManager {
 
     public void loadGameOverSpyViewBlueWin() {
         try {
-            displayStats();
             URL spyViewURL = getClass().getResource("/gameOverViewBlueWin.fxml");
             if (spyViewURL == null) {
                 throw new IOException("Could not find gameOverViewBlueWin.fxml");

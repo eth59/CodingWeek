@@ -31,6 +31,7 @@ public class Game extends Subject implements Serializable {
     private int redReturned; // Nombre de carte rouge retournée
     private boolean blueBegin;
     private static Stats stats = new Stats();
+    private int correctGuesses;
 
 
     private Game() {
@@ -130,6 +131,11 @@ public class Game extends Subject implements Serializable {
             Guess guess = new Guess(clue, clueNb);
             addGuess(guess);
             this.clueNb = clueNb; 
+            if (blueTurn) {
+                stats.addBlueTeamClue(clueNb, 0); // Add a new clue for the blue team
+            } else {
+                stats.addRedTeamClue(clueNb, 0); // Add a new clue for the red team
+            }
             changeTurn();
             notifierObservateurs();
             return 1;
@@ -292,54 +298,62 @@ public class Game extends Subject implements Serializable {
 
     // Gere la logique quand les carte sont retournees
     public void returnCard(Card card) {
-        int correctGuesses = 0;
-
+        boolean turnChanged = false;
+        int blueCorrectGuess = 0;
+        int redCorrectGuess = 0;
         if (blueTurn && card.getColor().equals("0x003566ff")) {
             // Au tour de l'equipe bleue et la couleur de la carte est revelee
             this.nbCardReturned += 1;
             this.blueReturned += 1;
-            correctGuesses++;
+            this.correctGuesses++; 
+            blueCorrectGuess++;
             if (this.nbCardReturned == this.clueNb + 1) {
-                stats.addCorrectGuesses(correctGuesses);
-                changeTurn();
+                System.out.println("All moves played");
+                stats.updateBlueTeamCorrectGuesses(this.clueNb, blueCorrectGuess);
+                turnChanged = true;
             }
         } else if (!blueTurn && card.getColor().equals("0xc1121fff")) {
-            // Au tour de l'equipe bleue et la couleur de la carte est revelee
+            // Au tour de l'equipe rouge et la couleur de la carte est revelee
             this.nbCardReturned += 1;
             this.redReturned += 1;
-            correctGuesses++;
+            this.correctGuesses++;
+            redCorrectGuess++;
             if (this.nbCardReturned == this.clueNb + 1) {
-                stats.addCorrectGuesses(correctGuesses); 
-                changeTurn();
+                System.out.println("All moves played");
+                stats.updateRedTeamCorrectGuesses(this.clueNb, redCorrectGuess); 
+                turnChanged = true;
             }
         } else if (card.getColor().equals("0xf0ead2ff")) {
-            stats.addCorrectGuesses(correctGuesses);
             // Si la carte retournee est neutre le tour passe
-            changeTurn();
+            turnChanged = true;
         } else if (card.getColor().equals("0x000000ff")) {
-            stats.addCorrectGuesses(correctGuesses);
             // Appelle la fonction qui gere quand la carte de l'assasine est retournee
             handleAssassinCard();
             return; 
         } else if (!blueTurn && card.getColor().equals("0x003566ff")) {
-            stats.addCorrectGuesses(correctGuesses);
             // Carte de l'adversaire est retournee
             this.blueReturned += 1;
-            changeTurn();
+            turnChanged = true;
         } else {
-            stats.addCorrectGuesses(correctGuesses);
             this.redReturned += 1;
+            turnChanged = true;
+        }
+
+        // Gere les changements de tour
+        if (turnChanged) {
+            stats.addCorrectGuesses(this.correctGuesses); // Add to total guesses
             changeTurn();
         }
-    
         // Verifie les conditions de victoire
         checkWinConditions();
     }
     
     private void handleAssassinCard() {
         if (blueTurn) {
+            stats.incrementRedTeamWins();
             pageManager.loadGameOverViewRedWin();
         } else {
+            stats.incrementBlueTeamWins();
             pageManager.loadGameOverViewBlueWin();
         }
     }
@@ -350,19 +364,22 @@ public class Game extends Subject implements Serializable {
                 stats.incrementBlueTeamWins();
                 pageManager.loadGameOverViewBlueWin();
             } else if (redReturned == boardSize * boardSize / 3) {
-                stats.incrementRedTeamWins(); 
+                stats.incrementRedTeamWins();
                 pageManager.loadGameOverViewRedWin();
             }
         } else {
             if (redReturned == boardSize * boardSize / 3 + 1) {
-                stats.incrementRedTeamWins(); 
+                stats.incrementRedTeamWins();
+                stats.incrementGamesLaunched();
                 pageManager.loadGameOverViewRedWin();
             } else if (blueReturned == boardSize * boardSize / 3) {
                 stats.incrementBlueTeamWins();
+                stats.incrementGamesLaunched();
                 pageManager.loadGameOverViewBlueWin();
             }
         }
     }
+    
     
 
     public int getNbCardsReturned() {
