@@ -327,7 +327,6 @@ public class Game extends Subject implements Serializable {
                 pageManager.loadGameOverViewBlueWin();
             }
         }
-        System.out.println("nombre de carte rouge retournée : " + redReturned + "et nombre de carte bleu retournée : "+ blueReturned);
     }
 
     public int getNbCardsReturned() {
