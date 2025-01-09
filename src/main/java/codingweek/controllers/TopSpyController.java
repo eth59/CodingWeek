@@ -5,6 +5,7 @@ import codingweek.models.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
 
@@ -26,6 +27,20 @@ public class TopSpyController implements Observer {
         fadeTransition.setToValue(0.0);   // Opacité minimale (invisible)
         fadeTransition.setCycleCount(FadeTransition.INDEFINITE);   // Le texte disparaît puis réapparaît
         fadeTransition.setAutoReverse(true); // Revenir à l'état initial (visible)
+
+        // Ajout de listeners pour détecter la touche Entrée dans les TextField
+        clueField.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                submitClue();
+            }
+        });
+
+        numberField.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                submitClue();
+            }
+        });
+
         reagir();
     }
 

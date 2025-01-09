@@ -3,7 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefWidth="800" prefHeight="600">
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="codingweek.controllers.SpyViewController"
+            prefWidth="800" prefHeight="600"
+            fx:id="rootPane">
    <top>
       <fx:include source="menuBar.fxml" />
    </top>
@@ -11,6 +16,9 @@
       <VBox>
          <fx:include source="topSpy.fxml" />
          <HBox>
+            <padding>
+               <Insets top="30"/>
+            </padding>
             <fx:include source="spyBoard.fxml" fx:id="spyBoard"/>
             <fx:include source="key.fxml" />
          </HBox>

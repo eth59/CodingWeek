@@ -26,14 +26,13 @@ public class Game extends Subject implements Serializable {
     private int nbCardReturned;
     private int clueNb; // Nombre donné par l'espion
     private PageManager pageManager;
+    private boolean isTimerRunning;
     private int blueReturned; // Nombre de carte bleu retournée
     private int redReturned; // Nombre de carte rouge retournée
     private boolean blueBegin;
 
     private Game() {
         this.board = Board.getInstance();
-        this.boardSize = 5;
-        this.timeLimit = 60;
         this.spyTurn = true;
         this.blueTurn = Math.random() > 0.5;
         this.blueBegin = blueTurn;
@@ -41,13 +40,25 @@ public class Game extends Subject implements Serializable {
         this.guesses = new Stack<Guess>();
         revealedTiles = new boolean[boardSize][boardSize];
         this.nbCardReturned = 0;
+        this.blueReturned = 0;
+        this.redReturned = 0;
     }
 
-    public void initializeGame(int boardSize, String category) {
+    public void initializeGame(int boardSize, String category, String timeLimit) {
         this.boardSize = boardSize;
         this.category = category;
         this.guesses.clear();
         this.revealedTiles = new boolean[boardSize][boardSize];
+        if (timeLimit.equals("illimité")) {
+            this.timeLimit = 0;
+        } else {
+            this.timeLimit = Integer.parseInt(timeLimit);
+        }
+        this.blueReturned = 0;
+        this.redReturned = 0;
+        this.blueTurn = Math.random() > 0.5;
+        this.blueBegin = blueTurn;
+        this.spyTurn = true;
         initializeRevealedTiles();
         initializeBoard();
     }
@@ -151,12 +162,15 @@ public class Game extends Subject implements Serializable {
         this.nbCardReturned = 0;
         if (spyTurn) {
             spyTurn = false;
+            startTimer();
         } else if (blueTurn) {
             blueTurn = false;
             spyTurn = true;
+            stopTimer();
         } else {
             blueTurn = true;
             spyTurn = true;
+            stopTimer();
         }
         notifierObservateurs();
     }
@@ -290,7 +304,11 @@ public class Game extends Subject implements Serializable {
             
         } else if (card.getColor().equals("0x000000ff")) {
             // assassin
-            pageManager.loadGameOverView();
+            if (blueTurn) {
+                pageManager.loadGameOverViewRedWin();
+            } else {
+                pageManager.loadGameOverViewBlueWin();
+            }
         } else  if (!blueTurn && card.getColor().equals("0x003566ff")) {
             this.blueReturned +=1;
             // opponent's card
@@ -300,20 +318,16 @@ public class Game extends Subject implements Serializable {
             changeTurn();
         }
         if (blueBegin) { // Bleu commençe
-            if (blueReturned == 9) {
-                changeTurn();
-                pageManager.loadGameOverView();
-            } else if (redReturned == 8) {
-                changeTurn();
-                pageManager.loadGameOverView();
+            if (blueReturned == boardSize*boardSize/3+1) {
+                pageManager.loadGameOverViewBlueWin();
+            } else if (redReturned == boardSize*boardSize/3) {
+                pageManager.loadGameOverViewRedWin();
             }
         } else if (!blueBegin) { // Rouge commençe
-            if (redReturned == 9) {
-                changeTurn();
-                pageManager.loadGameOverView();
-            } else if (blueReturned == 8) {
-                changeTurn();
-                pageManager.loadGameOverView();
+            if (redReturned == boardSize*boardSize/3 + 1) {
+                pageManager.loadGameOverViewRedWin();
+            } else if (blueReturned == boardSize*boardSize/3) {
+                pageManager.loadGameOverViewBlueWin();
             }
         }
     }
@@ -326,4 +340,31 @@ public class Game extends Subject implements Serializable {
         pageManager = PageManager.getInstance();
     }
 
+    public void startTimer() {
+        if (this.timeLimit > 0) {
+            isTimerRunning = true;
+            notifierObservateurs();    
+        }
+    }
+
+    private void stopTimer() {
+        isTimerRunning = false;
+        notifierObservateurs();
+    }
+
+    public boolean isTimerRunning() {
+        return isTimerRunning;
+    }
+
+    public int getBlueReturned(){
+        return blueReturned;
+    }
+
+    public int getRedReturned(){
+        return redReturned;
+    }
+
+    public boolean getBlueBegin(){
+        return blueBegin;
+    }
 }
