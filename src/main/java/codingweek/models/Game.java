@@ -40,6 +40,8 @@ public class Game extends Subject implements Serializable {
         this.guesses = new Stack<Guess>();
         revealedTiles = new boolean[boardSize][boardSize];
         this.nbCardReturned = 0;
+        this.blueReturned = 0;
+        this.redReturned = 0;
     }
 
     public void initializeGame(int boardSize, String category, String timeLimit) {
@@ -52,6 +54,11 @@ public class Game extends Subject implements Serializable {
         } else {
             this.timeLimit = Integer.parseInt(timeLimit);
         }
+        this.blueReturned = 0;
+        this.redReturned = 0;
+        this.blueTurn = Math.random() > 0.5;
+        this.blueBegin = blueTurn;
+        this.spyTurn = true;
         initializeRevealedTiles();
         initializeBoard();
     }
@@ -297,7 +304,11 @@ public class Game extends Subject implements Serializable {
             
         } else if (card.getColor().equals("0x000000ff")) {
             // assassin
-            pageManager.loadGameOverView();
+            if (blueTurn) {
+                pageManager.loadGameOverViewRedWin();
+            } else {
+                pageManager.loadGameOverViewBlueWin();
+            }
         } else  if (!blueTurn && card.getColor().equals("0x003566ff")) {
             this.blueReturned +=1;
             // opponent's card
@@ -308,19 +319,15 @@ public class Game extends Subject implements Serializable {
         }
         if (blueBegin) { // Bleu commençe
             if (blueReturned == boardSize*boardSize/3+1) {
-                changeTurn();
-                pageManager.loadGameOverView();
+                pageManager.loadGameOverViewBlueWin();
             } else if (redReturned == boardSize*boardSize/3) {
-                changeTurn();
-                pageManager.loadGameOverView();
+                pageManager.loadGameOverViewRedWin();
             }
         } else if (!blueBegin) { // Rouge commençe
             if (redReturned == boardSize*boardSize/3 + 1) {
-                changeTurn();
-                pageManager.loadGameOverView();
+                pageManager.loadGameOverViewRedWin();
             } else if (blueReturned == boardSize*boardSize/3) {
-                changeTurn();
-                pageManager.loadGameOverView();
+                pageManager.loadGameOverViewBlueWin();
             }
         }
     }
@@ -347,5 +354,17 @@ public class Game extends Subject implements Serializable {
 
     public boolean isTimerRunning() {
         return isTimerRunning;
+    }
+
+    public int getBlueReturned(){
+        return blueReturned;
+    }
+
+    public int getRedReturned(){
+        return redReturned;
+    }
+
+    public boolean getBlueBegin(){
+        return blueBegin;
     }
 }
