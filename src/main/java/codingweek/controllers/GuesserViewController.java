@@ -64,6 +64,7 @@ public class GuesserViewController implements codingweek.Observer {
         } else {
             stopTimeLine();
         }
+        updateBackground();
     }
 
     private void loadFrames() {
@@ -123,7 +124,6 @@ public class GuesserViewController implements codingweek.Observer {
             stopTimeLine();
             turn();
         }
-        updateBackground();
     }
 
     private void stopTimeLine() {
@@ -132,7 +132,6 @@ public class GuesserViewController implements codingweek.Observer {
             sandTimerView.setVisible(false);
             timeline.stop();
             timelineRunning = false;
-            updateBackground();
         }
     }
 
