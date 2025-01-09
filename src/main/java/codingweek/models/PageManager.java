@@ -129,13 +129,13 @@ public class PageManager {
         }
     }
 
-    public void loadGameOverView(){
+    public void loadGameOverViewBlueWin(){
         try {
             closeSpyView();
-            loadGameOverSpyView();
-            URL gameOverViewURL = getClass().getResource("/gameOverView.fxml");
+            loadGameOverSpyViewBlueWin();
+            URL gameOverViewURL = getClass().getResource("/gameOverViewBlueWin.fxml");
             if (gameOverViewURL == null){
-                System.err.println("Could not find gameOverView.fxml");
+                System.err.println("Could not find gameOverViewBlueWin.fxml");
                 System.exit(1);
             }
             Parent gameOverView = FXMLLoader.load(gameOverViewURL);
@@ -155,11 +155,63 @@ public class PageManager {
         }
     }
 
-    public void loadGameOverSpyView() {
+    public void loadGameOverViewRedWin(){
         try {
-            URL spyViewURL = getClass().getResource("/gameOverView.fxml");
+            closeSpyView();
+            loadGameOverSpyViewRedWin();
+            URL gameOverViewURL = getClass().getResource("/gameOverViewRedWin.fxml");
+            if (gameOverViewURL == null){
+                System.err.println("Could not find gameOverViewRedWin.fxml");
+                System.exit(1);
+            }
+            Parent gameOverView = FXMLLoader.load(gameOverViewURL);
+            Scene gameOverScene = new Scene(gameOverView, 800, 600);
+            primaryStage.setScene(gameOverScene);
+            primaryStage.setTitle("Guesser Window");
+            // Set position and size explicitly
+            primaryStage.setWidth(800);
+            primaryStage.setHeight(600);
+            primaryStage.setX(100);
+            primaryStage.setY(100);
+            primaryStage.show();
+        } catch (IOException e){
+            System.err.println("Failed to load gameOverWindow.fxml: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    public void loadGameOverSpyViewRedWin() {
+        try {
+            URL spyViewURL = getClass().getResource("/gameOverViewRedWin.fxml");
             if (spyViewURL == null) {
-                throw new IOException("Could not find gameOverView.fxml");
+                throw new IOException("Could not find gameOverViewRedWin.fxml");
+            }
+            FXMLLoader loader = new FXMLLoader(spyViewURL);
+            Parent spyView = loader.load();
+            Scene spyScene = new Scene(spyView, 800, 600);
+
+            spyStage = new Stage();
+            spyStage.setScene(spyScene);
+            spyStage.setTitle("Spy Window");
+
+            spyStage.setWidth(800);
+            spyStage.setHeight(600);
+            spyStage.setX(primaryStage.getX() + primaryStage.getWidth() + 20);
+            spyStage.setY(primaryStage.getY());
+
+            spyStage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load spyView.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void loadGameOverSpyViewBlueWin() {
+        try {
+            URL spyViewURL = getClass().getResource("/gameOverViewBlueWin.fxml");
+            if (spyViewURL == null) {
+                throw new IOException("Could not find gameOverViewBlueWin.fxml");
             }
             FXMLLoader loader = new FXMLLoader(spyViewURL);
             Parent spyView = loader.load();
