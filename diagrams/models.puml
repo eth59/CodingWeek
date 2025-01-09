@@ -52,6 +52,9 @@ package models{
     - redReturned : int
     - blueBegin : boolean
     - redBegin : boolean
+    + Game()
+    + initializeGame(boardSize : int, category : String, timeLimit : String, imagesMode : boolean) : void
+    + getInstance() : Game {static}
 
     }
 
