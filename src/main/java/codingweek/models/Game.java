@@ -130,12 +130,7 @@ public class Game extends Subject implements Serializable {
         if (clueIsValid(clue) && 0 < clueNb && clueNb <= (int) Math.pow(this.boardSize, 2) && this.spyTurn) {
             Guess guess = new Guess(clue, clueNb);
             addGuess(guess);
-            this.clueNb = clueNb; 
-            if (blueTurn) {
-                stats.addBlueTeamClue(clueNb, 0); // Add a new clue for the blue team
-            } else {
-                stats.addRedTeamClue(clueNb, 0); // Add a new clue for the red team
-            }
+            this.clueNb = clueNb;
             changeTurn();
             notifierObservateurs();
             return 1;
@@ -299,17 +294,13 @@ public class Game extends Subject implements Serializable {
     // Gere la logique quand les carte sont retournees
     public void returnCard(Card card) {
         boolean turnChanged = false;
-        int blueCorrectGuess = 0;
-        int redCorrectGuess = 0;
         if (blueTurn && card.getColor().equals("0x003566ff")) {
             // Au tour de l'equipe bleue et la couleur de la carte est revelee
             this.nbCardReturned += 1;
             this.blueReturned += 1;
-            this.correctGuesses++; 
-            blueCorrectGuess++;
+            this.correctGuesses++;
             if (this.nbCardReturned == this.clueNb + 1) {
                 System.out.println("All moves played");
-                stats.updateBlueTeamCorrectGuesses(this.clueNb, blueCorrectGuess);
                 turnChanged = true;
             }
         } else if (!blueTurn && card.getColor().equals("0xc1121fff")) {
@@ -317,10 +308,8 @@ public class Game extends Subject implements Serializable {
             this.nbCardReturned += 1;
             this.redReturned += 1;
             this.correctGuesses++;
-            redCorrectGuess++;
             if (this.nbCardReturned == this.clueNb + 1) {
                 System.out.println("All moves played");
-                stats.updateRedTeamCorrectGuesses(this.clueNb, redCorrectGuess); 
                 turnChanged = true;
             }
         } else if (card.getColor().equals("0xf0ead2ff")) {
@@ -328,6 +317,12 @@ public class Game extends Subject implements Serializable {
             turnChanged = true;
         } else if (card.getColor().equals("0x000000ff")) {
             // Appelle la fonction qui gere quand la carte de l'assasine est retournee
+            if (blueTurn) {
+                stats.addBlueTeamClue(clueNb, correctGuesses);
+            } else {
+                stats.addRedTeamClue(clueNb, correctGuesses);
+            }
+            correctGuesses = 0;
             handleAssassinCard();
             return; 
         } else if (!blueTurn && card.getColor().equals("0x003566ff")) {
@@ -341,6 +336,12 @@ public class Game extends Subject implements Serializable {
 
         // Gere les changements de tour
         if (turnChanged) {
+            if (blueTurn) {
+                stats.addBlueTeamClue(clueNb, correctGuesses);
+            } else {
+                stats.addRedTeamClue(clueNb, correctGuesses);
+            }
+            correctGuesses = 0;
             stats.addCorrectGuesses(this.correctGuesses); // Add to total guesses
             changeTurn();
         }

@@ -1,8 +1,7 @@
 package codingweek.models;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class Stats implements Serializable {
     private int blueTeamWins;
@@ -12,8 +11,8 @@ public class Stats implements Serializable {
     private int blueTeamClueSubmissions;
     private int redTeamClueSubmissions;
 
-    private Map<Integer, ClueStats> blueTeamClueStats;
-    private Map<Integer, ClueStats> redTeamClueStats;
+    private ArrayList<ClueStats> blueTeamClueStats;
+    private ArrayList<ClueStats> redTeamClueStats;
 
     public Stats() {
         this.blueTeamWins = 0;
@@ -22,8 +21,8 @@ public class Stats implements Serializable {
         this.totalCorrectGuesses = 0;
         this.blueTeamClueSubmissions = 0;
         this.redTeamClueSubmissions = 0;
-        this.blueTeamClueStats = new HashMap<>();
-        this.redTeamClueStats = new HashMap<>();
+        this.blueTeamClueStats = new ArrayList<ClueStats>();
+        this.redTeamClueStats = new ArrayList<ClueStats>();
     }
 
     public void incrementBlueTeamWins() {
@@ -44,39 +43,34 @@ public class Stats implements Serializable {
 
     public void addBlueTeamClue(int clueNb, int correctGuesses) {
         this.blueTeamClueSubmissions++;
-        blueTeamClueStats.put(clueNb, new ClueStats(clueNb, correctGuesses));
+        blueTeamClueStats.add(new ClueStats(clueNb, correctGuesses));
     }
 
     public void addRedTeamClue(int clueNb, int correctGuesses) {
         this.redTeamClueSubmissions++;
-        redTeamClueStats.put(clueNb, new ClueStats(clueNb, correctGuesses));
+        redTeamClueStats.add(new ClueStats(clueNb, correctGuesses));
     }
-
-    public void updateBlueTeamCorrectGuesses(int clueNb, int correctGuesses) {
-        blueTeamClueStats.computeIfPresent(clueNb, (key, stats) -> {
-            stats.setCorrectGuesses(correctGuesses);
-            return stats;
-        });
-    }
-
-    public void updateRedTeamCorrectGuesses(int clueNb, int correctGuesses) {
-        redTeamClueStats.computeIfPresent(clueNb, (key, stats) -> {
-            stats.setCorrectGuesses(correctGuesses);
-            return stats;
-        });
-    }
-
+    
     @Override
     public String toString() {
-        return "Stats:\n" +
+        String res = "Stats:\n" +
                 "Blue Team Wins: " + blueTeamWins + "\n" +
                 "Red Team Wins: " + redTeamWins + "\n" +
                 "Games Launched: " + gamesLaunched + "\n" +
                 "Total Correct Guesses: " + totalCorrectGuesses + "\n" +
                 "Blue Team Clue Submissions: " + blueTeamClueSubmissions + "\n" +
                 "Red Team Clue Submissions: " + redTeamClueSubmissions + "\n" +
-                "Blue Team Clue Stats: " + blueTeamClueStats.values() + "\n" +
-                "Red Team Clue Stats: " + redTeamClueStats.values();
+                "Blue Team Clue Stats: ";
+                // "Blue Team Clue Stats: " + blueTeamClueStats.values() + "\n" +
+                // "Red Team Clue Stats: " + redTeamClueStats.values();
+        for (ClueStats clueStats : blueTeamClueStats) {
+            res += clueStats.toString() + " ; ";
+        }
+        res += "\nRed Team Clue Stats: ";
+        for (ClueStats clueStats : redTeamClueStats) {
+            res += clueStats.toString() + " ; ";
+        }
+        return res;
     }
 
     public static class ClueStats {
@@ -102,7 +96,7 @@ public class Stats implements Serializable {
 
         @Override
         public String toString() {
-            return "Clue " + clueNb + ": " + correctGuesses + " correct guesses";
+            return "[Clue " + clueNb + ": " + correctGuesses + " correct guesses]";
         }
     }
 }
