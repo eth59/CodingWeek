@@ -46,7 +46,7 @@ public class JsonReader {
         Category cat = root.categories.get(category);
         if (cat != null) {
             for (Word word : cat.mots) {
-                if (imagesMode) {
+                if (imagesMode && word.chemin != null) {
                     card = new Card(word.chemin, Card.NEUTRAL_COLOR);
                 } else {
                     card = new Card(word.mot, Card.NEUTRAL_COLOR);

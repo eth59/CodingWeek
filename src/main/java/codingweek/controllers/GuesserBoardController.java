@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class GuesserBoardController implements codingweek.Observer {
@@ -54,11 +56,25 @@ public class GuesserBoardController implements codingweek.Observer {
                 cardPane.setPrefSize(100, 100);
 
                 if (game.getImagesMode()) {
-                    javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView(card.getWord());
-                    imageView.setFitWidth(80);
-                    imageView.setFitHeight(80);
-                    imageView.setPreserveRatio(true);
-                    cardPane.getChildren().add(imageView);
+                    try {
+                        javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView(card.getWord());
+                        imageView.setFitWidth(80);
+                        imageView.setFitHeight(80);
+                        imageView.setPreserveRatio(true);
+                        cardPane.getChildren().add(imageView);
+                    } catch (Exception e) {
+                        System.out.println(card.getWord());
+                        // On récupère le filename pour afficher le mot à la place de l'image
+                        Path path = Paths.get(card.getWord());
+                        String fileNameWithExtension = path.getFileName().toString();
+                        int lastDotIndex = fileNameWithExtension.lastIndexOf('.');
+                        String fileNameWithoutExtension = lastDotIndex == -1 ? 
+                                                        fileNameWithExtension : 
+                                                        fileNameWithExtension.substring(0, lastDotIndex);
+                        Label wordLabel = new Label(fileNameWithoutExtension);
+                        wordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
+                        cardPane.getChildren().add(wordLabel);
+                    }
                 } else {
                     Label wordLabel = new Label(card.getWord());
                     wordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
