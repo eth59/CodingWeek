@@ -33,8 +33,6 @@ public class Game extends Subject implements Serializable {
 
     private Game() {
         this.board = Board.getInstance();
-        this.boardSize = 5;
-        this.timeLimit = 15;
         this.spyTurn = true;
         this.blueTurn = Math.random() > 0.5;
         this.blueBegin = blueTurn;
@@ -46,11 +44,16 @@ public class Game extends Subject implements Serializable {
         this.redReturned = 0;
     }
 
-    public void initializeGame(int boardSize, String category) {
+    public void initializeGame(int boardSize, String category, String timeLimit) {
         this.boardSize = boardSize;
         this.category = category;
         this.guesses.clear();
         this.revealedTiles = new boolean[boardSize][boardSize];
+        if (timeLimit.equals("illimité")) {
+            this.timeLimit = 0;
+        } else {
+            this.timeLimit = Integer.parseInt(timeLimit);
+        }
         this.blueReturned = 0;
         this.redReturned = 0;
         this.blueTurn = Math.random() > 0.5;
@@ -338,8 +341,10 @@ public class Game extends Subject implements Serializable {
     }
 
     public void startTimer() {
-        isTimerRunning = true;
-        notifierObservateurs();
+        if (this.timeLimit > 0) {
+            isTimerRunning = true;
+            notifierObservateurs();    
+        }
     }
 
     private void stopTimer() {
