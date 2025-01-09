@@ -22,6 +22,10 @@
                 <ComboBox fx:id="categoryDropdown" />
             </HBox>
             <HBox spacing="10" alignment="CENTER">
+                <Label text="Image Mode:" style="-fx-text-fill: white;" />
+                <CheckBox fx:id="imagesModeCheckbox" />
+            </HBox>
+            <HBox spacing="10" alignment="CENTER">
                 <Label text="Time limit (in seconds):" style = "-fx-text-fill: white;" />
                 <TextField fx:id="timeLimitInput" promptText="Enter a time limit" text="illimité"/>
             </HBox>

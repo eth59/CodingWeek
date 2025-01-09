@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 
 import java.io.IOException;
 import java.util.Map;
@@ -20,6 +21,9 @@ public class ConfigWindowController {
 
     @FXML
     private ComboBox<String> categoryDropdown;
+
+    @FXML
+    private CheckBox imagesModeCheckbox;
 
     private final Game game;
     private final PageManager pageManager;
@@ -65,9 +69,12 @@ public class ConfigWindowController {
             if (!timeLimit.equals("illimité") && !(isNumeric(timeLimit) && Integer.parseInt(timeLimit) >= 10)) {
                 throw new IllegalArgumentException("Entrez une limite de temps valide. Elle doit valloir illimité ou un nombre entier supérieur à 10.");
             }
+
+            // Valider et affecter le mode d'images
+            boolean imagesMode = imagesModeCheckbox.isSelected();
     
             // Initialiser le jeu apres que les configurations sont choisies
-            game.initializeGame(boardSize, selectedCategory, timeLimit);
+            game.initializeGame(boardSize, selectedCategory, timeLimit, imagesMode);
 
             // Initialiser la key
             key.newKey();
