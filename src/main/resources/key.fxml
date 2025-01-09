@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="gridPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.KeyController">
-    <!-- Grid will be dynamically populated -->
-</GridPane>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.KeyController">
+    <Button text="Afficher la clef" fx:id="toggleKeyButton"/>
+    <GridPane fx:id="gridPane" visible="false">
+        <!-- Grid will be dynamically populated -->
+    </GridPane>
+</VBox>
