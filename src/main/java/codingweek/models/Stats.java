@@ -34,6 +34,7 @@ public class Stats implements Serializable {
     // Increment the total number of correct guesses
     public void addCorrectGuesses(int correctGuesses) {
         this.totalCorrectGuesses += correctGuesses;
+        System.out.println("Total correct guesses: " + this.totalCorrectGuesses);
     }
 
     // Getters

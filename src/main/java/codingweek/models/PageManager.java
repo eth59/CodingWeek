@@ -133,6 +133,8 @@ public class PageManager {
         try {
             closeSpyView();
             loadGameOverSpyViewBlueWin();
+            displayStats();
+
             URL gameOverViewURL = getClass().getResource("/gameOverViewBlueWin.fxml");
             if (gameOverViewURL == null){
                 System.err.println("Could not find gameOverViewBlueWin.fxml");
@@ -159,6 +161,7 @@ public class PageManager {
         try {
             closeSpyView();
             loadGameOverSpyViewRedWin();
+            displayStats();
             URL gameOverViewURL = getClass().getResource("/gameOverViewRedWin.fxml");
             if (gameOverViewURL == null){
                 System.err.println("Could not find gameOverViewRedWin.fxml");
@@ -183,6 +186,7 @@ public class PageManager {
 
     public void loadGameOverSpyViewRedWin() {
         try {
+            displayStats();
             URL spyViewURL = getClass().getResource("/gameOverViewRedWin.fxml");
             if (spyViewURL == null) {
                 throw new IOException("Could not find gameOverViewRedWin.fxml");
@@ -209,6 +213,7 @@ public class PageManager {
 
     public void loadGameOverSpyViewBlueWin() {
         try {
+            displayStats();
             URL spyViewURL = getClass().getResource("/gameOverViewBlueWin.fxml");
             if (spyViewURL == null) {
                 throw new IOException("Could not find gameOverViewBlueWin.fxml");
@@ -250,4 +255,10 @@ public class PageManager {
     public GuesserBoardController getGuesserBoardController() {
         return guesserBoardController;
     }
+
+    public void displayStats() {
+        Stats stats = Game.getStats();
+        System.out.println(stats); // Replace with proper UI logic
+    }
+    
 }
