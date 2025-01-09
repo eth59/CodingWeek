@@ -14,12 +14,16 @@
         <VBox spacing="10" alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <Label text="Game Configuration" style="-fx-font-size: 16px; -fx-font-weight: bold;-fx-text-fill: white;" />
             <HBox spacing="10" alignment="CENTER">
-                <Label text="Board Size :" style = "-fx-text-fill: white;" />
-                <TextField fx:id="boardSizeInput" promptText="Enter a size (3-7)" />
+                <Label text="Board Size:" style = "-fx-text-fill: white;" />
+                <TextField fx:id="boardSizeInput" promptText="Enter a size (3-7)" text="5"/>
             </HBox>
             <HBox spacing="10" alignment="CENTER">
-                <Label text="Select Category :" style = "-fx-text-fill: white;"/>
+                <Label text="Select Category:" style = "-fx-text-fill: white;"/>
                 <ComboBox fx:id="categoryDropdown" />
+            </HBox>
+            <HBox>
+                <Label text="Time limit (in seconds):" style = "-fx-text-fill: white;" />
+                <TextField fx:id="timeLimitInput" promptText="Enter a time limit" text="illimité"/>
             </HBox>
             <Button text="Start Game" onAction="#onStartGame" />
         </VBox>
