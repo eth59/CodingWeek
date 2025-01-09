@@ -37,7 +37,6 @@ public class ConfigWindowController {
         try {
             Map<String, ?> categories = JsonReader.getCategories("mots.json");
             categoryDropdown.getItems().addAll(categories.keySet());
-            categoryDropdown.setValue("Animaux");
         } catch (IOException e) {
             showError("Error dans le chargement des categories", "Incapable de charger les categories depuis mots.json.");
         }

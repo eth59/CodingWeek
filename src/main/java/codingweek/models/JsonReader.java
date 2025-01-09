@@ -2,6 +2,8 @@ package codingweek.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ class Word {
 }
 
 public class JsonReader {
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public static ArrayList<Card> jsonReader(String filePath, String category) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         InputStream inputStream = JsonReader.class.getClassLoader().getResourceAsStream(filePath);
@@ -56,17 +58,47 @@ public class JsonReader {
         return cardList;
     }
 
-    // Mehtode pour recuperer la liste des categories du fichier JSON
+    // Méthode pour récupérer la liste des catégories du fichier JSON
     public static Map<String, Category> getCategories(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         InputStream inputStream = JsonReader.class.getClassLoader().getResourceAsStream(filePath);
-    
+
         if (inputStream == null) {
             throw new IllegalArgumentException("File not found: " + filePath);
         }
-    
+
         Root root = objectMapper.readValue(inputStream, Root.class);
         return root.categories;
     }
-}
 
+    // Méthode pour ajouter un mot à une catégorie et réécrire le fichier JSON
+    public static void addWordToCategory(String filePath, String categoryName, String newWord) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        InputStream inputStream = JsonReader.class.getClassLoader().getResourceAsStream(filePath);
+
+        if (inputStream == null) {
+            throw new IllegalArgumentException("File not found: " + filePath);
+        }
+
+        Root root = objectMapper.readValue(inputStream, Root.class);
+
+        // Récupérer la catégorie
+        Category category = root.categories.get(categoryName);
+        if (category != null) {
+            // Créer un nouveau mot et l'ajouter à la catégorie
+            Word word = new Word();
+            word.mot = newWord;
+            word.interdits = new ArrayList<>();
+            word.chemin = ""; // Vous pouvez ajouter un chemin ici si nécessaire
+            category.mots.add(word);
+
+            // Réécrire les catégories dans le fichier JSON
+            try (FileWriter fileWriter = new FileWriter(filePath)) {
+            
+                objectMapper.writeValue(fileWriter, root);
+            }
+        } else {
+            throw new IllegalArgumentException("Category not found: " + categoryName);
+        }
+    }
+}

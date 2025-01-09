@@ -22,7 +22,7 @@
                 <ComboBox fx:id="categoryDropdown" />
             </HBox>
             <HBox spacing="10" alignment="CENTER">
-                <Label text="Time limit (in seconds):" style = "-fx-text-fill: white;" />
+                <Label text="Time limit (in seconds) :" style = "-fx-text-fill: white;" />
                 <TextField fx:id="timeLimitInput" promptText="Enter a time limit" text="illimité"/>
             </HBox>
             <Button text="Start Game" onAction="#onStartGame" />

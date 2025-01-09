@@ -17,6 +17,8 @@ public class MenuWindowController {
     private Button rulesButton;
     @FXML
     private Button quitButton;
+    @FXML
+    private Button ajouterCartesButton;
 
     private PageManager pageManager;
 
@@ -40,6 +42,12 @@ public class MenuWindowController {
             System.out.println("Le bouton Quit a été cliqué !");
             // Logique pour quitter l'application
             System.exit(0);
+        });
+
+        ajouterCartesButton.setOnAction(e -> {
+            System.out.println("Le bouton Add Cards a été cliqué !");
+            // Logique pour quitter l'application
+            pageManager.loadAddCardsWindowView();
         });
     }
 
