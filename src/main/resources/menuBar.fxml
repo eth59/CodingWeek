@@ -6,7 +6,7 @@
     <Menu text="Menu">
         <MenuItem text="Charger" onAction="#Charger"/>
         <MenuItem text="Sauvegarder" onAction="#Sauvegarder"/>
-        <MenuItem text="Retour Acceuil" onAction="#RetourAcceuil"/>
+        <MenuItem text="Retour Accueil" onAction="#RetourAcceuil"/>
     </Menu>
     <Menu text="Leader Board">
         <!-- Add MenuItems for Leader Board here -->
