@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Stack;
 import javafx.stage.FileChooser;
 
@@ -182,8 +183,17 @@ public class Game extends Subject implements Serializable {
             int totalCards = boardSize * boardSize; // Calcule le nombre de cartes necessaire
             
             // Recupere les cartes et les melange
-            ArrayList<Card> cards = getShuffledCards(this.category, totalCards);
-    
+            ArrayList<Card> cards = new ArrayList<Card>();
+            if (this.category.equals("all")) {
+                Map<String, ?> categories = JsonReader.getCategories("mots.json");
+                for (String categorie : categories.keySet()) {
+                    cards.addAll(getShuffledCards(categorie, totalCards));
+                }
+                Collections.shuffle(cards);
+            } else {
+                cards = getShuffledCards(category, totalCards);
+            }
+
             // Efface et peuple le plateau
             populateBoard(cards, totalCards);
     
