@@ -12,6 +12,12 @@
         <VBox spacing="10" alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <Label text="Add Cards" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: black;" />
             <HBox spacing="10" alignment="CENTER">
+                <Label text="New category :" style = "-fx-text-fill: black;" />
+                <TextField fx:id="newCategory"/>
+            </HBox>
+            <Button text="Add Category" fx:id="addCategoryButton"
+                    onAction="#addCategory"/>
+            <HBox spacing="10" alignment="CENTER">
                 <Label text="Select Category:" style="-fx-text-fill: black;" />
                 <ComboBox fx:id="categoryDropdown" />
             </HBox>

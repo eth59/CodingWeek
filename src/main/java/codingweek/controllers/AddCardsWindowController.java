@@ -5,7 +5,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
 
 import codingweek.models.JsonReader;
@@ -21,6 +20,9 @@ public class AddCardsWindowController {
 
     @FXML
     private TextField newCard;
+
+    @FXML 
+    private TextField newCategory;
 
     private PageManager pageManager;
 
@@ -57,15 +59,40 @@ public class AddCardsWindowController {
 
         try {
             // Ajouter le mot à la catégorie
-            JsonReader.addWordToCategory("mots.json", selectedCategory, newCardText);
-
+            boolean success = JsonReader.addWordToCategory("mots.json", selectedCategory, newCardText);
+            if (success) {
             // Afficher un message de succès
-            showSuccess("Succès", "Le mot a été ajouté avec succès à la catégorie " + selectedCategory + ".");
+                showSuccess("Succès", "Le mot a été ajouté avec succès à la catégorie " + selectedCategory + ".");
+            }
             newCard.clear();
         } catch (IOException e) {
             showError("Erreur de fichier", "Impossible de lire ou écrire dans le fichier JSON.");
         }
     }
+
+    @FXML
+    private void addCategory() {
+        String newCategoryName = newCategory.getText().trim();
+
+        if (newCategoryName.isEmpty()) {
+            showError("Erreur de saisie", "Veuillez entrer un nom pour la nouvelle catégorie.");
+            return;
+        }
+
+        try {
+            // Ajouter la nouvelle catégorie au fichier JSON
+            boolean success = JsonReader.addCategory("mots.json", newCategoryName);
+            if (success) {
+                // Mettre à jour la ComboBox
+                categoryDropdown.getItems().add(newCategoryName);
+                showSuccess("Succès", "La catégorie \"" + newCategoryName + "\" a été ajoutée avec succès.");
+                newCategory.clear();
+            }
+        } catch (IOException e) {
+            showError("Erreur de fichier", "Impossible de lire ou écrire dans le fichier JSON.");
+        }
+    }
+
 
     private void showError(String title, String content) {
         Alert alert = new Alert(AlertType.ERROR);

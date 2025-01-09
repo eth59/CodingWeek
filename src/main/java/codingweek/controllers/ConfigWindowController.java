@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class ConfigWindowController {
@@ -55,6 +56,12 @@ public class ConfigWindowController {
             String selectedCategory = categoryDropdown.getValue();
             if (selectedCategory == null || selectedCategory.isEmpty()) {
                 throw new IllegalArgumentException("Choisissez une categorie.");
+            }
+
+            int requiredWordCount = boardSize * boardSize; // Le nombre de mots requis dépend de la taille du plateau
+            int wordCount = JsonReader.getCategoryWordCount(selectedCategory); // Obtenez le nombre de mots dans la catégorie sélectionnée
+            if (wordCount < requiredWordCount) {
+                throw new IllegalArgumentException("La catégorie " + selectedCategory + " n'a pas assez de mots pour remplir un plateau de taille " + boardSize + "x" + boardSize + ".");
             }
 
             // Valider et affecter la limite de temps

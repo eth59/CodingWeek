@@ -246,8 +246,8 @@ public class PageManager {
             primaryStage.setScene(configScene);
             primaryStage.setTitle("Add Cards Window");
             // Set position and size explicitly
-            primaryStage.setWidth(490);
-            primaryStage.setHeight(250);
+            primaryStage.setWidth(600);
+            primaryStage.setHeight(350);
             primaryStage.setX(100);
             primaryStage.setY(100);
             primaryStage.show();
