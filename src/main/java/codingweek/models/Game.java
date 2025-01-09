@@ -279,58 +279,66 @@ public class Game extends Subject implements Serializable {
         }
     }
 
+    // Gere la logique quand les carte sont retournees
     public void returnCard(Card card) {
-        // Black : 0x000000ff
-        // Red : 0xc1121fff
-        // Blue : 0x003566ff
-        // Neutral : 0xf0ead2ff
         if (blueTurn && card.getColor().equals("0x003566ff")) {
-            // blue team's turn and card is blue
+            // Au tour de l'equipe bleue et la couleur de la carte est revelee
             this.nbCardReturned += 1;
-            this.blueReturned +=1;
+            this.blueReturned += 1;
             if (this.nbCardReturned == this.clueNb + 1) {
                 changeTurn();
             }
         } else if (!blueTurn && card.getColor().equals("0xc1121fff")) {
-            // red team's turn and card is red
+            // Au tour de l'equipe bleue et la couleur de la carte est revelee
             this.nbCardReturned += 1;
-            this.redReturned +=1;
+            this.redReturned += 1;
             if (this.nbCardReturned == this.clueNb + 1) {
                 changeTurn();
             }
         } else if (card.getColor().equals("0xf0ead2ff")) {
-            // neutral
+            // Si la carte retournee est neutre le tour passe
             changeTurn();
-            
         } else if (card.getColor().equals("0x000000ff")) {
-            // assassin
-            if (blueTurn) {
-                pageManager.loadGameOverViewRedWin();
-            } else {
-                pageManager.loadGameOverViewBlueWin();
-            }
-        } else  if (!blueTurn && card.getColor().equals("0x003566ff")) {
-            this.blueReturned +=1;
-            // opponent's card
+            // Appelle la fonction qui gere quand la carte de l'assasine est retournee
+            handleAssassinCard();
+            return; 
+        } else if (!blueTurn && card.getColor().equals("0x003566ff")) {
+            // Carte de l'adversaire est retournee
+            this.blueReturned += 1;
             changeTurn();
         } else {
-            this.redReturned +=1;
+            this.redReturned += 1;
             changeTurn();
         }
-        if (blueBegin) { // Bleu commençe
-            if (blueReturned == boardSize*boardSize/3+1) {
+    
+        // Verifie les conditions de victoire
+        checkWinConditions();
+    }
+    
+    private void handleAssassinCard() {
+        if (blueTurn) {
+            pageManager.loadGameOverViewRedWin();
+        } else {
+            pageManager.loadGameOverViewBlueWin();
+        }
+    }
+    
+    private void checkWinConditions() {
+        if (blueBegin) {
+            if (blueReturned == boardSize * boardSize / 3 + 1) {
                 pageManager.loadGameOverViewBlueWin();
-            } else if (redReturned == boardSize*boardSize/3) {
+            } else if (redReturned == boardSize * boardSize / 3) {
                 pageManager.loadGameOverViewRedWin();
             }
-        } else if (!blueBegin) { // Rouge commençe
-            if (redReturned == boardSize*boardSize/3 + 1) {
+        } else {
+            if (redReturned == boardSize * boardSize / 3 + 1) {
                 pageManager.loadGameOverViewRedWin();
-            } else if (blueReturned == boardSize*boardSize/3) {
+            } else if (blueReturned == boardSize * boardSize / 3) {
                 pageManager.loadGameOverViewBlueWin();
             }
         }
     }
+    
 
     public int getNbCardsReturned() {
         return this.nbCardReturned;
