@@ -31,7 +31,7 @@ class Word {
 
 public class JsonReader {
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static ArrayList<Card> jsonReader(String filePath, String category) throws IOException {
+    public static ArrayList<Card> jsonReader(String filePath, String category, boolean imagesMode) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         InputStream inputStream = JsonReader.class.getClassLoader().getResourceAsStream(filePath);
 
@@ -46,7 +46,11 @@ public class JsonReader {
         Category cat = root.categories.get(category);
         if (cat != null) {
             for (Word word : cat.mots) {
-                card = new Card(word.mot, Card.NEUTRAL_COLOR);
+                if (imagesMode) {
+                    card = new Card(word.chemin, Card.NEUTRAL_COLOR);
+                } else {
+                    card = new Card(word.mot, Card.NEUTRAL_COLOR);
+                }
                 card.addForbiddenWords((ArrayList) word.interdits);
                 cardList.add(card);
             }

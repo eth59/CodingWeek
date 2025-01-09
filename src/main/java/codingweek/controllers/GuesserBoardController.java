@@ -53,9 +53,17 @@ public class GuesserBoardController implements codingweek.Observer {
                         "-fx-border-radius: 15;");
                 cardPane.setPrefSize(100, 100);
 
-                Label wordLabel = new Label(card.getWord());
-                wordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
-                cardPane.getChildren().add(wordLabel);
+                if (game.getImagesMode()) {
+                    javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView(card.getWord());
+                    imageView.setFitWidth(80);
+                    imageView.setFitHeight(80);
+                    imageView.setPreserveRatio(true);
+                    cardPane.getChildren().add(imageView);
+                } else {
+                    Label wordLabel = new Label(card.getWord());
+                    wordLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
+                    cardPane.getChildren().add(wordLabel);
+                }
 
                 cardPane.setOnMouseClicked(event -> onCardClicked(cardPane, card));
 
