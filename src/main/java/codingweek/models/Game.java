@@ -30,6 +30,7 @@ public class Game extends Subject implements Serializable {
     private int blueReturned; // Nombre de carte bleu retournée
     private int redReturned; // Nombre de carte rouge retournée
     private boolean blueBegin;
+    private boolean imagesMode;
 
     private Game() {
         this.board = Board.getInstance();
@@ -44,7 +45,7 @@ public class Game extends Subject implements Serializable {
         this.redReturned = 0;
     }
 
-    public void initializeGame(int boardSize, String category, String timeLimit) {
+    public void initializeGame(int boardSize, String category, String timeLimit, boolean imagesMode) {
         this.boardSize = boardSize;
         this.category = category;
         this.guesses.clear();
@@ -59,6 +60,7 @@ public class Game extends Subject implements Serializable {
         this.blueTurn = Math.random() > 0.5;
         this.blueBegin = blueTurn;
         this.spyTurn = true;
+        this.imagesMode = imagesMode;
         initializeRevealedTiles();
         initializeBoard();
     }
@@ -195,7 +197,7 @@ public class Game extends Subject implements Serializable {
     }
     
     private ArrayList<Card> getShuffledCards(String category, int totalCards) throws IOException {
-        ArrayList<Card> cards = JsonReader.jsonReader("mots.json", category);
+        ArrayList<Card> cards = JsonReader.jsonReader("mots.json", category, imagesMode);
         if (cards.size() < totalCards) {
             throw new IllegalArgumentException("Pas assez de cartes pour peupler le plateau.");
         }
@@ -374,5 +376,9 @@ public class Game extends Subject implements Serializable {
 
     public boolean getBlueBegin(){
         return blueBegin;
+    }
+
+    public boolean getImagesMode(){
+        return this.imagesMode;
     }
 }
