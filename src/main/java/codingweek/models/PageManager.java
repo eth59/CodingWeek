@@ -233,6 +233,31 @@ public class PageManager {
         }
     }
 
+    public void loadAddCardsWindowView(){
+        try {
+            closeSpyView();
+            URL configViewURL = getClass().getResource("/addCardsView.fxml");
+            if (configViewURL == null){
+                System.err.println("Could not find configWindow.fxml");
+                System.exit(1);
+            }
+            Parent configView = FXMLLoader.load(configViewURL);
+            Scene configScene = new Scene(configView, 490, 250);
+            primaryStage.setScene(configScene);
+            primaryStage.setTitle("Add Cards Window");
+            // Set position and size explicitly
+            primaryStage.setWidth(600);
+            primaryStage.setHeight(350);
+            primaryStage.setX(100);
+            primaryStage.setY(100);
+            primaryStage.show();
+        } catch (IOException e){
+            System.err.println("Failed to load configWindow.fxml: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
     public void closeSpyView() {
         if (spyStage != null) {
             spyStage.close();
