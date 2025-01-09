@@ -71,8 +71,38 @@ public class Stats implements Serializable {
             res += clueStats.toString() + " ; ";
         }
         return res;
+        }
+    public int getBlueTeamWins() {
+        return blueTeamWins;
     }
 
+    public int getRedTeamWins() {
+        return redTeamWins;
+    }
+
+    public int getGamesLaunched() {
+        return gamesLaunched;
+    }
+
+    public int getTotalCorrectGuesses() {
+        return totalCorrectGuesses;
+    }
+
+    public int getBlueTeamClueSubmissions() {
+        return blueTeamClueSubmissions;
+    }
+
+    public int getRedTeamClueSubmissions() {
+        return redTeamClueSubmissions;
+    }
+
+    public ArrayList<ClueStats> getBlueTeamClueStats() {
+        return blueTeamClueStats;
+    }
+
+    public ArrayList<ClueStats> getRedTeamClueStats() {
+        return redTeamClueStats;
+    }
     public static class ClueStats {
         private int clueNb;
         private int correctGuesses;

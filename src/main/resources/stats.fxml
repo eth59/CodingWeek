@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.StatsController">
+    <top>
+        <Label text="Game Statistics" style="-fx-font-size: 24px; -fx-font-weight: bold;" alignment="CENTER"/>
+    </top>
+    <center>
+        <VBox spacing="10" padding="20">
+            <HBox spacing="20">
+                <VBox spacing="10">
+                    <Label text="Blue Team Stats" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Label fx:id="blueTeamWinsLabel" text="Wins: 0"/>
+                    <Label fx:id="blueTeamClueSubmissionsLabel" text="Clue Submissions: 0"/>
+                    <Label text="Clue Stats:"/>
+                    <ListView fx:id="blueTeamClueStatsList"/>
+                </VBox>
+                <VBox spacing="10">
+                    <Label text="Red Team Stats" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Label fx:id="redTeamWinsLabel" text="Wins: 0"/>
+                    <Label fx:id="redTeamClueSubmissionsLabel" text="Clue Submissions: 0"/>
+                    <Label text="Clue Stats:"/>
+                    <ListView fx:id="redTeamClueStatsList"/>
+                </VBox>
+            </HBox>
+            <VBox spacing="10">
+                <Label text="Overall Stats" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Label fx:id="gamesLaunchedLabel" text="Games Launched: 0"/>
+                <Label fx:id="totalCorrectGuessesLabel" text="Total Correct Guesses: 0"/>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

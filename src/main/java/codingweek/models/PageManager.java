@@ -5,6 +5,7 @@ import java.net.URL;
 
 import codingweek.controllers.GuesserBoardController;
 import codingweek.controllers.SpyBoardController;
+import codingweek.controllers.StatsController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -103,6 +104,34 @@ public class PageManager {
             e.printStackTrace();
         }
     }
+
+    public void loadStatsView() {
+    try {
+        URL statsViewURL = getClass().getResource("/stats.fxml");
+        if (statsViewURL == null) {
+            throw new IOException("Could not find stats.fxml");
+        }
+        FXMLLoader loader = new FXMLLoader(statsViewURL);
+        Parent statsView = loader.load();
+        Scene statsScene = new Scene(statsView, 800, 600);
+
+        StatsController statsController = loader.getController();
+        // Retrieve the stats from the Game model and pass it to the controller
+        Stats stats = Game.getStats();
+        statsController.setStats(stats);
+
+        primaryStage.setScene(statsScene);
+        primaryStage.setTitle("Game Statistics");
+        primaryStage.setWidth(800);
+        primaryStage.setHeight(600);
+        primaryStage.setX(100);
+        primaryStage.setY(100);
+        primaryStage.show();
+    } catch (IOException e) {
+        System.err.println("Failed to load stats.fxml: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
 
     public void loadConfigWindowView(){
         try {
