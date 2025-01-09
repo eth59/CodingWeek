@@ -37,13 +37,13 @@ public class PageManager {
             }
             FXMLLoader loader = new FXMLLoader(guesserViewURL);
             Parent guesserView = loader.load();
-            Scene guesserScene = new Scene(guesserView, 800, 800);
+            Scene guesserScene = new Scene(guesserView, 900, 900);
 
             primaryStage.setScene(guesserScene);
             primaryStage.setTitle("Guesser Window");
 
-            primaryStage.setWidth(800);
-            primaryStage.setHeight(800);
+            primaryStage.setWidth(900);
+            primaryStage.setHeight(900);
             primaryStage.setX(100);
             primaryStage.setY(100);
 
@@ -62,14 +62,14 @@ public class PageManager {
             }
             FXMLLoader loader = new FXMLLoader(spyViewURL);
             Parent spyView = loader.load();
-            Scene spyScene = new Scene(spyView, 800, 800);
+            Scene spyScene = new Scene(spyView, 900, 900);
 
             spyStage = new Stage();
             spyStage.setScene(spyScene);
             spyStage.setTitle("Spy Window");
 
-            spyStage.setWidth(800);
-            spyStage.setHeight(800);
+            spyStage.setWidth(900);
+            spyStage.setHeight(900);
             spyStage.setX(primaryStage.getX() + primaryStage.getWidth() + 20);
             spyStage.setY(primaryStage.getY());
 

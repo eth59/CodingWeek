@@ -63,7 +63,6 @@ public class GuesserBoardController implements codingweek.Observer {
                         imageView.setPreserveRatio(true);
                         cardPane.getChildren().add(imageView);
                     } catch (Exception e) {
-                        System.out.println(card.getWord());
                         // On récupère le filename pour afficher le mot à la place de l'image
                         Path path = Paths.get(card.getWord());
                         String fileNameWithExtension = path.getFileName().toString();
