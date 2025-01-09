@@ -104,34 +104,45 @@ public class PageManager {
             e.printStackTrace();
         }
     }
-
+    
     public void loadStatsView() {
-    try {
-        URL statsViewURL = getClass().getResource("/stats.fxml");
-        if (statsViewURL == null) {
-            throw new IOException("Could not find stats.fxml");
+        try {
+            URL statsViewURL = getClass().getResource("/stats.fxml");
+            if (statsViewURL == null) {
+                throw new IOException("Could not find stats.fxml");
+            }
+    
+            FXMLLoader loader = new FXMLLoader(statsViewURL);
+            Parent statsView = loader.load();
+    
+            // Ensure the controller is properly initialized
+            StatsController statsController = loader.getController();
+            if (statsController == null) {
+                throw new IllegalStateException("StatsController is not initialized. Check fx:controller in stats.fxml.");
+            }
+    
+            // Pass the Stats object to the controller
+            Stats stats = Game.getStats();
+            if (stats != null) {
+                statsController.setStats(stats);
+            } else {
+                System.err.println("Stats object is null. Ensure Game.getStats() returns a valid instance.");
+            }
+    
+            // Display the stats view
+            Scene statsScene = new Scene(statsView, 800, 600);
+            primaryStage.setScene(statsScene);
+            primaryStage.setTitle("Game Statistics");
+            primaryStage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load stats.fxml: " + e.getMessage());
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            System.err.println("Controller initialization error: " + e.getMessage());
+            e.printStackTrace();
         }
-        FXMLLoader loader = new FXMLLoader(statsViewURL);
-        Parent statsView = loader.load();
-        Scene statsScene = new Scene(statsView, 800, 600);
-
-        StatsController statsController = loader.getController();
-        // Retrieve the stats from the Game model and pass it to the controller
-        Stats stats = Game.getStats();
-        statsController.setStats(stats);
-
-        primaryStage.setScene(statsScene);
-        primaryStage.setTitle("Game Statistics");
-        primaryStage.setWidth(800);
-        primaryStage.setHeight(600);
-        primaryStage.setX(100);
-        primaryStage.setY(100);
-        primaryStage.show();
-    } catch (IOException e) {
-        System.err.println("Failed to load stats.fxml: " + e.getMessage());
-        e.printStackTrace();
     }
-}
+    
 
     public void loadConfigWindowView(){
         try {

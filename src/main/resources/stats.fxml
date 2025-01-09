@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.StatsController">
     <top>
-        <Label text="Game Statistics" style="-fx-font-size: 24px; -fx-font-weight: bold;" alignment="CENTER"/>
+        <fx:include source="menuBar.fxml" />
     </top>
     <center>
-        <VBox spacing="10" padding="20">
-            <HBox spacing="20">
+        <VBox spacing="10">
+            <HBox spacing="20" BorderPane.alignment="CENTER">
                 <VBox spacing="10">
+                    <VBox.margin>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </VBox.margin>
                     <Label text="Blue Team Stats" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
                     <Label fx:id="blueTeamWinsLabel" text="Wins: 0"/>
                     <Label fx:id="blueTeamClueSubmissionsLabel" text="Clue Submissions: 0"/>
@@ -18,6 +21,9 @@
                     <ListView fx:id="blueTeamClueStatsList"/>
                 </VBox>
                 <VBox spacing="10">
+                    <VBox.margin>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </VBox.margin>
                     <Label text="Red Team Stats" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
                     <Label fx:id="redTeamWinsLabel" text="Wins: 0"/>
                     <Label fx:id="redTeamClueSubmissionsLabel" text="Clue Submissions: 0"/>
@@ -26,6 +32,9 @@
                 </VBox>
             </HBox>
             <VBox spacing="10">
+                <VBox.margin>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </VBox.margin>
                 <Label text="Overall Stats" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
                 <Label fx:id="gamesLaunchedLabel" text="Games Launched: 0"/>
                 <Label fx:id="totalCorrectGuessesLabel" text="Total Correct Guesses: 0"/>

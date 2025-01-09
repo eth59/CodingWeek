@@ -1,7 +1,6 @@
 package codingweek.controllers;
 
 import codingweek.models.Stats;
-import codingweek.models.Stats.ClueStats;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -47,16 +46,13 @@ public class StatsController {
         totalCorrectGuessesLabel.setText("Total Correct Guesses: " + stats.getTotalCorrectGuesses());
         blueTeamClueSubmissionsLabel.setText("Clue Submissions: " + stats.getBlueTeamClueSubmissions());
         redTeamClueSubmissionsLabel.setText("Clue Submissions: " + stats.getRedTeamClueSubmissions());
-
+    
         // Update list views
         blueTeamClueStatsList.getItems().clear();
-        for (ClueStats clue : stats.getBlueTeamClueStats()) {
-            blueTeamClueStatsList.getItems().add(clue.toString());
-        }
-
+        stats.getBlueTeamClueStats().forEach(clue -> blueTeamClueStatsList.getItems().add(clue.toString()));
+    
         redTeamClueStatsList.getItems().clear();
-        for (ClueStats clue : stats.getRedTeamClueStats()) {
-            redTeamClueStatsList.getItems().add(clue.toString());
-        }
+        stats.getRedTeamClueStats().forEach(clue -> redTeamClueStatsList.getItems().add(clue.toString()));
     }
+      
 }
