@@ -5,6 +5,7 @@ import codingweek.models.Key;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -13,6 +14,9 @@ public class KeyController {
 
     @FXML
     private GridPane gridPane;
+
+    @FXML
+    private Button toggleKeyButton;
 
     private static final double CELL_SIZE = 25.0; // taille fixe des cellules
 
@@ -25,6 +29,26 @@ public class KeyController {
         // Peuple la grille avec la taille du plateau
         populateKeyGrid(boardSize);
 
+        // Initially hide the grid and set the button text
+        gridPane.setVisible(false);
+        toggleKeyButton.setText("Afficher la clef");
+
+        // Attach the event handler
+        toggleKeyButton.setOnAction(event -> handleToggleKeyButton());
+
+    }
+
+    private void handleToggleKeyButton() {
+        // Toggle the visibility of the grid
+        boolean isCurrentlyVisible = gridPane.isVisible();
+        gridPane.setVisible(!isCurrentlyVisible);
+
+        // Update the button text
+        if (isCurrentlyVisible) {
+            toggleKeyButton.setText("Afficher la clef");
+        } else {
+            toggleKeyButton.setText("Cacher la clef");
+        }
     }
 
     private void populateKeyGrid(int boardSize) {
