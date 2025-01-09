@@ -12,7 +12,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 public class ConfigWindowController {
