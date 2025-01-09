@@ -16,7 +16,7 @@ import java.util.Map;
 public class ConfigWindowController {
 
     @FXML
-    private TextField boardSizeInput;
+    private TextField boardSizeInput, timeLimitInput;
 
     @FXML
     private ComboBox<String> categoryDropdown;
@@ -37,6 +37,7 @@ public class ConfigWindowController {
         try {
             Map<String, ?> categories = JsonReader.getCategories("mots.json");
             categoryDropdown.getItems().addAll(categories.keySet());
+            categoryDropdown.setValue("Animaux");
         } catch (IOException e) {
             showError("Error dans le chargement des categories", "Incapable de charger les categories depuis mots.json.");
         }
@@ -56,9 +57,17 @@ public class ConfigWindowController {
             if (selectedCategory == null || selectedCategory.isEmpty()) {
                 throw new IllegalArgumentException("Choisissez une categorie.");
             }
+
+            // Valider et affecter la limite de temps
+            String timeLimit = timeLimitInput.getText();
+            System.out.println(!timeLimit.equals(timeLimit));
+            System.out.println(!(isNumeric(timeLimit) && Integer.parseInt(timeLimit) >= 10));
+            if (!timeLimit.equals("illimité") && !(isNumeric(timeLimit) && Integer.parseInt(timeLimit) >= 10)) {
+                throw new IllegalArgumentException("Entrez une limite de temps valide. Elle doit valloir illimité ou un nombre entier supérieur à 10.");
+            }
     
             // Initialiser le jeu apres que les configurations sont choisies
-            game.initializeGame(boardSize, selectedCategory);
+            game.initializeGame(boardSize, selectedCategory, timeLimit);
 
             // Initialiser la key
             key.newKey();
@@ -78,6 +87,9 @@ public class ConfigWindowController {
         }
     }
     
+    private boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");
+    }
 
     private void showError(String title, String content) {
         Alert alert = new Alert(AlertType.ERROR);
