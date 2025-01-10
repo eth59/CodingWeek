@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import java.util.Arrays;
 
 public class StatsController {
 
@@ -99,75 +100,101 @@ public class StatsController {
 
     private void setupDataSelector() {
         dataSelector.setItems(FXCollections.observableArrayList(
-            "Games Launched",
-            "Team Wins",
-            "Clues Given",
-            "Correct Guesses"
+            "Wins vs Games Launched (PieChart)",
+            "Clues Given by Team (BarChart)",
+            "Blue Team Clues (StackedBarChart)",
+            "Red Team Clues (StackedBarChart)"
         ));
         dataSelector.valueProperty().addListener((observable, oldValue, newValue) -> updateChart(newValue));
     }
-
+    
     private void updateChart(String selectedData) {
         pieChart.setVisible(false);
         barChart.setVisible(false);
-
+    
         switch (selectedData) {
-            case "Games Launched":
-                displayGamesLaunchedChart();
+            case "Wins vs Games Launched (PieChart)":
+                displayWinsVsGamesPieChart();
                 break;
-            case "Team Wins":
-                displayTeamWinsChart();
+            case "Clues Given by Team (BarChart)":
+                displayCluesGivenBarChart();
                 break;
-            case "Clues Given":
-                displayCluesGivenChart();
+            case "Blue Team Clues (StackedBarChart)":
+                displayBlueTeamStackedBarChart();
                 break;
-            case "Correct Guesses":
-                displayCorrectGuessesChart();
+            case "Red Team Clues (StackedBarChart)":
+                displayRedTeamStackedBarChart();
                 break;
             default:
                 System.err.println("Unknown data selection: " + selectedData);
         }
     }
-
-    private void displayGamesLaunchedChart() {
-        pieChart.setData(FXCollections.observableArrayList(
-            new PieChart.Data("Games Launched", stats.getGamesLaunched())
-        ));
-        pieChart.setVisible(true);
-    }
-
-    private void displayTeamWinsChart() {
-        barChart.getData().clear();
-        var series = new BarChart.Series<String, Number>();
-        series.setName("Team Wins");
-        series.getData().add(new BarChart.Data<>("Blue Team", stats.getBlueTeamWins()));
-        series.getData().add(new BarChart.Data<>("Red Team", stats.getRedTeamWins()));
-        barChart.getData().add(series);
-        barChart.setVisible(true);
-    }
-
-    private void displayCluesGivenChart() {
-        barChart.getData().clear();
-        var series = new BarChart.Series<String, Number>();
-        series.setName("Clues Given");
-        stats.getBlueTeamClueStats().forEach(clue -> {
-            series.getData().add(new BarChart.Data<>("Blue Clue " + clue.getClueNb(), clue.getCorrectGuesses()));
-        });
-        stats.getRedTeamClueStats().forEach(clue -> {
-            series.getData().add(new BarChart.Data<>("Red Clue " + clue.getClueNb(), clue.getCorrectGuesses()));
-        });
-        barChart.getData().add(series);
-        barChart.setVisible(true);
-    }
-
-    private void displayCorrectGuessesChart() {
+    
+    private void displayWinsVsGamesPieChart() {
         pieChart.getData().clear();
-        stats.getBlueTeamClueStats().forEach(clue -> {
-            pieChart.getData().add(new PieChart.Data("Blue Clue " + clue.getClueNb(), clue.getCorrectGuesses()));
-        });
-        stats.getRedTeamClueStats().forEach(clue -> {
-            pieChart.getData().add(new PieChart.Data("Red Clue " + clue.getClueNb(), clue.getCorrectGuesses()));
-        });
+    
+        PieChart.Data blueWins = new PieChart.Data("Blue Team Wins", stats.getBlueTeamWins());
+        PieChart.Data redWins = new PieChart.Data("Red Team Wins", stats.getRedTeamWins());
+        PieChart.Data gamesNotWon = new PieChart.Data("Games Not Won", stats.getGamesLaunched() - stats.getBlueTeamWins() - stats.getRedTeamWins());
+    
+        pieChart.getData().addAll(blueWins, redWins, gamesNotWon);
+    
+        // Apply custom colors
+        blueWins.getNode().setStyle("-fx-pie-color: #003566;");  // Blue
+        redWins.getNode().setStyle("-fx-pie-color: #c1121f;");   // Red
+        gamesNotWon.getNode().setStyle("-fx-pie-color: #f0ead2;");  // Gray
+    
         pieChart.setVisible(true);
     }
+    
+    private void displayCluesGivenBarChart() {
+        barChart.getData().clear();
+        var series = new BarChart.Series<String, Number>();
+        series.setName("Clues Given by Team");
+        series.getData().add(new BarChart.Data<>("Blue Team", stats.getBlueTeamClueSubmissions()));
+        series.getData().add(new BarChart.Data<>("Red Team", stats.getRedTeamClueSubmissions()));
+        barChart.setData(FXCollections.observableArrayList(Arrays.asList(series)));
+        barChart.setVisible(true);
+    }
+    
+    private void displayBlueTeamStackedBarChart() {
+        barChart.getData().clear();
+    
+        var seriesClues = new BarChart.Series<String, Number>();
+        var seriesCorrectGuesses = new BarChart.Series<String, Number>();
+        seriesClues.setName("Clue Numbers");
+        seriesCorrectGuesses.setName("Correct Guesses");
+    
+        int index = 1; // To ensure uniqueness for X-axis categories
+        for (var clue : stats.getBlueTeamClueStats()) {
+            String category = "Clue Instance " + index++;
+            seriesClues.getData().add(new BarChart.Data<>(category, clue.getClueNb()));
+            seriesCorrectGuesses.getData().add(new BarChart.Data<>(category, clue.getCorrectGuesses()));
+        }
+    
+        barChart.getData().addAll(Arrays.asList(seriesClues, seriesCorrectGuesses));
+        barChart.setVisible(true);
+    }
+    
+    
+    private void displayRedTeamStackedBarChart() {
+        barChart.getData().clear();
+    
+        var seriesClues = new BarChart.Series<String, Number>();
+        var seriesCorrectGuesses = new BarChart.Series<String, Number>();
+        seriesClues.setName("Clue Numbers");
+        seriesCorrectGuesses.setName("Correct Guesses");
+    
+        int index = 1; // To ensure uniqueness for X-axis categories
+        for (var clue : stats.getRedTeamClueStats()) {
+            String category = "Clue Instance " + index++;
+            seriesClues.getData().add(new BarChart.Data<>(category, clue.getClueNb()));
+            seriesCorrectGuesses.getData().add(new BarChart.Data<>(category, clue.getCorrectGuesses()));
+        }
+    
+        barChart.getData().addAll(Arrays.asList(seriesClues, seriesCorrectGuesses));
+        barChart.setVisible(true);
+    }
+    
+    
 }

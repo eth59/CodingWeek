@@ -28,11 +28,11 @@
                 <VBox spacing="10"> <!-- Reduced spacing -->
                     <Label text="Blue Team Clue Details:"/>
                     <ScrollPane fitToWidth="true">
-                        <ListView fx:id="blueTeamClueStatsList" prefHeight="200"/>
+                        <ListView fx:id="blueTeamClueStatsList" prefHeight="150"/>
                     </ScrollPane>
                     <Label text="Red Team Clue Details:"/>
                     <ScrollPane fitToWidth="true">
-                        <ListView fx:id="redTeamClueStatsList" prefHeight="200"/>
+                        <ListView fx:id="redTeamClueStatsList" prefHeight="150"/>
                     </ScrollPane>
                 </VBox>
 
