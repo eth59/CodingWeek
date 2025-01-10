@@ -56,11 +56,11 @@ public class TopSpyController implements Observer {
             turnLabel.setStyle("-fx-text-fill: #c1121f; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, red, 10, 0.5, 0, 0); -fx-font-size: 18px;");
             startFading();
         } else if (!game.isSpyTurn() && game.isBlueTurn()) {
-            turnLabel.setText("It's blue spy's turn!");
+            turnLabel.setText("It's blue guesser's turn!");
             turnLabel.setStyle("-fx-text-fill: #003566; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, blue, 10, 0.5, 0, 0); -fx-font-size: 18px;");
             stopFading();
         } else {
-            turnLabel.setText("It's red spy's turn!");
+            turnLabel.setText("It's red guesser's turn!");
             turnLabel.setStyle("-fx-text-fill: #c1121f; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, red, 10, 0.5, 0, 0); -fx-font-size: 18px;");
             stopFading();
         }
