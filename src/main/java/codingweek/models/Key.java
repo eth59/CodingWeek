@@ -77,10 +77,8 @@ public class Key implements Serializable {
     
         // Ensure the starting team's extra card
         if (blueTurn) {
-            System.out.println("extra for blue");
             couleurs.add("blue");
         } else {
-            System.out.println("extra for red");
             couleurs.add("red");
         }
 

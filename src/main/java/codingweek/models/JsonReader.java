@@ -91,7 +91,7 @@ public class JsonReader {
 
         // Vérifier que le mot contient uniquement des lettres
         if (!newWord.matches("^[a-zA-ZÀ-ÖØ-öø-ÿ]+$")) {
-            showError("Erreur de validation", "Le mot ne peut contenir que des lettres !");
+            showError("Validation error", "The word can only contains letter!");
             return false;
         }
         
@@ -110,7 +110,7 @@ public class JsonReader {
             // Vérifier si le mot existe déjà dans la catégorie
             for (Word existingWord : category.mots) {
                 if (existingWord.mot.equalsIgnoreCase(newWord)) {
-                    showError("Erreur d'ajout", "Le mot existe déjà dans la catégorie !");
+                    showError("Add error", "The word already exist in this category !");
                     return false; // Retourner false si le mot est déjà présent
                 }
             }
@@ -129,7 +129,7 @@ public class JsonReader {
             }
             return true;
         } else {
-            showError("Erreur de catégorie", "La catégorie spécifiée est introuvable !");
+            showError("Category error", "The specified category was not found!");
             return false;
         }
     }
@@ -140,7 +140,7 @@ public class JsonReader {
 
         // Vérifier que le nom de la catégorie contient uniquement des lettres
         if (!newCategoryName.matches("^[a-zA-ZÀ-ÖØ-öø-ÿ\\s]+$")) {
-            showError("Erreur de validation", "Le nom de la catégorie ne peut contenir que des lettres !");
+            showError("Validation error", "The word can only contains letter!");
             return false;
         }
 
@@ -155,7 +155,7 @@ public class JsonReader {
 
         // Vérifier si la catégorie existe déjà
         if (root.categories.containsKey(newCategoryName)) {
-            showError("Erreur d'ajout", "La catégorie existe déjà !");
+            showError("Add error", "This category already exists!");
             return false;
         }
 
@@ -192,7 +192,7 @@ public class JsonReader {
             return cat != null ? cat.mots.size() : 0;
     
         } catch (IOException e) {
-            showError("Erreur", "Impossible de lire le fichier JSON.");
+            showError("Error", "Can't read JSON file");
             return 0; // Retourner 0 en cas d'erreur
         }
     }

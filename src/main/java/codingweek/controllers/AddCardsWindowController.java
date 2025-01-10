@@ -31,7 +31,6 @@ public class AddCardsWindowController {
         pageManager = PageManager.getInstance();
 
         returnMenuButton.setOnAction(e -> {
-            System.out.println("Le bouton Retour menu a été cliqué !");
             pageManager.loadMenuWindowView();
         });
 
@@ -43,7 +42,7 @@ public class AddCardsWindowController {
             }
             categoryDropdown.setValue("Animaux");
         } catch (IOException e) {
-            showError("Erreur dans le chargement des catégories", "Incapable de charger les catégories depuis mots.json.");
+            showError("Error loading categories", "Can't load categories from mots.json");
         }
     }
 
@@ -53,7 +52,7 @@ public class AddCardsWindowController {
         String newCardText = newCard.getText().trim();
 
         if (selectedCategory == null || newCardText.isEmpty()) {
-            showError("Erreur de saisie", "Veuillez sélectionner une catégorie et entrer un mot.");
+            showError("Input error", "Please select a category and enter a word.");
             return;
         }
 
@@ -62,11 +61,11 @@ public class AddCardsWindowController {
             boolean success = JsonReader.addWordToCategory("mots.json", selectedCategory, newCardText);
             if (success) {
             // Afficher un message de succès
-                showSuccess("Succès", "Le mot a été ajouté avec succès à la catégorie " + selectedCategory + ".");
+                showSuccess("Succes", "The word was successfully added to the category " + selectedCategory + ".");
             }
             newCard.clear();
         } catch (IOException e) {
-            showError("Erreur de fichier", "Impossible de lire ou écrire dans le fichier JSON.");
+            showError("File Error", "Unable to read or write to the JSON file.");
         }
     }
 
@@ -75,7 +74,7 @@ public class AddCardsWindowController {
         String newCategoryName = newCategory.getText().trim();
 
         if (newCategoryName.isEmpty()) {
-            showError("Erreur de saisie", "Veuillez entrer un nom pour la nouvelle catégorie.");
+            showError("Input Error", "Please enter a name for the new category.");
             return;
         }
 
@@ -85,11 +84,11 @@ public class AddCardsWindowController {
             if (success) {
                 // Mettre à jour la ComboBox
                 categoryDropdown.getItems().add(newCategoryName);
-                showSuccess("Succès", "La catégorie \"" + newCategoryName + "\" a été ajoutée avec succès.");
+                showSuccess("Success", "The category \"" + newCategoryName + "\" was successfully added.");
                 newCategory.clear();
             }
         } catch (IOException e) {
-            showError("Erreur de fichier", "Impossible de lire ou écrire dans le fichier JSON.");
+            showError("File Error", "Unable to read or write to the JSON file.");
         }
     }
 

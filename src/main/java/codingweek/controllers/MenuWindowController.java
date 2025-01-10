@@ -28,24 +28,20 @@ public class MenuWindowController {
         // Cette méthode est appelée automatiquement après le chargement du FXML
 
         playButton.setOnAction(e -> {
-            System.out.println("Le bouton Play a été cliqué !");
             pageManager.loadConfigWindowView();
         });
 
         rulesButton.setOnAction(e -> {
-            System.out.println("Le bouton Règles a été cliqué !");
             String url = "https://iello.fr/wp-content/uploads/2016/10/Codenames_rulebook_FR-web_2018.pdf";
             openWebpage(url);
         });
 
         quitButton.setOnAction(e -> {
-            System.out.println("Le bouton Quit a été cliqué !");
             // Logique pour quitter l'application
             System.exit(0);
         });
 
         ajouterCartesButton.setOnAction(e -> {
-            System.out.println("Le bouton Add Cards a été cliqué !");
             // Logique pour quitter l'application
             pageManager.loadAddCardsWindowView();
         });
@@ -57,7 +53,6 @@ public class MenuWindowController {
             // 2) Si Desktop non supporté ou browse non disponible,
             //    on tente manuellement selon l'OS.
             String osName = System.getProperty("os.name").toLowerCase();
-            System.out.println(osName);
 
             if (osName.contains("mac")) {
                 // Sur MacOS, la commande 'open' lance le navigateur par défaut
@@ -74,7 +69,7 @@ public class MenuWindowController {
                 Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
             }
             else {
-                System.err.println("Système non supporté pour l'ouverture de lien : " + osName);
+                System.err.println("OS not supported: " + osName);
             }
 
         } catch (IOException e) {

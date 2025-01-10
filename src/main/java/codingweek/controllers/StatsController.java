@@ -64,7 +64,7 @@ public class StatsController {
         game = Game.getInstance();
         pageManager = PageManager.getInstance();
         if (game.isGameOver()) {
-            resumeButton.setText("Accueil");
+            resumeButton.setText("Exit to menu");
         } else {
             resumeButton.setText("Resume");
         }
@@ -74,7 +74,6 @@ public class StatsController {
     }
 
     private void resumeButtonAction() {
-        System.out.println(game.isGameOver());
         if (game.isGameOver()) {
             pageManager.loadMenuWindowView();
             pageManager.closeSpyView();
@@ -123,6 +122,9 @@ public class StatsController {
             "Blue Team Clues (StackedBarChart)",
             "Red Team Clues (StackedBarChart)"
         ));
+        // Définir la sélection par défaut
+        dataSelector.setValue("Wins vs Games Launched (PieChart)");
+        displayWinsVsGamesPieChart();
         dataSelector.valueProperty().addListener((observable, oldValue, newValue) -> updateChart(newValue));
     }
     
