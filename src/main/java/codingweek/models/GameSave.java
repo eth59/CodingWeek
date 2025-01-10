@@ -48,6 +48,7 @@ public class GameSave implements Serializable {
         if (selectedFile != null) {
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(selectedFile))) {
                 oos.writeObject(this);
+                game.setSaved(true);
             } catch (Exception e) {
                 System.err.println("Erreur lors de la sauvegarde de la partie : " + e.getMessage());
             }

@@ -26,6 +26,7 @@ public class Game extends Subject implements Serializable {
     private int redReturned; // Nombre de carte rouge retournée
     private boolean blueBegin;
     private boolean imagesMode;
+    private boolean isSaved;
 
     private Game() {
         this.board = Board.getInstance();
@@ -38,6 +39,7 @@ public class Game extends Subject implements Serializable {
         this.nbCardReturned = 0;
         this.blueReturned = 0;
         this.redReturned = 0;
+        isSaved = true;
     }
 
     public void initializeGame(int boardSize, String category, String timeLimit, boolean imagesMode) {
@@ -58,6 +60,7 @@ public class Game extends Subject implements Serializable {
         this.imagesMode = imagesMode;
         initializeRevealedTiles();
         initializeBoard();
+        isSaved = true;
     }
 
     public static Game getInstance() {
@@ -121,6 +124,7 @@ public class Game extends Subject implements Serializable {
             this.clueNb = clueNb; 
             changeTurn();
             notifierObservateurs();
+            this.isSaved = false;
             return 1;
         } else {
             return 0;
@@ -223,6 +227,7 @@ public class Game extends Subject implements Serializable {
 
     // Gere la logique quand les carte sont retournees
     public void returnCard(Card card) {
+        this.isSaved = false;
         if (blueTurn && card.getColor().equals("0x003566ff")) {
             // Au tour de l'equipe bleue et la couleur de la carte est revelee
             this.nbCardReturned += 1;
@@ -342,5 +347,14 @@ public class Game extends Subject implements Serializable {
         pageManager.loadGuesserView();
         pageManager.loadSpyView();
         this.notifierObservateurs();
+        this.isSaved = true;
+    }
+
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public boolean setSaved(boolean isSaved) {
+        return this.isSaved = isSaved;
     }
 }

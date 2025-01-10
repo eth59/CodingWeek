@@ -1,6 +1,7 @@
 package codingweek;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import codingweek.models.Game;
 import codingweek.models.PageManager;
 
 public class Main extends Application {
@@ -17,6 +18,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        Game.getInstance();
         launch();
     }
 }
