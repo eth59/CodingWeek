@@ -126,7 +126,7 @@ public class Stats implements Serializable {
 
         @Override
         public String toString() {
-            return "[Clue " + clueNb + ": " + correctGuesses + " correct guesses]";
+            return "[For " + clueNb + " clue(s) given : " + correctGuesses + " correct guesses]";
         }
     }
 }

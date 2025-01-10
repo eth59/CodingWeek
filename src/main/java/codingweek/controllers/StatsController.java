@@ -9,6 +9,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 
 public class StatsController {
 
@@ -26,6 +27,12 @@ public class StatsController {
 
     @FXML
     private Label redTeamClueSubmissionsLabel;
+
+    @FXML
+    private ListView<String> blueTeamClueStatsList;
+
+    @FXML
+    private ListView<String> redTeamClueStatsList;
 
     @FXML
     private ComboBox<String> dataSelector;
@@ -57,61 +64,36 @@ public class StatsController {
         }
 
         // Update general stats labels
-        if (gamesLaunchedLabel != null) {
-            gamesLaunchedLabel.setText("Games Launched: " + stats.getGamesLaunched());
-        }
-        if (blueTeamWinsLabel != null) {
-            blueTeamWinsLabel.setText("Blue Team Wins: " + stats.getBlueTeamWins());
-        }
-        if (redTeamWinsLabel != null) {
-            redTeamWinsLabel.setText("Red Team Wins: " + stats.getRedTeamWins());
-        }
+        gamesLaunchedLabel.setText("Games Launched: " + stats.getGamesLaunched());
+        blueTeamWinsLabel.setText("Blue Team Wins: " + stats.getBlueTeamWins());
+        redTeamWinsLabel.setText("Red Team Wins: " + stats.getRedTeamWins());
+        blueTeamClueSubmissionsLabel.setText("Blue Team Clues Given: " + stats.getBlueTeamClueSubmissions());
+        redTeamClueSubmissionsLabel.setText("Red Team Clues Given: " + stats.getRedTeamClueSubmissions());
 
-        // Generate the phrase for Blue Team
-        int blueTotalClues = stats.getBlueTeamClueStats().size();
-        int blueCorrectGuesses = stats.getBlueTeamClueStats().stream()
-            .mapToInt(clue -> clue.getCorrectGuesses()).sum();
-        String bluePhrase = "For " + blueTotalClues + " clues given: " + blueCorrectGuesses + " correctly guessed";
+        // Populate Blue Team clue details
+        blueTeamClueStatsList.getItems().clear();
+        stats.getBlueTeamClueStats().forEach(clue -> {
+            blueTeamClueStatsList.getItems().add("For " + clue.getClueNb() + " clue(s) given : " + clue.getCorrectGuesses() + " correct guesses");
+        });
 
-        // Generate the phrase for Red Team
-        int redTotalClues = stats.getRedTeamClueStats().size();
-        int redCorrectGuesses = stats.getRedTeamClueStats().stream()
-            .mapToInt(clue -> clue.getCorrectGuesses()).sum();
-        String redPhrase = "For " + redTotalClues + " clues given: " + redCorrectGuesses + " correctly guessed";
-
-        // Set the phrases in the labels
-        if (blueTeamClueSubmissionsLabel != null) {
-            blueTeamClueSubmissionsLabel.setText(bluePhrase);
-        }
-        if (redTeamClueSubmissionsLabel != null) {
-            redTeamClueSubmissionsLabel.setText(redPhrase);
-        }
+        // Populate Red Team clue details
+        redTeamClueStatsList.getItems().clear();
+        stats.getRedTeamClueStats().forEach(clue -> {
+            redTeamClueStatsList.getItems().add("For " + clue.getClueNb() + " clue(s) given : " + clue.getCorrectGuesses() + " correct guesses");
+        });
     }
 
     private void setupDataSelector() {
-        if (dataSelector == null) {
-            System.err.println("Data selector ComboBox is null. Unable to initialize.");
-            return;
-        }
-
-        // Populate dropdown with options
         dataSelector.setItems(FXCollections.observableArrayList(
             "Games Launched",
             "Team Wins",
             "Clues Given",
             "Correct Guesses"
         ));
-
-        // Add listener to update charts dynamically
         dataSelector.valueProperty().addListener((observable, oldValue, newValue) -> updateChart(newValue));
     }
 
     private void updateChart(String selectedData) {
-        if (selectedData == null || stats == null) {
-            System.err.println("Invalid data selection or stats object is null.");
-            return;
-        }
-
         pieChart.setVisible(false);
         barChart.setVisible(false);
 
@@ -154,39 +136,24 @@ public class StatsController {
         barChart.getData().clear();
         var series = new BarChart.Series<String, Number>();
         series.setName("Clues Given");
-        series.getData().add(new BarChart.Data<>("Blue Team", stats.getBlueTeamClueSubmissions()));
-        series.getData().add(new BarChart.Data<>("Red Team", stats.getRedTeamClueSubmissions()));
+        stats.getBlueTeamClueStats().forEach(clue -> {
+            series.getData().add(new BarChart.Data<>("Blue Clue " + clue.getClueNb(), clue.getCorrectGuesses()));
+        });
+        stats.getRedTeamClueStats().forEach(clue -> {
+            series.getData().add(new BarChart.Data<>("Red Clue " + clue.getClueNb(), clue.getCorrectGuesses()));
+        });
         barChart.getData().add(series);
         barChart.setVisible(true);
     }
 
     private void displayCorrectGuessesChart() {
         pieChart.getData().clear();
-
-        // Calculate total clues and correct guesses for Blue Team
-        int blueTotalClues = stats.getBlueTeamClueStats().size();
-        int blueCorrectGuesses = stats.getBlueTeamClueStats().stream()
-            .mapToInt(clue -> clue.getCorrectGuesses()).sum();
-
-        // Calculate total clues and correct guesses for Red Team
-        int redTotalClues = stats.getRedTeamClueStats().size();
-        int redCorrectGuesses = stats.getRedTeamClueStats().stream()
-            .mapToInt(clue -> clue.getCorrectGuesses()).sum();
-
-        // Add data to the PieChart for Blue Team
-        if (blueTotalClues > 0) {
-            pieChart.getData().add(new PieChart.Data("Blue Team Correct: " + blueCorrectGuesses, blueCorrectGuesses));
-            pieChart.getData().add(new PieChart.Data("Blue Team Incorrect: " + (blueTotalClues - blueCorrectGuesses), 
-                Math.max(0, blueTotalClues - blueCorrectGuesses)));
-        }
-
-        // Add data to the PieChart for Red Team
-        if (redTotalClues > 0) {
-            pieChart.getData().add(new PieChart.Data("Red Team Correct: " + redCorrectGuesses, redCorrectGuesses));
-            pieChart.getData().add(new PieChart.Data("Red Team Incorrect: " + (redTotalClues - redCorrectGuesses), 
-                Math.max(0, redTotalClues - redCorrectGuesses)));
-        }
-
+        stats.getBlueTeamClueStats().forEach(clue -> {
+            pieChart.getData().add(new PieChart.Data("Blue Clue " + clue.getClueNb(), clue.getCorrectGuesses()));
+        });
+        stats.getRedTeamClueStats().forEach(clue -> {
+            pieChart.getData().add(new PieChart.Data("Red Clue " + clue.getClueNb(), clue.getCorrectGuesses()));
+        });
         pieChart.setVisible(true);
     }
 }
