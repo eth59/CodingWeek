@@ -8,7 +8,7 @@ TABLE DES MATIERES
 
    * [Execution](#execution)
    * [Le jeu](#le-jeu)
-        * [La page ACCUEIL](#la-page-accueil)
+        * [La page ACCUEIL](#La-page-ACCUEIL)
         * [La page ADD CARD](#la-page-add-card)
         * [La page CONFIGURATION](#la-page-configuration)
         * [La page GUESSER](#la-page-guesser)
