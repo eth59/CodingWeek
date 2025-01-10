@@ -1,5 +1,6 @@
 package codingweek.controllers;
 
+import codingweek.Observer;
 import codingweek.models.Game;
 import codingweek.models.Key;
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class KeyController {
+public class KeyController implements Observer{
 
     @FXML
     private GridPane gridPane;
@@ -19,11 +20,15 @@ public class KeyController {
     private Button toggleKeyButton;
 
     private static final double CELL_SIZE = 25.0; // taille fixe des cellules
+    private Game game;
+    private Key key;
 
     @FXML
     public void initialize() {
         // Recupere la session et la taille du plateau
-        Game game = Game.getInstance();
+        game = Game.getInstance();
+        key = Key.getInstance();
+        game.ajouterObservateur(this);
         int boardSize = game.getBoardSize(); 
 
         // Peuple la grille avec la taille du plateau
@@ -36,6 +41,10 @@ public class KeyController {
         // Attach the event handler
         toggleKeyButton.setOnAction(event -> handleToggleKeyButton());
 
+    }
+
+    public void reagir() {
+        updateKeyGrid();
     }
 
     private void handleToggleKeyButton() {
@@ -53,7 +62,6 @@ public class KeyController {
 
     private void populateKeyGrid(int boardSize) {
         // Recupere une instance de clef unique
-        Key key = Key.getInstance();
 
         // Vide la grille pour eviter les doublons lors des refresh
         gridPane.getChildren().clear();
@@ -71,6 +79,21 @@ public class KeyController {
             gridPane.getColumnConstraints().add(col);
         }
 
+        // Peupler la grille avec les couleurs
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                Rectangle rect = new Rectangle(CELL_SIZE, CELL_SIZE); // Cellules bien carres
+                rect.setFill(key.getCouleur(row, col)); // Recupere la couleur depuis le Key modele
+                rect.setStroke(Color.BLACK); // Rebord
+
+                // Ajoute le carre a la grille
+                gridPane.add(rect, col, row);
+            }
+        }
+    }
+
+    public void updateKeyGrid() {
+        int boardSize = game.getBoardSize();
         // Peupler la grille avec les couleurs
         for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {

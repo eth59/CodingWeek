@@ -1,18 +1,12 @@
 package codingweek.models;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Stack;
-import javafx.stage.FileChooser;
 
 public class Game extends Subject implements Serializable {
     private int boardSize;
@@ -26,12 +20,13 @@ public class Game extends Subject implements Serializable {
     private boolean[][] revealedTiles;
     private int nbCardReturned;
     private int clueNb; // Nombre donné par l'espion
-    private PageManager pageManager;
+    private transient PageManager pageManager;
     private boolean isTimerRunning;
     private int blueReturned; // Nombre de carte bleu retournée
     private int redReturned; // Nombre de carte rouge retournée
     private boolean blueBegin;
     private boolean imagesMode;
+    private boolean isSaved;
 
     private Game() {
         this.board = Board.getInstance();
@@ -44,6 +39,7 @@ public class Game extends Subject implements Serializable {
         this.nbCardReturned = 0;
         this.blueReturned = 0;
         this.redReturned = 0;
+        isSaved = true;
     }
 
     public void initializeGame(int boardSize, String category, String timeLimit, boolean imagesMode) {
@@ -64,6 +60,7 @@ public class Game extends Subject implements Serializable {
         this.imagesMode = imagesMode;
         initializeRevealedTiles();
         initializeBoard();
+        isSaved = true;
     }
 
     public static Game getInstance() {
@@ -127,6 +124,7 @@ public class Game extends Subject implements Serializable {
             this.clueNb = clueNb; 
             changeTurn();
             notifierObservateurs();
+            this.isSaved = false;
             return 1;
         } else {
             return 0;
@@ -227,72 +225,9 @@ public class Game extends Subject implements Serializable {
         }
     }
 
-    public void saveGame() {
-        // Sauvegarde de la partie dans un fichier .game
-
-        // On ouvre un FileChooser pour choisir le fichier de sauvegarde
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Sauvegarder la partie");
-
-        // On ajoute un filtre pour n'afficher que les fichiers .game
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Game", "*.game"));
-
-        // On ouvre le FileChooser dans le répertoire du .jar
-        String userDirectory = System.getProperty("user.home");
-        fileChooser.setInitialDirectory(new File(userDirectory));
-
-
-        // On propose un nom de fichier par défaut
-        fileChooser.setInitialFileName("partie.game");
-
-        File selectedFile = fileChooser.showSaveDialog(null);
-        if (selectedFile != null) {
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(selectedFile))) {
-                oos.writeObject(this);
-            } catch (Exception e) {
-                System.err.println("Erreur lors de la sauvegarde de la partie : " + e.getMessage());
-            }
-        } else {
-            System.err.println("Aucun fichier sélectionné.");
-        }
-    }
-
-    public void loadGame() {
-        // On ouvre un FileChooser pour sélectionner un fichier .game
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Charger une partie");
-
-        // On filtre pour n'avoir que les fichiers .game
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Game", "*.game"));
-
-        // On propose le répertoire courant comme le répertoire du jar
-        String userDirectory = System.getProperty("user.home");
-        fileChooser.setInitialDirectory(new File(userDirectory));
-
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            // Chargement de la partie depuis le fichier .game
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(selectedFile))) {
-                Game loadedGame = (Game) ois.readObject();
-                this.boardSize = loadedGame.getBoardSize();
-                this.timeLimit = loadedGame.getTimeLimit();
-                this.blueTurn = loadedGame.isBlueTurn();
-                System.out.println("Blue turn: " + this.blueTurn);
-                this.spyTurn = loadedGame.isSpyTurn();
-                System.out.println("Spy turn: " + this.spyTurn);
-                this.guesses = loadedGame.guesses;
-                this.board = loadedGame.board;
-                this.notifierObservateurs(); // Notifie les observateurs que la partie a été modifiée
-            } catch (Exception e) {
-                System.err.println("Erreur lors du chargement de la partie : " + e.getMessage());
-            }
-        } else {
-            System.err.println("Aucun fichier sélectionné.");
-        }
-    }
-
     // Gere la logique quand les carte sont retournees
     public void returnCard(Card card) {
+        this.isSaved = false;
         if (blueTurn && card.getColor().equals("0x003566ff")) {
             // Au tour de l'equipe bleue et la couleur de la carte est revelee
             this.nbCardReturned += 1;
@@ -390,5 +325,37 @@ public class Game extends Subject implements Serializable {
 
     public boolean getImagesMode(){
         return this.imagesMode;
+    }
+
+    public void loadGame(Game loadedGame) {
+        this.boardSize = loadedGame.getBoardSize();
+        this.timeLimit = loadedGame.getTimeLimit();
+        this.blueTurn = loadedGame.isBlueTurn();
+        this.spyTurn = loadedGame.isSpyTurn();
+        this.guesses = loadedGame.guesses;
+        this.board.cleanCards();
+        this.board.setCards(loadedGame.getBoard().getCards());
+        this.category = loadedGame.category;
+        this.revealedTiles = loadedGame.revealedTiles;
+        this.nbCardReturned = loadedGame.nbCardReturned;
+        this.clueNb = loadedGame.clueNb;
+        this.isTimerRunning = loadedGame.isTimerRunning;
+        this.blueReturned = loadedGame.blueReturned;
+        this.redReturned = loadedGame.redReturned;
+        this.blueBegin = loadedGame.blueBegin;
+        this.imagesMode = loadedGame.imagesMode;
+        pageManager.loadGuesserView();
+        pageManager.closeSpyView();
+        pageManager.loadSpyView();
+        this.notifierObservateurs();
+        this.isSaved = true;
+    }
+
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public boolean setSaved(boolean isSaved) {
+        return this.isSaved = isSaved;
     }
 }
