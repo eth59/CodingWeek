@@ -12,7 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class PageManager {
+public class PageManager extends Subject {
 
     private Stage primaryStage, spyStage;
     private static PageManager instance;
@@ -51,6 +51,8 @@ public class PageManager {
             primaryStage.setOnCloseRequest(this::windowClose);
             
             primaryStage.show();
+
+            this.notifierObservateurs();
         } catch (IOException e) {
             System.err.println("Failed to load guesserView.fxml: " + e.getMessage());
             e.printStackTrace();
@@ -78,6 +80,8 @@ public class PageManager {
             spyStage.setOnCloseRequest(this::windowClose);
 
             spyStage.show();
+
+            this.notifierObservateurs();
         } catch (IOException e) {
             System.err.println("Failed to load spyView.fxml: " + e.getMessage());
             e.printStackTrace();
@@ -133,7 +137,7 @@ public class PageManager {
             }
     
             // Display the stats view
-            Scene statsScene = new Scene(statsView, 800, 600);
+            Scene statsScene = new Scene(statsView, 800, 1000);
             primaryStage.setScene(statsScene);
             primaryStage.setTitle("Game Statistics");
             primaryStage.show();
@@ -160,8 +164,8 @@ public class PageManager {
             primaryStage.setScene(configScene);
             primaryStage.setTitle("Configuration Window");
             // Set position and size explicitly
-            primaryStage.setWidth(600);
-            primaryStage.setHeight(300);
+            primaryStage.setWidth(650);
+            primaryStage.setHeight(375);
             primaryStage.setX(100);
             primaryStage.setY(100);
             primaryStage.show();

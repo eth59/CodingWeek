@@ -31,7 +31,7 @@
 
             <!-- Bouton "RÈGLES" à gauche -->
             <left>
-                <Button text="Règles" fx:id="rulesButton"
+                <Button text="Rules" fx:id="rulesButton"
                         style="-fx-background-color: rgb(147, 147, 147);
                                -fx-text-fill: white;
                                -fx-font-size: 18px;

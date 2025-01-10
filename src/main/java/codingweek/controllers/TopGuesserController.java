@@ -28,27 +28,27 @@ public class TopGuesserController implements Observer {
 
     public void reagir() {
         if (game.isSpyTurn() && game.isBlueTurn()) {
-            turnLabel.setText("C'est au tour de l'espion bleu !");
+            turnLabel.setText("It's blue spy's turn!");
             turnLabel.setStyle("-fx-text-fill: blue;");
             stopFading();
         } else if (game.isSpyTurn() && !game.isBlueTurn()) {
-            turnLabel.setText("C'est au tour de l'espion rouge !");
+            turnLabel.setText("It's red spy's turn!");
             turnLabel.setStyle("-fx-text-fill: red;");
             stopFading();
         } else if (!game.isSpyTurn() && game.isBlueTurn()) {
-            turnLabel.setText("C'est au tour du devin bleu !");
+            turnLabel.setText("It's blue guesser's turn!");
             turnLabel.setStyle("-fx-text-fill: blue;");
             startFading();
         } else {
-            turnLabel.setText("C'est au tour du devin rouge !");
+            turnLabel.setText("It's red guesser's turn!");
             turnLabel.setStyle("-fx-text-fill: red;");
             startFading();
         }
 
         Guess lastGuess = game.getLastGuess();
         if (lastGuess != null) {
-            clueLabel.setText("Indice : "+lastGuess.getClue());
-            numberLabel.setText("          Nombre de mot à deviner : "+Integer.toString(lastGuess.getNbWords()));
+            clueLabel.setText("Clue: "+lastGuess.getClue());
+            numberLabel.setText("          Guesses allowed: "+Integer.toString(lastGuess.getNbWords()));
         }
     }
 

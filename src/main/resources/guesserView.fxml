@@ -22,7 +22,7 @@
                <ImageView fx:id="sandTimerView" fitWidth="150" layoutX="0" layoutY="0" />
             </VBox>
          </HBox>
-         <Button fx:id="btnTurn" text="Passer le tour"
+         <Button fx:id="btnTurn" text="End turn"
                  style="-fx-background-color: rgb(230, 218, 198);
                            -fx-text-fill: black;
                            -fx-font-size: 18px;
