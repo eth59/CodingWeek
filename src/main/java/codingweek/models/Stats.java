@@ -1,42 +1,77 @@
 package codingweek.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Stats implements Serializable {
     private int blueTeamWins;
     private int redTeamWins;
     private int gamesLaunched;
     private int totalCorrectGuesses;
+    private int blueTeamClueSubmissions;
+    private int redTeamClueSubmissions;
 
-    // Constructor
+    private ArrayList<ClueStats> blueTeamClueStats;
+    private ArrayList<ClueStats> redTeamClueStats;
+
     public Stats() {
         this.blueTeamWins = 0;
         this.redTeamWins = 0;
         this.gamesLaunched = 0;
         this.totalCorrectGuesses = 0;
+        this.blueTeamClueSubmissions = 0;
+        this.redTeamClueSubmissions = 0;
+        this.blueTeamClueStats = new ArrayList<ClueStats>();
+        this.redTeamClueStats = new ArrayList<ClueStats>();
     }
 
-    // Increment the win count for the Blue Team
     public void incrementBlueTeamWins() {
         this.blueTeamWins++;
     }
 
-    // Increment the win count for the Red Team
     public void incrementRedTeamWins() {
         this.redTeamWins++;
     }
 
-    // Increment the number of games launched
     public void incrementGamesLaunched() {
         this.gamesLaunched++;
     }
 
-    // Increment the total number of correct guesses
     public void addCorrectGuesses(int correctGuesses) {
         this.totalCorrectGuesses += correctGuesses;
     }
 
-    // Getters
+    public void addBlueTeamClue(int clueNb, int correctGuesses) {
+        this.blueTeamClueSubmissions++;
+        blueTeamClueStats.add(new ClueStats(clueNb, correctGuesses));
+    }
+
+    public void addRedTeamClue(int clueNb, int correctGuesses) {
+        this.redTeamClueSubmissions++;
+        redTeamClueStats.add(new ClueStats(clueNb, correctGuesses));
+    }
+    
+    @Override
+    public String toString() {
+        String res = "Stats:\n" +
+                "Blue Team Wins: " + blueTeamWins + "\n" +
+                "Red Team Wins: " + redTeamWins + "\n" +
+                "Games Launched: " + gamesLaunched + "\n" +
+                "Total Correct Guesses: " + totalCorrectGuesses + "\n" +
+                "Blue Team Clue Submissions: " + blueTeamClueSubmissions + "\n" +
+                "Red Team Clue Submissions: " + redTeamClueSubmissions + "\n" +
+                "Blue Team Clue Stats: ";
+                // "Blue Team Clue Stats: " + blueTeamClueStats.values() + "\n" +
+                // "Red Team Clue Stats: " + redTeamClueStats.values();
+        for (ClueStats clueStats : blueTeamClueStats) {
+            res += clueStats.toString() + " ; ";
+        }
+        res += "\nRed Team Clue Stats: ";
+        for (ClueStats clueStats : redTeamClueStats) {
+            res += clueStats.toString() + " ; ";
+        }
+        return res;
+        }
     public int getBlueTeamWins() {
         return blueTeamWins;
     }
@@ -53,11 +88,45 @@ public class Stats implements Serializable {
         return totalCorrectGuesses;
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-            "Stats:\nBlue Team Wins: %d\nRed Team Wins: %d\nGames Launched: %d\nTotal Correct Guesses: %d",
-            blueTeamWins, redTeamWins, gamesLaunched, totalCorrectGuesses
-        );
+    public int getBlueTeamClueSubmissions() {
+        return blueTeamClueSubmissions;
+    }
+
+    public int getRedTeamClueSubmissions() {
+        return redTeamClueSubmissions;
+    }
+
+    public ArrayList<ClueStats> getBlueTeamClueStats() {
+        return blueTeamClueStats;
+    }
+
+    public ArrayList<ClueStats> getRedTeamClueStats() {
+        return redTeamClueStats;
+    }
+    public static class ClueStats {
+        private int clueNb;
+        private int correctGuesses;
+
+        public ClueStats(int clueNb, int correctGuesses) {
+            this.clueNb = clueNb;
+            this.correctGuesses = correctGuesses;
+        }
+
+        public int getClueNb() {
+            return clueNb;
+        }
+
+        public int getCorrectGuesses() {
+            return correctGuesses;
+        }
+
+        public void setCorrectGuesses(int correctGuesses) {
+            this.correctGuesses = correctGuesses;
+        }
+
+        @Override
+        public String toString() {
+            return "[Clue " + clueNb + ": " + correctGuesses + " correct guesses]";
+        }
     }
 }
