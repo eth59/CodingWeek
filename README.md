@@ -31,7 +31,7 @@ Le groupe 25 est composé des étudiants suivants :
 
 # La vidéo de présentation de notre projet
 
-CLiquez sur ce lien pour accéder à la vidéo de présentation de notre projet : [Vidéo de présentation](https://www.youtube.com/watch?v=3QJ1Z1v1j8A)
+CLiquez sur ce lien pour accéder à la vidéo de présentation de notre projet : [Vidéo de présentation](https://youtu.be/UjX4wLd-gos)
 
 # Exécution
 
