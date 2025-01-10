@@ -154,4 +154,5 @@ Chaque fichier correspond au *release* d'une journ√©e de la semaine, avec les t√
 
 ![Diagramme de classes](./figures/main.png)
 
-![Diagramme de classes](./diagram/main.plantuml)
+Le code de ce diagramme se trouve dans le fichier [main.plantuml](./diagram/main.plantuml).
+
