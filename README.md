@@ -17,6 +17,7 @@ TABLE DES MATIÈRES
      * [La page GAME OVER](#la-page-game-over)
      * [La page STATISTIQUES](#la-page-statistiques)
    * [La planification](#la-planification)
+   * [Le diagramme de classes](#le-diagramme-de-classes)
 
 
 # Le groupe 
@@ -148,3 +149,7 @@ Ces statistiques sont celles de l'équipe rouge.
 
 En cliquant sur ce lien : [Roadmap](./roadmap), vous pourrez avoir accès à la planification de notre projet sur la semaine de Coding Week. 
 Chaque fichier correspond au *release* d'une journée de la semaine, avec les tâches effectuées par demi-journée ainsi que les objectifs pour le lendemain. 
+
+# Le diagramme de classes
+
+![Diagramme de classes](./figures/main.png)
