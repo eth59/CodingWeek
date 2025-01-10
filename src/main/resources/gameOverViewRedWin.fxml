@@ -26,13 +26,13 @@
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
-            <Button fx:id="accueilButton" text="Accueil"
+            <Button fx:id="accueilButton" text="Back to menu"
                     style="-fx-background-color: rgb(180, 73, 55);
                            -fx-text-fill: white;
                            -fx-font-size: 18px;
                            -fx-background-radius: 20;"/>
 
-            <Button fx:id="statsButton" text="Afficher les stats"
+            <Button fx:id="statsButton" text="Show stats"
                     style="-fx-background-color: rgb(239,228,207);
                            -fx-text-fill: black;
                            -fx-font-size: 18px;

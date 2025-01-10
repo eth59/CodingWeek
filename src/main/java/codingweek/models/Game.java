@@ -141,7 +141,7 @@ public class Game extends Subject implements Serializable {
         }
     }
     
-    private boolean clueIsValid(String clue) {
+    public boolean clueIsValid(String clue) {
         clue = clue.toLowerCase();
         for (Card card : board.getCards()) {
             if (!card.isRevealed() && (card.getWord().equals(clue) || card.getForbiddenWords().contains(clue) || Arrays.asList("gauche", "droite", "haut", "bas", "centre").contains(clue))) {
