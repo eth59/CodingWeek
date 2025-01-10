@@ -23,8 +23,10 @@ Faire cette commande à la racine de ce projet :
 ``` java --module-path /path/to/javafx/lib --add-modules javafx.controls,javafx.fxml -jar grp25.jar ```
 
 
-## Le jeu 
-**La page ACCUEIL**
+Le jeu 
+=================
+
+## La page ACCUEIL
 
 ![Page ACCUEIL](./figures/ACCUEIL.png)
 
