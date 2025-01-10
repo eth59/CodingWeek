@@ -144,6 +144,8 @@ public class Game extends Subject implements Serializable {
     public boolean clueIsValid(String clue) {
         clue = clue.toLowerCase();
         for (Card card : board.getCards()) {
+            System.out.println(card.getWord());
+            System.out.println(card.getForbiddenWords());
             if (!card.isRevealed() && (card.getWord().equals(clue) || card.getForbiddenWords().contains(clue) || Arrays.asList("gauche", "droite", "haut", "bas", "centre").contains(clue))) {
                 return false;
             }
@@ -201,7 +203,6 @@ public class Game extends Subject implements Serializable {
             } else {
                 cards = getShuffledCards(category, totalCards);
             }
-
             // Efface et peuple le plateau
             populateBoard(cards, totalCards);
     
@@ -224,12 +225,7 @@ public class Game extends Subject implements Serializable {
     
     private void populateBoard(ArrayList<Card> cards, int totalCards) {
         board.cleanCards();
-        ArrayList<String> cardNames = new ArrayList<>();
         for (int i = 0; i < totalCards; i++) {
-            cardNames.add(cards.get(i).getWord());
-        }
-        for (int i = 0; i < totalCards; i++) {
-            cards.get(i).addForbiddenWords(cardNames);
             board.addCard(cards.get(i));
         }
     }
