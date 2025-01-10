@@ -47,19 +47,19 @@ public class TopSpyController implements Observer {
     public void reagir() {
         if (game.isSpyTurn() && game.isBlueTurn()) {
             turnLabel.setText("It's blue spy's turn!");
-            turnLabel.setStyle("-fx-text-fill: blue;");
+            turnLabel.setStyle("-fx-text-fill: #003566; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, blue, 10, 0.5, 0, 0); -fx-font-size: 18px; ");
             startFading();
         } else if (game.isSpyTurn() && !game.isBlueTurn()) {
             turnLabel.setText("It's red spy's turn!");
-            turnLabel.setStyle("-fx-text-fill: red;");
+            turnLabel.setStyle("-fx-text-fill: #c1121f; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, red, 10, 0.5, 0, 0); -fx-font-size: 18px;");
             startFading();
         } else if (!game.isSpyTurn() && game.isBlueTurn()) {
             turnLabel.setText("It's blue spy's turn!");
-            turnLabel.setStyle("-fx-text-fill: blue;");
+            turnLabel.setStyle("-fx-text-fill: #003566; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, blue, 10, 0.5, 0, 0); -fx-font-size: 18px;");
             stopFading();
         } else {
             turnLabel.setText("It's red spy's turn!");
-            turnLabel.setStyle("-fx-text-fill: red;");
+            turnLabel.setStyle("-fx-text-fill: #c1121f; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, red, 10, 0.5, 0, 0); -fx-font-size: 18px;");
             stopFading();
         }
         
@@ -77,7 +77,7 @@ public class TopSpyController implements Observer {
         } catch (NumberFormatException e) {
             // Gérer l'erreur de conversion en integer
             numberField.clear();
-            numberField.setPromptText("Please enter a valid number");
+            numberField.setPromptText("Please enter a valid number.");
         }
     }
 
