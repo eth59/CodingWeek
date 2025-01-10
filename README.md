@@ -124,11 +124,27 @@ L'utilisateur peut aussi cliquer sur le bouton *Show stats* pour afficher les st
 
 # La page STATISTIQUES
 
-![Page STATISTIQUES](./figures/STATS.jpg)
-
 Cette page affiche les statistiques de jeu des équipes.
-Elle affiche le nombre de parties jouées, le nombre de parties gagnées par chaque équipe et le ratio indices données / bonnes cartes trouvées. 
-Via le menu déroulant *Select Data to Display* l'utilisateur peut choisir d'afficher différentes statistiques comme le nombre de parties jouées, les victoires par équipes, les indices donnés ainsi que les bonnes cartes trouvées via différents graphiques. 
+Elle affiche le nombre de parties jouées, le nombre de parties gagnées par chaque équipe et le ratio indices données / bonnes cartes trouvées.
+Via le menu déroulant *Select Data to Display* l'utilisateur peut choisir d'afficher différentes statistiques comme le nombre de parties jouées, les victoires par équipes, les indices donnés ainsi que les bonnes cartes trouvées via différents graphiques.
+
+![Page STATISTIQUES](./figures/STATS_1.png)
+
+Cette page affiche le nombre de parties gagnées par une équipe en fonction du nombre de parties jouées. 
+
+![Page STATISTIQUES](./figures/STATS_2.png)
+
+Cette page affiche le nombre d'indices donnés au total par chaque équipe. 
+
+![Page STATISTIQUES](./figures/STATS_3.png)
+
+Cette page affiche le nombre de cartes sensées être retournées lorsqu'un indice est donné et le nombre de cartes correctes retournées lors de ce tour. 
+Ces statistiques sont celles de l'équipe bleue. 
+
+![Page STATISTIQUES](./figures/STATS_4.png)
+
+Cette page affiche le nombre de cartes sensées être retournées lorsqu'un indice est donné et le nombre de cartes correctes retournées lors de ce tour.
+Ces statistiques sont celles de l'équipe rouge.
 
 # La planification
 
