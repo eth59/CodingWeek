@@ -47,7 +47,7 @@ public class MenuBarController {
                 return;
             }
         }
-        pageManager.loadMenuWindowView();
         pageManager.closeSpyView();
+        pageManager.loadMenuWindowView();   
     }
 }
