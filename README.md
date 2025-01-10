@@ -8,7 +8,7 @@ TABLE DES MATIERES
 
    * [Execution](#execution)
    * [Le jeu](#le-jeu)
-   * [La page ACCUEIL](#la-page-accueil)
+     * [La page ACCUEIL](#la-page-accueil)
    * [La page ADD CARD](#la-page-add-card)
    * [La page CONFIGURATION](#la-page-configuration)
    * [La page GUESSER](#la-page-guesser)
@@ -34,7 +34,7 @@ Cette page se lance lorsque vous lancez le jeu. Vous avez le choix entre 4 bouto
 - Play : il vous redirige vers la page de configuration de votre partie
 - Quit : il vous permet de quitter le jeu
 
-**La page ADD CARD**
+# La page ADD CARD
 
 ![Page ADD CARD](./figures/ADDCARD.png)
 
@@ -42,7 +42,7 @@ Cette page permet à l'utilisateur d'ajouter des cartes au jeu ou une catégorie
 Pour ajouter une catégorie, il doit renseigner le nom de la catégorie puis cliquer sur le bouton *Add Category*.
 Pour ajouter une carte, il doit renseigner la catégorie associée à la carte, le mot à faire deviner puis appuyer sur le bouton *Add Card*.
 
-**La page CONFIGURATION**
+# La page CONFIGURATION
 
 ![Page CONFIGURATION](./figures/CONFIG.png)
 
@@ -54,7 +54,7 @@ Une fois les paramètres renseignés, il peut cliquer sur le bouton *Start Game*
 Si besoin, il peut cliquer sur le bouton *Return Menu* pour revenir à la page d'accueil. 
 Par défaut, les paramètres sont initialisés à 5 pour la taille de la grille, la catégorie **Toutes les catégories**, le mode **Mot** et le chronomètre désactivé.
 
-**La page GUESSER**
+# La page GUESSER
 
 ![Page GUESSER](./figures/GUESSER.png)
 
