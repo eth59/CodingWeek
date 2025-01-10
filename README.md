@@ -18,8 +18,6 @@ TABLE DES MATIÈRES
      * [La page STATISTIQUES](#la-page-statistiques)
    * [La planification](#la-planification)
 
-vhu
-================= 
 
 # Le groupe 
 Le groupe 25 est composé des étudiants suivants : 
@@ -148,5 +146,5 @@ Ces statistiques sont celles de l'équipe rouge.
 
 # La planification
 
-En cliquant sur ce lien : [Releases](./releases), vous pourrez avoir accès à la planification de notre projet sur la semaine de Coding Week. 
+En cliquant sur ce lien : [Roadmap](./roadmap), vous pourrez avoir accès à la planification de notre projet sur la semaine de Coding Week. 
 Chaque fichier correspond au *release* d'une journée de la semaine, avec les tâches effectuées par demi-journée ainsi que les objectifs pour le lendemain. 
