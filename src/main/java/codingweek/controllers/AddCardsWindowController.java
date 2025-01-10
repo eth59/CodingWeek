@@ -93,7 +93,6 @@ public class AddCardsWindowController {
         }
     }
 
-
     private void showError(String title, String content) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
