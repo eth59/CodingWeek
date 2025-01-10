@@ -195,32 +195,31 @@ public class Game extends Subject implements Serializable {
             if (this.category.equals("all")) {
                 Map<String, ?> categories = JsonReader.getCategories("mots.json");
                 for (String categorie : categories.keySet()) {
-                    cards.addAll(getShuffledCards(categorie, totalCards));
+                    cards.addAll(JsonReader.jsonReader("mots.json", categorie, imagesMode));
                 }
-                Collections.shuffle(cards);
             } else {
-                cards = getShuffledCards(category, totalCards);
+                cards = JsonReader.jsonReader("mots.json", category, imagesMode);
             }
+
+            // On mélange les cartes
+            Collections.shuffle(cards);
+
+            // Il faut assez de cartes pour remplir le plateau
+            if (cards.size() < totalCards) {
+                throw new IllegalArgumentException("Not enough card to populate board.");
+            }
+
             // Efface et peuple le plateau
             populateBoard(cards, totalCards);
     
             // Reinitialise l'array des revealedTiles pour le plateau de nouvelle taille
             initializeRevealedTiles();
     
-        } catch (Exception e) {
-            System.err.println("Error during board initialization: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error during board initialization: " + e);
         }
     }
-    
-    private ArrayList<Card> getShuffledCards(String category, int totalCards) throws IOException {
-        ArrayList<Card> cards = JsonReader.jsonReader("mots.json", category, imagesMode);
-        if (cards.size() < totalCards) {
-            throw new IllegalArgumentException("Not enough card to populate board.");
-        }
-        Collections.shuffle(cards);
-        return new ArrayList<>(cards.subList(0, totalCards));
-    }
-    
+
     private void populateBoard(ArrayList<Card> cards, int totalCards) {
         board.cleanCards();
         for (int i = 0; i < totalCards; i++) {
