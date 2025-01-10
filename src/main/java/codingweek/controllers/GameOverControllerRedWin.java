@@ -14,6 +14,9 @@ public class GameOverControllerRedWin {
     @FXML
     private Button accueilButton;
 
+    @FXML
+    private Button statsButton;
+
     private PageManager pageManager;
 
     public GameOverControllerRedWin() {
@@ -29,6 +32,12 @@ public class GameOverControllerRedWin {
         accueilButton.setOnAction(e -> {
             System.out.println("Bouton Accueil cliqué !");
             pageManager.loadMenuWindowView();
+        });
+
+        // Gérer l'action sur le bouton Afficher les stats
+        statsButton.setOnAction(e -> {
+            System.out.println("Bouton Afficher les stats cliqué !");
+            pageManager.loadStatsView();
         });
     }
 }
