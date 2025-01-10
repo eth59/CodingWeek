@@ -5,6 +5,7 @@ import java.net.URL;
 
 import codingweek.controllers.GuesserBoardController;
 import codingweek.controllers.SpyBoardController;
+import codingweek.controllers.StatsController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -103,6 +104,45 @@ public class PageManager {
             e.printStackTrace();
         }
     }
+    
+    public void loadStatsView() {
+        try {
+            URL statsViewURL = getClass().getResource("/stats.fxml");
+            if (statsViewURL == null) {
+                throw new IOException("Could not find stats.fxml");
+            }
+    
+            FXMLLoader loader = new FXMLLoader(statsViewURL);
+            Parent statsView = loader.load();
+    
+            // Ensure the controller is properly initialized
+            StatsController statsController = loader.getController();
+            if (statsController == null) {
+                throw new IllegalStateException("StatsController is not initialized. Check fx:controller in stats.fxml.");
+            }
+    
+            // Pass the Stats object to the controller
+            Stats stats = Game.getStats();
+            if (stats != null) {
+                statsController.setStats(stats);
+            } else {
+                System.err.println("Stats object is null. Ensure Game.getStats() returns a valid instance.");
+            }
+    
+            // Display the stats view
+            Scene statsScene = new Scene(statsView, 800, 600);
+            primaryStage.setScene(statsScene);
+            primaryStage.setTitle("Game Statistics");
+            primaryStage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load stats.fxml: " + e.getMessage());
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            System.err.println("Controller initialization error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
 
     public void loadConfigWindowView(){
         try {
@@ -131,8 +171,9 @@ public class PageManager {
 
     public void loadGameOverViewBlueWin(){
         try {
-            closeSpyView();
             loadGameOverSpyViewBlueWin();
+            displayStats();
+
             URL gameOverViewURL = getClass().getResource("/gameOverViewBlueWin.fxml");
             if (gameOverViewURL == null){
                 System.err.println("Could not find gameOverViewBlueWin.fxml");
@@ -159,6 +200,7 @@ public class PageManager {
         try {
             closeSpyView();
             loadGameOverSpyViewRedWin();
+            displayStats();
             URL gameOverViewURL = getClass().getResource("/gameOverViewRedWin.fxml");
             if (gameOverViewURL == null){
                 System.err.println("Could not find gameOverViewRedWin.fxml");
@@ -250,4 +292,10 @@ public class PageManager {
     public GuesserBoardController getGuesserBoardController() {
         return guesserBoardController;
     }
+
+    public void displayStats() {
+        Stats stats = Game.getStats();
+        System.out.println(stats); // Replace with proper UI logic
+    }
+    
 }
