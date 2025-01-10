@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class TopSpyController implements Observer {
     @FXML
@@ -68,16 +70,26 @@ public class TopSpyController implements Observer {
     public void submitClue() {
         try {
             int number = Integer.parseInt(numberField.getText());
-            if (game.submitClue(clueField.getText(), number) == 1) {
+            String clue = clueField.getText();
+    
+            // Vérifiez si l'indice est valide
+            if (!game.clueIsValid(clue)) {
+                showError("Invalid Clue", "The clue you provided is not valid. Please try again.");
+                return;
+            }
+    
+            // Soumission de l'indice au jeu
+            if (game.submitClue(clue, number) == 1) {
                 clueField.clear();
                 numberField.clear();
             } else {
-                // L'indice n'est pas valide   
+                showError("Submission Error", "Failed to submit the clue. Please check your input.");
             }
         } catch (NumberFormatException e) {
             // Gérer l'erreur de conversion en integer
             numberField.clear();
             numberField.setPromptText("Please enter a valid number.");
+            showError("Invalid Number", "The number you entered is not valid. Please enter a valid integer.");
         }
     }
 
@@ -91,5 +103,13 @@ public class TopSpyController implements Observer {
             fadeTransition.stop();  // Arrêter l'animation
             turnLabel.setOpacity(1.0);  // Assurer que le label reste visible
         }
+    }
+
+    private void showError(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
