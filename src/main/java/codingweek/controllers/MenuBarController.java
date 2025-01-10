@@ -50,4 +50,9 @@ public class MenuBarController {
         pageManager.closeSpyView();
         pageManager.loadMenuWindowView();   
     }
+
+    @FXML
+    private void AfficherStatistiques(ActionEvent event) {
+        pageManager.loadStatsView();
+    }
 }

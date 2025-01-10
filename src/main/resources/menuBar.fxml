@@ -8,9 +8,7 @@
         <MenuItem text="Sauvegarder" onAction="#Sauvegarder"/>
         <MenuItem text="Retour Accueil" onAction="#RetourAcceuil"/>
     </Menu>
-    <Menu text="Leader Board">
-        <!-- Add MenuItems for Leader Board here -->
-        <MenuItem text="View Leader Board"/>
-        <MenuItem text="Reset Leader Board"/>
+    <Menu text="Statistics">
+        <MenuItem text="Afficher les statistiques" onAction="#AfficherStatistiques"/>
     </Menu>
 </MenuBar>
