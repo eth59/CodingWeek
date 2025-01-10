@@ -31,10 +31,10 @@ public class GameSave implements Serializable {
 
         // On ouvre un FileChooser pour choisir le fichier de sauvegarde
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Sauvegarder la partie");
+        fileChooser.setTitle("Save the game");
 
         // On ajoute un filtre pour n'afficher que les fichiers .game
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Game", "*.game"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Game files", "*.game"));
 
         // On ouvre le FileChooser dans le répertoire du .jar
         String userDirectory = System.getProperty("user.home");
@@ -42,7 +42,7 @@ public class GameSave implements Serializable {
 
 
         // On propose un nom de fichier par défaut
-        fileChooser.setInitialFileName("partie.game");
+        fileChooser.setInitialFileName("game.game");
 
         File selectedFile = fileChooser.showSaveDialog(null);
         if (selectedFile != null) {
@@ -60,10 +60,10 @@ public class GameSave implements Serializable {
     public void loadGame() {
         // On ouvre un FileChooser pour sélectionner un fichier .game
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Charger une partie");
+        fileChooser.setTitle("Load a game");
 
         // On filtre pour n'avoir que les fichiers .game
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichiers Game", "*.game"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Game files", "*.game"));
 
         // On propose le répertoire courant comme le répertoire du jar
         String userDirectory = System.getProperty("user.home");

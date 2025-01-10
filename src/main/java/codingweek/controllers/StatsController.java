@@ -1,6 +1,5 @@
 package codingweek.controllers;
 
-import codingweek.Observer;
 import codingweek.models.Game;
 import codingweek.models.PageManager;
 import codingweek.models.Stats;

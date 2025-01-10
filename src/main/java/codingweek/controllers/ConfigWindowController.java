@@ -50,8 +50,8 @@ public class ConfigWindowController {
         try {
             Map<String, ?> categories = JsonReader.getCategories("mots.json");
             categoryDropdown.getItems().addAll(categories.keySet());
-            categoryDropdown.getItems().add("Toutes les catégories");
-            categoryDropdown.setValue("Toutes les catégories");
+            categoryDropdown.getItems().add("All categories");
+            categoryDropdown.setValue("All categories");
         } catch (IOException e) {
             showError("Error dans le chargement des categories", "Incapable de charger les categories depuis mots.json.");
         }
@@ -71,7 +71,7 @@ public class ConfigWindowController {
             if (selectedCategory == null || selectedCategory.isEmpty()) {
                 throw new IllegalArgumentException("Choisissez une categorie.");
             }
-            if (selectedCategory.equals("Toutes les catégories")) {
+            if (selectedCategory.equals("All categories")) {
                 selectedCategory = "all";
             } else {
                 int requiredWordCount = boardSize * boardSize; // Le nombre de mots requis dépend de la taille du plateau
@@ -83,10 +83,8 @@ public class ConfigWindowController {
 
             // Valider et affecter la limite de temps
             String timeLimit = timeLimitInput.getText();
-            System.out.println(!timeLimit.equals(timeLimit));
-            System.out.println(!(isNumeric(timeLimit) && Integer.parseInt(timeLimit) >= 10));
-            if (!timeLimit.equals("illimité") && !(isNumeric(timeLimit) && Integer.parseInt(timeLimit) >= 10)) {
-                showError("Saisie invalide", "Entrez une limite de temps valide. Elle doit valoir 'illimité' ou un nombre entier supérieur ou égal à 10.");
+            if (!timeLimit.equals("unlimited") && !(isNumeric(timeLimit) && Integer.parseInt(timeLimit) >= 10)) {
+                showError("Saisie invalide", "Entrez une limite de temps valide. Elle doit valoir 'unlimited' ou un nombre entier supérieur ou égal à 10.");
                 return;
             }
 

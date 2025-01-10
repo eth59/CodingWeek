@@ -52,7 +52,7 @@ public class Game extends Subject implements Serializable {
         this.category = category;
         this.guesses.clear();
         this.revealedTiles = new boolean[boardSize][boardSize];
-        if (timeLimit.equals("illimité")) {
+        if (timeLimit.equals("unlimited")) {
             this.timeLimit = 0;
         } else {
             this.timeLimit = Integer.parseInt(timeLimit);

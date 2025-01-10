@@ -32,7 +32,7 @@
                     onAction="#addCardToCategory"/>
         </VBox>
         <HBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
-            <Button text="Return Menu" fx:id="returnMenuButton"
+            <Button text="Back" fx:id="returnMenuButton"
                     style="-fx-background-color: rgb(180, 73, 55);
                            -fx-text-fill: white;
                            -fx-font-size: 18px;

@@ -36,7 +36,7 @@ public class KeyController implements Observer{
 
         // Initially hide the grid and set the button text
         gridPane.setVisible(false);
-        toggleKeyButton.setText("Afficher la clef");
+        toggleKeyButton.setText("Show key");
 
         // Attach the event handler
         toggleKeyButton.setOnAction(event -> handleToggleKeyButton());
@@ -54,9 +54,9 @@ public class KeyController implements Observer{
 
         // Update the button text
         if (isCurrentlyVisible) {
-            toggleKeyButton.setText("Afficher la clef");
+            toggleKeyButton.setText("Show key");
         } else {
-            toggleKeyButton.setText("Cacher la clef");
+            toggleKeyButton.setText("Hide key");
         }
     }
 

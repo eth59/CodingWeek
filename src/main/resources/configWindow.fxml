@@ -27,7 +27,7 @@
                     <TextField fx:id="boardSizeInput" promptText="Enter a size (3-7)" text="5" />
                     <ComboBox fx:id="categoryDropdown" />
                     <CheckBox fx:id="imagesModeCheckbox" />
-                    <TextField fx:id="timeLimitInput" promptText="Enter a time limit" text="illimité" />
+                    <TextField fx:id="timeLimitInput" promptText="Enter a time limit" text="unlimited" />
                 </VBox>
             </HBox>
 
@@ -40,7 +40,7 @@
 
             <!-- Return menu button -->
             <HBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                <Button text="Return Menu" fx:id="returnMenuButton"
+                <Button text="Back" fx:id="returnMenuButton"
                         style="-fx-background-color: rgb(180, 73, 55);
                                -fx-text-fill: white;
                                -fx-font-size: 18px;

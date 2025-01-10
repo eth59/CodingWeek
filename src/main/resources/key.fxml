@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="codingweek.controllers.KeyController" spacing="10" style="-fx-padding: 20;">
-    <Button text="Afficher la clef" fx:id="toggleKeyButton" style="-fx-background-color: rgb(52, 58, 64);
+    <Button text="Show key" fx:id="toggleKeyButton" style="-fx-background-color: rgb(52, 58, 64);
                            -fx-text-fill: white;
                            -fx-font-size: 15px;
                            -fx-background-radius: 20;"/>
