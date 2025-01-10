@@ -3,6 +3,7 @@ package codingweek.models;
 import java.io.IOException;
 import java.net.URL;
 
+import codingweek.Utils;
 import codingweek.controllers.GuesserBoardController;
 import codingweek.controllers.SpyBoardController;
 import codingweek.controllers.StatsController;
@@ -38,16 +39,17 @@ public class PageManager extends Subject {
             }
             FXMLLoader loader = new FXMLLoader(guesserViewURL);
             Parent guesserView = loader.load();
-            Scene guesserScene = new Scene(guesserView, 800, 600);
+            Scene guesserScene = new Scene(guesserView, 900, 900);
 
             primaryStage.setScene(guesserScene);
             primaryStage.setTitle("Guesser Window");
 
-            primaryStage.setWidth(800);
-            primaryStage.setHeight(600);
+            primaryStage.setWidth(900);
+            primaryStage.setHeight(900);
             primaryStage.setX(100);
             primaryStage.setY(100);
-
+            primaryStage.setOnCloseRequest(this::windowClose);
+            
             primaryStage.show();
 
             this.notifierObservateurs();
@@ -65,16 +67,17 @@ public class PageManager extends Subject {
             }
             FXMLLoader loader = new FXMLLoader(spyViewURL);
             Parent spyView = loader.load();
-            Scene spyScene = new Scene(spyView, 800, 600);
+            Scene spyScene = new Scene(spyView, 900, 900);
 
             spyStage = new Stage();
             spyStage.setScene(spyScene);
             spyStage.setTitle("Spy Window");
 
-            spyStage.setWidth(800);
-            spyStage.setHeight(600);
+            spyStage.setWidth(900);
+            spyStage.setHeight(900);
             spyStage.setX(primaryStage.getX() + primaryStage.getWidth() + 20);
             spyStage.setY(primaryStage.getY());
+            spyStage.setOnCloseRequest(this::windowClose);
 
             spyStage.show();
 
@@ -161,8 +164,8 @@ public class PageManager extends Subject {
             primaryStage.setScene(configScene);
             primaryStage.setTitle("Configuration Window");
             // Set position and size explicitly
-            primaryStage.setWidth(490);
-            primaryStage.setHeight(250);
+            primaryStage.setWidth(600);
+            primaryStage.setHeight(300);
             primaryStage.setX(100);
             primaryStage.setY(100);
             primaryStage.show();
@@ -279,6 +282,31 @@ public class PageManager extends Subject {
         }
     }
 
+    public void loadAddCardsWindowView(){
+        try {
+            closeSpyView();
+            URL configViewURL = getClass().getResource("/addCardsView.fxml");
+            if (configViewURL == null){
+                System.err.println("Could not find configWindow.fxml");
+                System.exit(1);
+            }
+            Parent configView = FXMLLoader.load(configViewURL);
+            Scene configScene = new Scene(configView, 490, 250);
+            primaryStage.setScene(configScene);
+            primaryStage.setTitle("Add Cards Window");
+            // Set position and size explicitly
+            primaryStage.setWidth(600);
+            primaryStage.setHeight(500);
+            primaryStage.setX(100);
+            primaryStage.setY(100);
+            primaryStage.show();
+        } catch (IOException e){
+            System.err.println("Failed to load configWindow.fxml: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
     public void closeSpyView() {
         if (spyStage != null) {
             spyStage.close();
@@ -297,6 +325,21 @@ public class PageManager extends Subject {
         return guesserBoardController;
     }
 
+    private void windowClose(javafx.stage.WindowEvent windowEvent) {
+        // Gestion de la fermeture de la fenêtre pour avoir une confirmation de sauvegarde
+        Game game = Game.getInstance();
+        GameSave gamesave = GameSave.getInstance();
+        if (!game.isSaved()) {
+            int result = Utils.saveConfirmation();
+            if (result == 0) {
+                gamesave.saveGame();
+            } else if (result == 2) {
+                windowEvent.consume();
+                return;
+            }
+        }
+        System.exit(0);
+    }
     public void displayStats() {
         Stats stats = Game.getStats();
         System.out.println(stats); // Replace with proper UI logic
