@@ -30,13 +30,11 @@ public class GameOverControllerRedWin {
 
         // Gérer l'action sur le bouton Accueil
         accueilButton.setOnAction(e -> {
-            System.out.println("Bouton Accueil cliqué !");
             pageManager.loadMenuWindowView();
         });
 
         // Gérer l'action sur le bouton Afficher les stats
         statsButton.setOnAction(e -> {
-            System.out.println("Bouton Afficher les stats cliqué !");
             pageManager.loadStatsView();
             pageManager.closeSpyView();
         });

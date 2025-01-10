@@ -82,7 +82,7 @@ public class SpyBoardController implements Observer {
         List<Card> cards = board.getCards();
         int totalCards = gridSize * gridSize; // Verifie le nombre de cartes
         if (cards.size() != totalCards) {
-            throw new IllegalStateException("Il n'y a pas assez de cartes.");
+            throw new IllegalStateException("There are not enough cards.");
         }
     
         int cardIndex = 0;

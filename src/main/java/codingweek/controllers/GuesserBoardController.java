@@ -75,7 +75,7 @@ public class GuesserBoardController implements codingweek.Observer {
         List<Card> cards = board.getCards();
         int totalCards = gridSize * gridSize; // Verifie le nombre de cartes
         if (cards.size() != totalCards) {
-            throw new IllegalStateException("Il n'y a pas assez de cartes.");
+            throw new IllegalStateException("There are not enough cards.");
         }
 
         int cardIndex = 0;
@@ -127,12 +127,10 @@ public class GuesserBoardController implements codingweek.Observer {
 
     private void onCardClicked(StackPane tile, Card card) {
         if (game.isSpyTurn()) {
-            System.out.println("C'est au tour des espions.");
             return;
         }
         // Check if the card is already revealed
         if (card.isRevealed()) {
-            System.out.println("La carte '" + card.getWord() + "' a ete revelee.");
             return;
         }
 

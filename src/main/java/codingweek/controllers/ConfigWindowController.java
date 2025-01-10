@@ -43,7 +43,6 @@ public class ConfigWindowController {
     @FXML
     public void initialize() {
         returnMenuButton.setOnAction(e -> {
-            System.out.println("Le bouton Retour menu a été cliqué !");
             pageManager.loadMenuWindowView();
         });
         // Affecte et affiche les categories du JSON dans le dropdown
@@ -53,7 +52,7 @@ public class ConfigWindowController {
             categoryDropdown.getItems().add("All categories");
             categoryDropdown.setValue("All categories");
         } catch (IOException e) {
-            showError("Error dans le chargement des categories", "Incapable de charger les categories depuis mots.json.");
+            showError("Error loading categories", "Unable to load categories from mots.json.");
         }
     }
 
@@ -63,13 +62,13 @@ public class ConfigWindowController {
             // Valider et affecter la taille du plateau
             int boardSize = Integer.parseInt(boardSizeInput.getText());
             if (boardSize < 3 || boardSize > 6) {
-                throw new IllegalArgumentException("Le tableau doit avoir entre 3 et 6 colonnes et lignes.");
+                throw new IllegalArgumentException("The board must have between 3 and 6 columns and rows.");
             }
     
             // Valider et affecter la categorie
             String selectedCategory = categoryDropdown.getValue();
             if (selectedCategory == null || selectedCategory.isEmpty()) {
-                throw new IllegalArgumentException("Choisissez une categorie.");
+                throw new IllegalArgumentException("Please select a category.");
             }
             if (selectedCategory.equals("All categories")) {
                 selectedCategory = "all";
@@ -77,14 +76,14 @@ public class ConfigWindowController {
                 int requiredWordCount = boardSize * boardSize; // Le nombre de mots requis dépend de la taille du plateau
                 int wordCount = JsonReader.getCategoryWordCount(selectedCategory); // Obtenez le nombre de mots dans la catégorie sélectionnée
                 if (wordCount < requiredWordCount) {
-                    throw new IllegalArgumentException("La catégorie " + selectedCategory + " n'a pas assez de mots pour remplir un plateau de taille " + boardSize + "x" + boardSize + ".");
+                    throw new IllegalArgumentException("The category \"" + selectedCategory + "\" does not have enough words to fill a board of size " + boardSize + "x" + boardSize + ".");
                 }
             }
 
             // Valider et affecter la limite de temps
             String timeLimit = timeLimitInput.getText();
             if (!timeLimit.equals("unlimited") && !(isNumeric(timeLimit) && Integer.parseInt(timeLimit) >= 10)) {
-                showError("Saisie invalide", "Entrez une limite de temps valide. Elle doit valoir 'unlimited' ou un nombre entier supérieur ou égal à 10.");
+                showError("Invalid input", "Please enter a valid time limit. It must be 'unlimited' or an integer greater than or equal to 10.");
                 return;
             }
 
@@ -99,16 +98,13 @@ public class ConfigWindowController {
     
             // Charger les autres fenetres
             pageManager.loadGuesserView();
-            pageManager.loadSpyView();
-    
-            System.out.println("Le jeu commence avec un plateau de " + boardSize + "par " + boardSize + " et la categorie " + selectedCategory);
-    
+            pageManager.loadSpyView();    
         } catch (NumberFormatException e) {
-            showError("Saisie invalide", "La taille du plateau doit etre un entier.");
+            showError("Invalid Input", "The board size must be an integer.");
         } catch (IllegalArgumentException e) {
-            showError("Saisie invalide", e.getMessage());
+            showError("Invalid Input", e.getMessage());
         } catch (Exception e) {
-            showError("Erreur", "Une erreur inconnue s'est produite: " + e.getMessage());
+            showError("Erreur", "An unknown error occurred: " + e.getMessage());
         }
     }
     
