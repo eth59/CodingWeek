@@ -24,10 +24,12 @@
 
                 <!-- Right column for inputs -->
                 <VBox spacing="10" alignment="TOP_LEFT">
-                    <TextField fx:id="boardSizeInput" promptText="Enter a size (3-7)" text="5" />
-                    <ComboBox fx:id="categoryDropdown" />
+                    <TextField fx:id="boardSizeInput" promptText="Enter a size (3-7)" text="5" 
+                               style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 7;" />
+                    <ComboBox fx:id="categoryDropdown" style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 4;"/>
                     <CheckBox fx:id="imagesModeCheckbox" />
-                    <TextField fx:id="timeLimitInput" promptText="Enter a time limit" text="illimité" />
+                    <TextField fx:id="timeLimitInput" promptText="Enter a time limit" text="illimité" 
+                               style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 7;" />
                 </VBox>
             </HBox>
 
