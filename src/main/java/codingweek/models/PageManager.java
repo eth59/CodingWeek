@@ -5,6 +5,7 @@ import java.net.URL;
 
 import codingweek.controllers.GuesserBoardController;
 import codingweek.controllers.SpyBoardController;
+import codingweek.controllers.StatsController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -107,6 +108,45 @@ public class PageManager extends Subject {
             e.printStackTrace();
         }
     }
+    
+    public void loadStatsView() {
+        try {
+            URL statsViewURL = getClass().getResource("/stats.fxml");
+            if (statsViewURL == null) {
+                throw new IOException("Could not find stats.fxml");
+            }
+    
+            FXMLLoader loader = new FXMLLoader(statsViewURL);
+            Parent statsView = loader.load();
+    
+            // Ensure the controller is properly initialized
+            StatsController statsController = loader.getController();
+            if (statsController == null) {
+                throw new IllegalStateException("StatsController is not initialized. Check fx:controller in stats.fxml.");
+            }
+    
+            // Pass the Stats object to the controller
+            Stats stats = Game.getStats();
+            if (stats != null) {
+                statsController.setStats(stats);
+            } else {
+                System.err.println("Stats object is null. Ensure Game.getStats() returns a valid instance.");
+            }
+    
+            // Display the stats view
+            Scene statsScene = new Scene(statsView, 800, 600);
+            primaryStage.setScene(statsScene);
+            primaryStage.setTitle("Game Statistics");
+            primaryStage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load stats.fxml: " + e.getMessage());
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            System.err.println("Controller initialization error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
 
     public void loadConfigWindowView(){
         try {
