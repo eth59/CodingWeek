@@ -17,6 +17,7 @@ TABLE DES MATIÈRES
      * [La page SPY](#la-page-spy)
      * [La page GAME OVER](#la-page-game-over)
      * [La page STATISTIQUES](#la-page-statistiques)
+   * [Les tests](#les-tests)
    * [La planification](#la-planification)
    * [Le diagramme de classes](#le-diagramme-de-classes)
 
@@ -151,6 +152,11 @@ Ces statistiques sont celles de l'équipe bleue.
 
 Cette page affiche le nombre de cartes sensées être retournées lorsqu'un indice est donné et le nombre de cartes correctes retournées lors de ce tour.
 Ces statistiques sont celles de l'équipe rouge.
+
+# Les tests
+
+Nous avons effectué des tests unitaires sur les classes de notre projet. 
+Vous pourrez les retrouver dans le dossier [tests](./src/test/java/testscodingweek/testsmodels).
 
 # La planification
 

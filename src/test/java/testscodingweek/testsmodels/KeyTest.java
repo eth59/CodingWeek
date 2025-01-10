@@ -16,6 +16,8 @@ public class KeyTest {
 
     @BeforeEach
     void setUp() {
+
+        Game.getInstance().initializeGame(5, "Métier", "unlimited", false);
         keyUnderTest = Key.getInstance();
     }
 

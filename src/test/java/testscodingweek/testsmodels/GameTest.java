@@ -27,7 +27,7 @@ public class GameTest {
 
         // On peut ré-initialiser certains champs pour éviter l'état résiduel :
         // (si la classe le permet, par exemple 'initializeGame')
-        gameUnderTest.initializeGame(5, "Métier", "illimité");
+        gameUnderTest.initializeGame(5, "Métier", "unlimited",false);
 
 
     }
@@ -88,7 +88,7 @@ public class GameTest {
             // On retire (si on avait un pop, par ex.):
             // Ici, la classe Game ne fournit pas de pop.
             // On se contente de ré-initialiser :
-            gameUnderTest.initializeGame(5, "Métier", "illimité");
+            gameUnderTest.initializeGame(5, "Métier", "illimité",false);
         }
         // Ou on s'assure que la stack est vide d'une autre manière
         // Cf. code: guesses.clear() n'est pas exposé directement,
