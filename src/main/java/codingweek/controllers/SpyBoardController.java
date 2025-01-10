@@ -4,6 +4,7 @@ import codingweek.Observer;
 import codingweek.models.Board;
 import codingweek.models.Card;
 import codingweek.models.Game;
+import codingweek.models.PageManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -18,8 +19,17 @@ public class SpyBoardController implements Observer {
 
     private final Game game = Game.getInstance();
     private final Board board = game.getBoard();
+    private final PageManager pageManager = PageManager.getInstance();
 
-    @Override
+    public void initialize() {
+        pageManager.ajouterObservateur(this);
+        game.ajouterObservateur(this);
+        updateBackgroundColor();
+        int gridSize = game.getBoardSize();
+        populateBoard(gridSize);
+        board.addCardObservers(this);
+    }
+    
     public void reagir() {
         updateBackgroundColor();
         updateRevealedTiles();
@@ -64,15 +74,6 @@ public class SpyBoardController implements Observer {
             return "#" + javafxColor.substring(2, 8); 
         }
         return javafxColor; 
-    }
-
-    public void initialize() {
-        game.ajouterObservateur(this);
-        updateBackgroundColor();
-        int gridSize = game.getBoardSize();
-        populateBoard(gridSize);
-        board.addCardObservers(this);
-
     }
 
     private void populateBoard(int gridSize) {
