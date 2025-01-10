@@ -29,26 +29,26 @@ public class TopGuesserController implements Observer {
     public void reagir() {
         if (game.isSpyTurn() && game.isBlueTurn()) {
             turnLabel.setText("It's blue spy's turn!");
-            turnLabel.setStyle("-fx-text-fill: blue;");
+            turnLabel.setStyle("-fx-text-fill: #003566; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, blue, 10, 0.5, 0, 0); -fx-font-size: 18px; ");
             stopFading();
         } else if (game.isSpyTurn() && !game.isBlueTurn()) {
             turnLabel.setText("It's red spy's turn!");
-            turnLabel.setStyle("-fx-text-fill: red;");
+            turnLabel.setStyle("-fx-text-fill: #c1121f; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, red, 10, 0.5, 0, 0); -fx-font-size: 18px;");
             stopFading();
         } else if (!game.isSpyTurn() && game.isBlueTurn()) {
             turnLabel.setText("It's blue guesser's turn!");
-            turnLabel.setStyle("-fx-text-fill: blue;");
+            turnLabel.setStyle("-fx-text-fill: #003566; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, blue, 10, 0.5, 0, 0); -fx-font-size: 18px; ");
             startFading();
         } else {
             turnLabel.setText("It's red guesser's turn!");
-            turnLabel.setStyle("-fx-text-fill: red;");
+            turnLabel.setStyle("-fx-text-fill: #c1121f; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, red, 10, 0.5, 0, 0); -fx-font-size: 18px;");
             startFading();
         }
 
         Guess lastGuess = game.getLastGuess();
         if (lastGuess != null) {
             clueLabel.setText("Clue: "+lastGuess.getClue());
-            numberLabel.setText("          Guesses allowed: "+Integer.toString(lastGuess.getNbWords()));
+            numberLabel.setText("Number of cards to be turned: "+ Integer.toString(lastGuess.getNbWords()));
         }
     }
 
