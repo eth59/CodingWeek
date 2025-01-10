@@ -8,6 +8,7 @@ TABLE DES MATIÈRES
 
    * [Le groupe](#le-groupe)
    * [Exécution](#exécution)
+   * [La vidéo de présentation de notre projet](@la-vidéo-de-présentation-de-notre-projet)
    * [Le jeu](#le-jeu)
      * [La page ACCUEIL](#la-page-accueil)
      * [La page ADD CARD](#la-page-add-card)
@@ -26,6 +27,10 @@ Le groupe 25 est composé des étudiants suivants :
 - PUGO Divya
 - QUILLIOT Ethan 
 - VIGNAU SICARD Gauthier
+
+# La vidéo de présentation de notre projet
+
+CLiquez sur ce lien pour accéder à la vidéo de présentation de notre projet : [Vidéo de présentation](https://www.youtube.com/watch?v=3QJ1Z1v1j8A)
 
 # Exécution
 
