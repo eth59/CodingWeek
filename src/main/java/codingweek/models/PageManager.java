@@ -3,6 +3,7 @@ package codingweek.models;
 import java.io.IOException;
 import java.net.URL;
 
+import codingweek.Utils;
 import codingweek.controllers.GuesserBoardController;
 import codingweek.controllers.SpyBoardController;
 import codingweek.controllers.StatsController;
@@ -11,7 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class PageManager {
+public class PageManager extends Subject {
 
     private Stage primaryStage, spyStage;
     private static PageManager instance;
@@ -47,8 +48,11 @@ public class PageManager {
             primaryStage.setHeight(900);
             primaryStage.setX(100);
             primaryStage.setY(100);
-
+            primaryStage.setOnCloseRequest(this::windowClose);
+            
             primaryStage.show();
+
+            this.notifierObservateurs();
         } catch (IOException e) {
             System.err.println("Failed to load guesserView.fxml: " + e.getMessage());
             e.printStackTrace();
@@ -73,8 +77,11 @@ public class PageManager {
             spyStage.setHeight(900);
             spyStage.setX(primaryStage.getX() + primaryStage.getWidth() + 20);
             spyStage.setY(primaryStage.getY());
+            spyStage.setOnCloseRequest(this::windowClose);
 
             spyStage.show();
+
+            this.notifierObservateurs();
         } catch (IOException e) {
             System.err.println("Failed to load spyView.fxml: " + e.getMessage());
             e.printStackTrace();
@@ -130,7 +137,7 @@ public class PageManager {
             }
     
             // Display the stats view
-            Scene statsScene = new Scene(statsView, 800, 600);
+            Scene statsScene = new Scene(statsView, 800, 1000);
             primaryStage.setScene(statsScene);
             primaryStage.setTitle("Game Statistics");
             primaryStage.show();
@@ -318,6 +325,21 @@ public class PageManager {
         return guesserBoardController;
     }
 
+    private void windowClose(javafx.stage.WindowEvent windowEvent) {
+        // Gestion de la fermeture de la fenêtre pour avoir une confirmation de sauvegarde
+        Game game = Game.getInstance();
+        GameSave gamesave = GameSave.getInstance();
+        if (!game.isSaved()) {
+            int result = Utils.saveConfirmation();
+            if (result == 0) {
+                gamesave.saveGame();
+            } else if (result == 2) {
+                windowEvent.consume();
+                return;
+            }
+        }
+        System.exit(0);
+    }
     public void displayStats() {
         Stats stats = Game.getStats();
         System.out.println(stats); // Replace with proper UI logic
