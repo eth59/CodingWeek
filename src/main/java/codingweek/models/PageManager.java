@@ -139,6 +139,8 @@ public class PageManager extends Subject {
             // Display the stats view
             Scene statsScene = new Scene(statsView, 800, 1000);
             primaryStage.setScene(statsScene);
+            primaryStage.setWidth(800);
+            primaryStage.setHeight(1000);
             primaryStage.setTitle("Game Statistics");
             primaryStage.show();
         } catch (IOException e) {
