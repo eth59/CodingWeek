@@ -50,10 +50,10 @@ public class GameSave implements Serializable {
                 oos.writeObject(this);
                 game.setSaved(true);
             } catch (Exception e) {
-                System.err.println("Erreur lors de la sauvegarde de la partie : " + e.getMessage());
+                System.err.println("Error while saving game: " + e.getMessage());
             }
         } else {
-            System.err.println("Aucun fichier sélectionné.");
+            System.err.println("No file selected.");
         }
     }
 
@@ -79,10 +79,10 @@ public class GameSave implements Serializable {
                 this.key.setColonnes(loadedGame.key.getColonnes());
                 this.game.loadGame(loadedGame.game);
             } catch (Exception e) {
-                System.err.println("Erreur lors du chargement de la partie : " + e.getMessage());
+                System.err.println("Error while loading game: " + e.getMessage());
             }
         } else {
-            System.err.println("Aucun fichier sélectionné.");
+            System.err.println("No file selected.");
         }
     }
 

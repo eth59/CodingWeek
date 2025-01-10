@@ -179,7 +179,6 @@ public class PageManager extends Subject {
     public void loadGameOverViewBlueWin(){
         try {
             loadGameOverSpyViewBlueWin();
-            displayStats();
 
             URL gameOverViewURL = getClass().getResource("/gameOverViewBlueWin.fxml");
             if (gameOverViewURL == null){
@@ -207,7 +206,6 @@ public class PageManager extends Subject {
         try {
             closeSpyView();
             loadGameOverSpyViewRedWin();
-            displayStats();
             URL gameOverViewURL = getClass().getResource("/gameOverViewRedWin.fxml");
             if (gameOverViewURL == null){
                 System.err.println("Could not find gameOverViewRedWin.fxml");
@@ -339,10 +337,6 @@ public class PageManager extends Subject {
             }
         }
         System.exit(0);
-    }
-    public void displayStats() {
-        Stats stats = Game.getStats();
-        System.out.println(stats); // Replace with proper UI logic
     }
     
 }

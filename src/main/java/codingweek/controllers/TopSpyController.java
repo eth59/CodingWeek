@@ -77,7 +77,7 @@ public class TopSpyController implements Observer {
         } catch (NumberFormatException e) {
             // Gérer l'erreur de conversion en integer
             numberField.clear();
-            numberField.setPromptText("Veuillez entrer un nombre valide");
+            numberField.setPromptText("Please enter a valid number");
         }
     }
 
