@@ -9,6 +9,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Button;
+
 
 import java.io.IOException;
 import java.util.Map;
@@ -16,10 +19,16 @@ import java.util.Map;
 public class ConfigWindowController {
 
     @FXML
+    private Button returnMenuButton;
+
+    @FXML
     private TextField boardSizeInput, timeLimitInput;
 
     @FXML
     private ComboBox<String> categoryDropdown;
+
+    @FXML
+    private CheckBox imagesModeCheckbox;
 
     private final Game game;
     private final PageManager pageManager;
@@ -33,11 +42,16 @@ public class ConfigWindowController {
 
     @FXML
     public void initialize() {
+        returnMenuButton.setOnAction(e -> {
+            System.out.println("Le bouton Retour menu a été cliqué !");
+            pageManager.loadMenuWindowView();
+        });
         // Affecte et affiche les categories du JSON dans le dropdown
         try {
             Map<String, ?> categories = JsonReader.getCategories("mots.json");
             categoryDropdown.getItems().addAll(categories.keySet());
-            categoryDropdown.setValue("Animaux");
+            categoryDropdown.getItems().add("Toutes les catégories");
+            categoryDropdown.setValue("Toutes les catégories");
         } catch (IOException e) {
             showError("Error dans le chargement des categories", "Incapable de charger les categories depuis mots.json.");
         }
@@ -57,6 +71,15 @@ public class ConfigWindowController {
             if (selectedCategory == null || selectedCategory.isEmpty()) {
                 throw new IllegalArgumentException("Choisissez une categorie.");
             }
+            if (selectedCategory.equals("Toutes les catégories")) {
+                selectedCategory = "all";
+            } else {
+                int requiredWordCount = boardSize * boardSize; // Le nombre de mots requis dépend de la taille du plateau
+                int wordCount = JsonReader.getCategoryWordCount(selectedCategory); // Obtenez le nombre de mots dans la catégorie sélectionnée
+                if (wordCount < requiredWordCount) {
+                    throw new IllegalArgumentException("La catégorie " + selectedCategory + " n'a pas assez de mots pour remplir un plateau de taille " + boardSize + "x" + boardSize + ".");
+                }
+            }
 
             // Valider et affecter la limite de temps
             String timeLimit = timeLimitInput.getText();
@@ -65,9 +88,12 @@ public class ConfigWindowController {
             if (!timeLimit.equals("illimité") && !(isNumeric(timeLimit) && Integer.parseInt(timeLimit) >= 10)) {
                 throw new IllegalArgumentException("Entrez une limite de temps valide. Elle doit valloir illimité ou un nombre entier supérieur à 10.");
             }
+
+            // Valider et affecter le mode d'images
+            boolean imagesMode = imagesModeCheckbox.isSelected();
     
             // Initialiser le jeu apres que les configurations sont choisies
-            game.initializeGame(boardSize, selectedCategory, timeLimit);
+            game.initializeGame(boardSize, selectedCategory, timeLimit, imagesMode);
 
             // Initialiser la key
             key.newKey();

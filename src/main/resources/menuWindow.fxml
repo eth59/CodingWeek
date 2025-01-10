@@ -52,6 +52,14 @@
                            -fx-text-fill: white;
                            -fx-font-size: 18px;
                            -fx-background-radius: 20;"/>
+            <padding>
+                <Insets top="250"/>
+            </padding>
+            <Button text="ADD CARDS" fx:id="ajouterCartesButton"
+                    style="-fx-background-color:  rgb(239,228,207);
+                           -fx-text-fill: black;
+                           -fx-font-size: 18px;
+                           -fx-background-radius: 20;"/>
         </VBox>
     </center>
 

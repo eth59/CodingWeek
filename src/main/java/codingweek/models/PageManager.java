@@ -38,13 +38,13 @@ public class PageManager {
             }
             FXMLLoader loader = new FXMLLoader(guesserViewURL);
             Parent guesserView = loader.load();
-            Scene guesserScene = new Scene(guesserView, 800, 600);
+            Scene guesserScene = new Scene(guesserView, 900, 900);
 
             primaryStage.setScene(guesserScene);
             primaryStage.setTitle("Guesser Window");
 
-            primaryStage.setWidth(800);
-            primaryStage.setHeight(600);
+            primaryStage.setWidth(900);
+            primaryStage.setHeight(900);
             primaryStage.setX(100);
             primaryStage.setY(100);
 
@@ -63,14 +63,14 @@ public class PageManager {
             }
             FXMLLoader loader = new FXMLLoader(spyViewURL);
             Parent spyView = loader.load();
-            Scene spyScene = new Scene(spyView, 800, 600);
+            Scene spyScene = new Scene(spyView, 900, 900);
 
             spyStage = new Stage();
             spyStage.setScene(spyScene);
             spyStage.setTitle("Spy Window");
 
-            spyStage.setWidth(800);
-            spyStage.setHeight(600);
+            spyStage.setWidth(900);
+            spyStage.setHeight(900);
             spyStage.setX(primaryStage.getX() + primaryStage.getWidth() + 20);
             spyStage.setY(primaryStage.getY());
 
@@ -157,8 +157,8 @@ public class PageManager {
             primaryStage.setScene(configScene);
             primaryStage.setTitle("Configuration Window");
             // Set position and size explicitly
-            primaryStage.setWidth(490);
-            primaryStage.setHeight(250);
+            primaryStage.setWidth(600);
+            primaryStage.setHeight(300);
             primaryStage.setX(100);
             primaryStage.setY(100);
             primaryStage.show();
@@ -272,6 +272,31 @@ public class PageManager {
         } catch (IOException e) {
             System.err.println("Failed to load spyView.fxml: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    public void loadAddCardsWindowView(){
+        try {
+            closeSpyView();
+            URL configViewURL = getClass().getResource("/addCardsView.fxml");
+            if (configViewURL == null){
+                System.err.println("Could not find configWindow.fxml");
+                System.exit(1);
+            }
+            Parent configView = FXMLLoader.load(configViewURL);
+            Scene configScene = new Scene(configView, 490, 250);
+            primaryStage.setScene(configScene);
+            primaryStage.setTitle("Add Cards Window");
+            // Set position and size explicitly
+            primaryStage.setWidth(600);
+            primaryStage.setHeight(500);
+            primaryStage.setX(100);
+            primaryStage.setY(100);
+            primaryStage.show();
+        } catch (IOException e){
+            System.err.println("Failed to load configWindow.fxml: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
         }
     }
 

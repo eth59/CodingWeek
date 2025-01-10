@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Stack;
 import javafx.stage.FileChooser;
 
@@ -33,6 +34,7 @@ public class Game extends Subject implements Serializable {
     private static Stats stats = new Stats();
     private int correctGuesses;
 
+    private boolean imagesMode;
 
     private Game() {
         this.board = Board.getInstance();
@@ -47,7 +49,7 @@ public class Game extends Subject implements Serializable {
         this.redReturned = 0;
     }
 
-    public void initializeGame(int boardSize, String category, String timeLimit) {
+    public void initializeGame(int boardSize, String category, String timeLimit, boolean imagesMode) {
         stats.incrementGamesLaunched();
         this.boardSize = boardSize;
         this.category = category;
@@ -63,6 +65,7 @@ public class Game extends Subject implements Serializable {
         this.blueTurn = Math.random() > 0.5;
         this.blueBegin = blueTurn;
         this.spyTurn = true;
+        this.imagesMode = imagesMode;
         initializeRevealedTiles();
         initializeBoard();
     }
@@ -189,8 +192,17 @@ public class Game extends Subject implements Serializable {
             int totalCards = boardSize * boardSize; // Calcule le nombre de cartes necessaire
             
             // Recupere les cartes et les melange
-            ArrayList<Card> cards = getShuffledCards(this.category, totalCards);
-    
+            ArrayList<Card> cards = new ArrayList<Card>();
+            if (this.category.equals("all")) {
+                Map<String, ?> categories = JsonReader.getCategories("mots.json");
+                for (String categorie : categories.keySet()) {
+                    cards.addAll(getShuffledCards(categorie, totalCards));
+                }
+                Collections.shuffle(cards);
+            } else {
+                cards = getShuffledCards(category, totalCards);
+            }
+
             // Efface et peuple le plateau
             populateBoard(cards, totalCards);
     
@@ -204,7 +216,7 @@ public class Game extends Subject implements Serializable {
     }
     
     private ArrayList<Card> getShuffledCards(String category, int totalCards) throws IOException {
-        ArrayList<Card> cards = JsonReader.jsonReader("mots.json", category);
+        ArrayList<Card> cards = JsonReader.jsonReader("mots.json", category, imagesMode);
         if (cards.size() < totalCards) {
             throw new IllegalArgumentException("Pas assez de cartes pour peupler le plateau.");
         }
@@ -417,5 +429,9 @@ public class Game extends Subject implements Serializable {
 
     public boolean getBlueBegin(){
         return blueBegin;
+    }
+
+    public boolean getImagesMode(){
+        return this.imagesMode;
     }
 }
