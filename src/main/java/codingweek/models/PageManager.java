@@ -164,8 +164,8 @@ public class PageManager extends Subject {
             primaryStage.setScene(configScene);
             primaryStage.setTitle("Configuration Window");
             // Set position and size explicitly
-            primaryStage.setWidth(600);
-            primaryStage.setHeight(300);
+            primaryStage.setWidth(650);
+            primaryStage.setHeight(350);
             primaryStage.setX(100);
             primaryStage.setY(100);
             primaryStage.show();
