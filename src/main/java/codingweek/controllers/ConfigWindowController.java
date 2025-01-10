@@ -86,7 +86,8 @@ public class ConfigWindowController {
             System.out.println(!timeLimit.equals(timeLimit));
             System.out.println(!(isNumeric(timeLimit) && Integer.parseInt(timeLimit) >= 10));
             if (!timeLimit.equals("illimité") && !(isNumeric(timeLimit) && Integer.parseInt(timeLimit) >= 10)) {
-                throw new IllegalArgumentException("Entrez une limite de temps valide. Elle doit valloir illimité ou un nombre entier supérieur à 10.");
+                showError("Saisie invalide", "Entrez une limite de temps valide. Elle doit valoir 'illimité' ou un nombre entier supérieur ou égal à 10.");
+                return;
             }
 
             // Valider et affecter le mode d'images
