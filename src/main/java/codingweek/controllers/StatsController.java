@@ -132,18 +132,9 @@ public class StatsController {
     
     private void displayWinsVsGamesPieChart() {
         pieChart.getData().clear();
-    
-        PieChart.Data blueWins = new PieChart.Data("Blue Team Wins", stats.getBlueTeamWins());
-        PieChart.Data redWins = new PieChart.Data("Red Team Wins", stats.getRedTeamWins());
-        PieChart.Data gamesNotWon = new PieChart.Data("Games Not Won", stats.getGamesLaunched() - stats.getBlueTeamWins() - stats.getRedTeamWins());
-    
-        pieChart.getData().addAll(blueWins, redWins, gamesNotWon);
-    
-        // Apply custom colors
-        blueWins.getNode().setStyle("-fx-pie-color: #003566;");  // Blue
-        redWins.getNode().setStyle("-fx-pie-color: #c1121f;");   // Red
-        gamesNotWon.getNode().setStyle("-fx-pie-color: #f0ead2;");  // Gray
-    
+        pieChart.getData().add(new PieChart.Data("Blue Team Wins", stats.getBlueTeamWins()));
+        pieChart.getData().add(new PieChart.Data("Red Team Wins", stats.getRedTeamWins()));
+        pieChart.getData().add(new PieChart.Data("Games Not Won", stats.getGamesLaunched() - stats.getBlueTeamWins() - stats.getRedTeamWins()));
         pieChart.setVisible(true);
     }
     
