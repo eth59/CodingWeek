@@ -123,6 +123,9 @@ public class StatsController {
             "Blue Team Clues (StackedBarChart)",
             "Red Team Clues (StackedBarChart)"
         ));
+        // Définir la sélection par défaut
+        dataSelector.setValue("Wins vs Games Launched (PieChart)");
+        displayWinsVsGamesPieChart();
         dataSelector.valueProperty().addListener((observable, oldValue, newValue) -> updateChart(newValue));
     }
     
