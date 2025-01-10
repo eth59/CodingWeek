@@ -345,6 +345,7 @@ public class Game extends Subject implements Serializable {
         this.blueBegin = loadedGame.blueBegin;
         this.imagesMode = loadedGame.imagesMode;
         pageManager.loadGuesserView();
+        pageManager.closeSpyView();
         pageManager.loadSpyView();
         this.notifierObservateurs();
         this.isSaved = true;
