@@ -201,7 +201,6 @@ public class Game extends Subject implements Serializable {
             } else {
                 cards = getShuffledCards(category, totalCards);
             }
-
             // Efface et peuple le plateau
             populateBoard(cards, totalCards);
     
@@ -224,12 +223,7 @@ public class Game extends Subject implements Serializable {
     
     private void populateBoard(ArrayList<Card> cards, int totalCards) {
         board.cleanCards();
-        ArrayList<String> cardNames = new ArrayList<>();
         for (int i = 0; i < totalCards; i++) {
-            cardNames.add(cards.get(i).getWord());
-        }
-        for (int i = 0; i < totalCards; i++) {
-            cards.get(i).addForbiddenWords(cardNames);
             board.addCard(cards.get(i));
         }
     }
