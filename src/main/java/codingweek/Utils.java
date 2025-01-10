@@ -14,7 +14,7 @@ public class Utils {
         alert.setTitle("Do you want to save the game?");
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        alert.setContentText("If you don't save it, you will lose the current progression in this game.");
+        alert.setContentText("If you don't save you'll lose your progress.");
 
         // Ajout des boutons
         ButtonType saveButton = new ButtonType("Save");
