@@ -109,12 +109,14 @@ On peut constater qu'ici, deux cases neutres ont été révélées (le drapeau d
 ![Page GAME OVER](./figures/GAMEOVERBLUE.png) 
 
 Cette page s'affiche lorsque la partie est terminée et que l'équipe blue a perdu. 
-L'utilisateur n'a plus qu'à cliquer sur le bouton *Accueil* pour revenir à la page d'accueil.
+L'utilisateur n'a plus qu'à cliquer sur le bouton *Back to menu* pour revenir à la page d'accueil. 
+L'utilisateur peut aussi cliquer sur le bouton *Show stats* pour afficher les statistiques de jeu des équipes.
 
 ![Page GAME OVER](./figures/GAMEOVERRED.png)
 
 Cette page s'affiche lorsque la partie est terminée et que l'équipe rouge a perdu.
-L'utilisateur n'a plus qu'à cliquer sur le bouton *Accueil* pour revenir à la page d'accueil. 
+L'utilisateur n'a plus qu'à cliquer sur le bouton *Back to menu* pour revenir à la page d'accueil. 
+L'utilisateur peut aussi cliquer sur le bouton *Show stats* pour afficher les statistiques de jeu des équipes.
 
 # La page STATISTIQUES
 
