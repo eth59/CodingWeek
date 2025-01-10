@@ -3,6 +3,7 @@ package codingweek.models;
 import java.io.IOException;
 import java.net.URL;
 
+import codingweek.Utils;
 import codingweek.controllers.GuesserBoardController;
 import codingweek.controllers.SpyBoardController;
 import codingweek.controllers.StatsController;
@@ -47,7 +48,8 @@ public class PageManager {
             primaryStage.setHeight(900);
             primaryStage.setX(100);
             primaryStage.setY(100);
-
+            primaryStage.setOnCloseRequest(this::windowClose);
+            
             primaryStage.show();
         } catch (IOException e) {
             System.err.println("Failed to load guesserView.fxml: " + e.getMessage());
@@ -73,6 +75,7 @@ public class PageManager {
             spyStage.setHeight(900);
             spyStage.setX(primaryStage.getX() + primaryStage.getWidth() + 20);
             spyStage.setY(primaryStage.getY());
+            spyStage.setOnCloseRequest(this::windowClose);
 
             spyStage.show();
         } catch (IOException e) {
@@ -318,6 +321,21 @@ public class PageManager {
         return guesserBoardController;
     }
 
+    private void windowClose(javafx.stage.WindowEvent windowEvent) {
+        // Gestion de la fermeture de la fenêtre pour avoir une confirmation de sauvegarde
+        Game game = Game.getInstance();
+        GameSave gamesave = GameSave.getInstance();
+        if (!game.isSaved()) {
+            int result = Utils.saveConfirmation();
+            if (result == 0) {
+                gamesave.saveGame();
+            } else if (result == 2) {
+                windowEvent.consume();
+                return;
+            }
+        }
+        System.exit(0);
+    }
     public void displayStats() {
         Stats stats = Game.getStats();
         System.out.println(stats); // Replace with proper UI logic
