@@ -8,13 +8,13 @@ TABLE DES MATIERES
 
    * [Execution](#execution)
    * [Le jeu](#le-jeu)
-        * [La page ACCUEIL](#La-page-ACCUEIL)
-        * [La page ADD CARD](#la-page-add-card)
-        * [La page CONFIGURATION](#la-page-configuration)
-        * [La page GUESSER](#la-page-guesser)
-        * [La page SPY](#la-page-spy)
-        * [La page GAME OVER](#la-page-game-over)
-        * [La page STATISTIQUES](#la-page-statistiques)
+   * [La page ACCUEIL](#La-page-ACCUEIL)
+   * [La page ADD CARD](#la-page-add-card)
+   * [La page CONFIGURATION](#la-page-configuration)
+   * [La page GUESSER](#la-page-guesser)
+   * [La page SPY](#la-page-spy)
+   * [La page GAME OVER](#la-page-game-over)
+   * [La page STATISTIQUES](#la-page-statistiques)
 
 ## Execution
 
