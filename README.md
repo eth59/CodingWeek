@@ -1,9 +1,9 @@
 # CodingWeek 2025
 **TELECOM Nancy - 06/01 au 10/01**
 
-Les instructions sur l'organisation et les attendus de la semaine se trouve dans le fichier [INSTRUCTIONS.md](./INSTRUCTIONS.md).
+Les instructions sur l'organisation et les attendus de la semaine se trouvent dans le fichier [INSTRUCTIONS.md](./INSTRUCTIONS.md).
 
-TABLE DES MATIERES
+TABLE DES MATIÈRES
 =================
 
    * [Execution](#execution)
@@ -43,7 +43,7 @@ Cette page se lance lorsque vous lancez le jeu. Vous avez le choix entre 4 bouto
 
 Cette page permet à l'utilisateur d'ajouter des cartes au jeu ou une catégorie. 
 Pour ajouter une catégorie, il doit renseigner le nom de la catégorie puis cliquer sur le bouton *Add Category*.
-Pour ajouter une carte, il doit renseigner la catégorie associée à la carte, le mot à faire deviner puis appuyer sur le bouton *Add Card*.
+Pour ajouter une carte, il doit renseigner la catégorie associée à la carte, le mot à faire deviner et enfin appuyer sur le bouton *Add Card*.
 
 # La page CONFIGURATION
 
@@ -51,15 +51,15 @@ Pour ajouter une carte, il doit renseigner la catégorie associée à la carte, 
 
 Cette page permet à l'utilisateur de configurer sa partie. 
 Il doit renseigner la taille de la grille (un entier compris entre 3 et 6 inclus), la catégorie avec laquelle il souhaite jouer. 
-Il peut aussi le mode de jeu **Image** en cliquant sur la case à cocher. 
+Il peut aussi le mode de jeu **Images** en cliquant sur la case à cocher. 
 L'utilisateur peut aussi choisir de jouer avec un chronomètre indiquant le temps restant au **GUESSER** pour jouer. 
 Une fois les paramètres renseignés, il peut cliquer sur le bouton *Start Game* pour lancer la partie. 
 Si besoin, il peut cliquer sur le bouton *Return Menu* pour revenir à la page d'accueil. 
-Par défaut, les paramètres sont initialisés à 5 pour la taille de la grille, la catégorie **Toutes les catégories**, le mode **Mot** et le chronomètre désactivé.
+Par défaut, les paramètres sont initialisés à 5 pour la taille de la grille, la catégorie **Toutes les catégories**, le mode **Mots** et le chronomètre désactivé.
 
 # La page GUESSER
 
-![Page GUESSERMOT](./figures/GUESSERMOT.png)
+![Page GUESSER_MOT](./figures/GUESSERMOT.png)
 
 Cette page est la page de jeu du **GUESSER** en mode **Mots**. 
 Ici, on constate que c'est au tour du **GUESSER rouge** de jouer. 
@@ -72,13 +72,13 @@ Plusieurs actions sont possibles :
 Le temps restant pour jouer est affiché en haut à droite de la page, avec un sablier qui se vide et tourne sur lui-même. 
 La couleur du fond de la page est celle de l'équipe qui doit jouer. 
 
-![Page GUESSERIMAGE](./figures/GUESSERIMAGE.png) 
+![Page GUESSER_IMAGE](./figures/GUESSERIMAGE.png) 
 
 Cette page est la page du jeu du **GUESSER** en mode **Images**.
 On peut constater qu'ici, une case neutre a été révélée (coin supérieur droit). 
 # La page SPY
 
-![Page SPY](./figures/SPYMOT.png)
+![Page SPY_MOT](./figures/SPYMOT.png)
 
 Cette page est la page de jeu du **SPY** en mode **Mots**.
 Ici, on constate que c'est au du **SPY bleu** de jouer. 
@@ -91,7 +91,7 @@ Plusieurs actions sont possibles :
 La grille se met à jour à chaque fois que le **GUESSER** joue afin que le **SPY** puisse voir les cases découvertes. 
 La couleur du fond de la page est celle de l'équipe qui doit jouer.
 
-![Page SPYIMAGE](./figures/SPYIMAGE.png)
+![Page SPY_IMAGE](./figures/SPYIMAGE.png)
 
 Cette page est la page de jeu du **SPY** en mode **Images**. 
 On peut constater qu'ici, une case neutre a été révélée (coin supérieur droit). 
