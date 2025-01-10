@@ -24,7 +24,7 @@
             <!-- Titre centré -->
             <center>
                 <Label
-                        text="Groupe 25                "
+                        text="Group 25             "
                         style="-fx-font-size: 24px; -fx-font-weight: bold;"
                         BorderPane.alignment="CENTER"/>
             </center>

@@ -87,7 +87,7 @@ public class GuesserViewController implements codingweek.Observer {
             timelineRunning = true;
             currentFrame = 0;
             timeRemaining = game.getTimeLimit();  // Remets le temps restant à la durée du jeu
-            timeLabel.setText("Temps restant : " + timeRemaining);
+            timeLabel.setText("Remaining time : " + timeRemaining);
             timeLabel.setVisible(true);
 
             if (game.isBlueTurn()) {
@@ -118,7 +118,7 @@ public class GuesserViewController implements codingweek.Observer {
             sandTimerView.setVisible(true);
         }
         timeRemaining--;
-        timeLabel.setText("Temps restant : " + timeRemaining);
+        timeLabel.setText("Remaining time : " + timeRemaining);
         timeLabel.setVisible(true);
         if (timeRemaining <= 0) {
             stopTimeLine();

@@ -11,15 +11,15 @@ public class Utils {
 
         // Création de la fenêtre de confirmation
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Voulez-vous enregistrer l'album actuel ?");
+        alert.setTitle("Do you want to save the game?");
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        alert.setContentText("Si vous ne l'enregistrez pas, vous perdrez les modifications apportées à l'album actuel.");
+        alert.setContentText("If you don't save it, you will lose the current progression in this game.");
 
         // Ajout des boutons
-        ButtonType saveButton = new ButtonType("Enregistrer");
-        ButtonType dontSaveButton = new ButtonType("Ne pas enregistrer");
-        ButtonType cancelButton = new ButtonType("Annuler");
+        ButtonType saveButton = new ButtonType("Save");
+        ButtonType dontSaveButton = new ButtonType("Don't save");
+        ButtonType cancelButton = new ButtonType("Cancel");
         alert.getButtonTypes().setAll(saveButton, dontSaveButton, cancelButton);
 
         // Affichage de la fenêtre et récupération du bouton cliqué

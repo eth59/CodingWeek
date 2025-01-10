@@ -208,16 +208,15 @@ public class Game extends Subject implements Serializable {
             // Reinitialise l'array des revealedTiles pour le plateau de nouvelle taille
             initializeRevealedTiles();
     
-            System.out.println("Plateau initialise avec " + totalCards + " cartes pour le pplateau de taille " + boardSize + "x" + boardSize);
         } catch (Exception e) {
-            System.err.println("Erreur lors de l'initialisation du plateau: " + e.getMessage());
+            System.err.println("Error during board initialization: " + e.getMessage());
         }
     }
     
     private ArrayList<Card> getShuffledCards(String category, int totalCards) throws IOException {
         ArrayList<Card> cards = JsonReader.jsonReader("mots.json", category, imagesMode);
         if (cards.size() < totalCards) {
-            throw new IllegalArgumentException("Pas assez de cartes pour peupler le plateau.");
+            throw new IllegalArgumentException("Not enough card to populate board.");
         }
         Collections.shuffle(cards);
         return new ArrayList<>(cards.subList(0, totalCards));
@@ -245,7 +244,6 @@ public class Game extends Subject implements Serializable {
             this.blueReturned += 1;
             this.correctGuesses++;
             if (this.nbCardReturned == this.clueNb + 1) {
-                System.out.println("All moves played");
                 turnChanged = true;
             }
         } else if (!blueTurn && card.getColor().equals("0xc1121fff")) {
@@ -254,7 +252,6 @@ public class Game extends Subject implements Serializable {
             this.redReturned += 1;
             this.correctGuesses++;
             if (this.nbCardReturned == this.clueNb + 1) {
-                System.out.println("All moves played");
                 turnChanged = true;
             }
         } else if (card.getColor().equals("0xf0ead2ff")) {
