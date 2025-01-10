@@ -1,5 +1,7 @@
 package codingweek.controllers;
 
+import codingweek.Observer;
+import codingweek.models.Game;
 import codingweek.models.PageManager;
 import codingweek.models.Stats;
 import javafx.collections.FXCollections;
@@ -57,13 +59,30 @@ public class StatsController {
 
     private Stats stats;
     private PageManager pageManager;
+    private Game game;
 
     public void initialize() {
+        game = Game.getInstance();
         pageManager = PageManager.getInstance();
+        if (game.isGameOver()) {
+            resumeButton.setText("Accueil");
+        } else {
+            resumeButton.setText("Resume");
+        }
         resumeButton.setOnAction(e -> {
+            resumeButtonAction();
+        });
+    }
+
+    private void resumeButtonAction() {
+        System.out.println(game.isGameOver());
+        if (game.isGameOver()) {
+            pageManager.loadMenuWindowView();
+            pageManager.closeSpyView();
+        } else {
             pageManager.loadGuesserView();
             pageManager.loadSpyView();
-        });
+        }
     }
 
     public void setStats(Stats stats) {

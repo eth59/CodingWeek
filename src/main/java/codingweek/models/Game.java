@@ -27,7 +27,7 @@ public class Game extends Subject implements Serializable {
     private boolean blueBegin;
     private static Stats stats = new Stats();
     private int correctGuesses;
-
+    private boolean isGameOver;
     private boolean imagesMode;
     private boolean isSaved;
 
@@ -46,6 +46,7 @@ public class Game extends Subject implements Serializable {
     }
 
     public void initializeGame(int boardSize, String category, String timeLimit, boolean imagesMode) {
+        isGameOver = false;
         stats.incrementGamesLaunched();
         this.boardSize = boardSize;
         this.category = category;
@@ -261,6 +262,7 @@ public class Game extends Subject implements Serializable {
             turnChanged = true;
         } else if (card.getColor().equals("0x000000ff")) {
             // Appelle la fonction qui gere quand la carte de l'assasine est retournee
+            isGameOver = true;
             if (blueTurn) {
                 stats.addBlueTeamClue(clueNb, correctGuesses);
             } else {
@@ -296,9 +298,11 @@ public class Game extends Subject implements Serializable {
     private void handleAssassinCard() {
         if (blueTurn) {
             stats.incrementRedTeamWins();
+            pageManager.closeSpyView();
             pageManager.loadGameOverViewRedWin();
         } else {
             stats.incrementBlueTeamWins();
+            pageManager.closeSpyView();
             pageManager.loadGameOverViewBlueWin();
         }
     }
@@ -306,18 +310,22 @@ public class Game extends Subject implements Serializable {
     private void checkWinConditions() {
         if (blueBegin) {
             if (blueReturned == boardSize * boardSize / 3 + 1) {
+                isGameOver = true;
                 stats.incrementBlueTeamWins();
                 pageManager.loadGameOverViewBlueWin();
             } else if (redReturned == boardSize * boardSize / 3) {
+                isGameOver = true;
                 stats.incrementRedTeamWins();
                 pageManager.loadGameOverViewRedWin();
             }
         } else {
             if (redReturned == boardSize * boardSize / 3 + 1) {
+                isGameOver = true;
                 stats.incrementRedTeamWins();
                 stats.incrementGamesLaunched();
                 pageManager.loadGameOverViewRedWin();
             } else if (blueReturned == boardSize * boardSize / 3) {
+                isGameOver = true;
                 stats.incrementBlueTeamWins();
                 stats.incrementGamesLaunched();
                 pageManager.loadGameOverViewBlueWin();
@@ -397,5 +405,9 @@ public class Game extends Subject implements Serializable {
 
     public boolean setSaved(boolean isSaved) {
         return this.isSaved = isSaved;
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
     }
 }

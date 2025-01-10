@@ -38,6 +38,7 @@ public class GameOverControllerBlueWin {
         statsButton.setOnAction(e -> {
             System.out.println("Bouton Afficher les stats cliqué !");
             pageManager.loadStatsView();
+            pageManager.closeSpyView();
         });
     }
 }
