@@ -59,33 +59,42 @@ Par défaut, les paramètres sont initialisés à 5 pour la taille de la grille,
 
 # La page GUESSER
 
-![Page GUESSER](./figures/GUESSER.png)
+![Page GUESSERMOT](./figures/GUESSERMOT.png)
 
-Cette page est la page de jeu du **GUESSER**. 
+Cette page est la page de jeu du **GUESSER** en mode **Mots**. 
 Ici, on constate que c'est au tour du **GUESSER rouge** de jouer. 
 Plusieurs actions sont possibles : 
 - Cliquer sur le bouton *Menu* qui affiche un menu déroulant permettant, au choix, de charger une ancienne partie non terminée, sauvegarder la partie actuelle ou retourner à la page d'accueil. 
-- Cliquer sur le bouton *Leader Board* qui affiche les statistiques de jeu des équipes. 
+- Cliquer sur le bouton *Statistics* qui affiche les statistiques de jeu des équipes. 
 - Cliquer sur une case de la grille pour découvrir la couleur associée. Le choix doit correspondre à l'indice donné par le **SPY**, qui est affiché en haut de la page. 
 - Cliquer sur le bouton *Passer le tour* pour passer son tour. 
 
 Le temps restant pour jouer est affiché en haut à droite de la page, avec un sablier qui se vide et tourne sur lui-même. 
 La couleur du fond de la page est celle de l'équipe qui doit jouer. 
 
+![Page GUESSERIMAGE](./figures/GUESSERIMAGE.png) 
+
+Cette page est la page du jeu du **GUESSER** en mode **Images**.
+On peut constater qu'ici, une case neutre a été révélée (coin supérieur droit). 
 # La page SPY
 
-![Page SPY](./figures/SPY.png)
+![Page SPY](./figures/SPYMOT.png)
 
-Cette page est la page de jeu du **SPY**. 
+Cette page est la page de jeu du **SPY** en mode **Mots**.
 Ici, on constate que c'est au du **SPY bleu** de jouer. 
 Plusieurs actions sont possibles :
 - Cliquer sur le bouton *Menu* qui affiche un menu déroulant permettant, au choix, de charger une ancienne partie non terminée, sauvegarder la partie actuelle ou retourner à la page d'accueil. 
-- Cliquer sur le bouton *Leader Board* qui affiche les statistiques de jeu des équipes.
+- Cliquer sur le bouton *Statistics* qui affiche les statistiques de jeu des équipes.
 - Cliquer sur le bouton *Afficher la clef* qui affiche la clef de la grille. Il peut ensuite cliquer sur le bouton *Cacher la clef* pour la cacher. 
 - Entrer un indice dans le champ de texte puis le nombre de mots associés à cet indice et ensuite cliquer sur le bouton *Valider* afin de finir son tour et d'envoyer l'indice au **GUESSER**. 
 
 La grille se met à jour à chaque fois que le **GUESSER** joue afin que le **SPY** puisse voir les cases découvertes. 
 La couleur du fond de la page est celle de l'équipe qui doit jouer.
+
+![Page SPYIMAGE](./figures/SPYIMAGE.png)
+
+Cette page est la page de jeu du **SPY** en mode **Images**. 
+On peut constater qu'ici, une case neutre a été révélée (coin supérieur droit). 
 
 # La page GAME OVER
 
@@ -99,7 +108,10 @@ L'utilisateur n'a plus qu'à cliquer sur le bouton *Accueil* pour revenir à la 
 Cette page s'affiche lorsque la partie est terminée et que l'équipe rouge a perdu.
 L'utilisateur n'a plus qu'à cliquer sur le bouton *Accueil* pour revenir à la page d'accueil. 
 
-# La page STATISTIQUES 
+# La page STATISTIQUES
 
 ![Page STATISTIQUES](./figures/STATS.png)
 
+Cette page affiche les statistiques de jeu des équipes.
+Elle affiche le nombre de parties jouées, le nombre de parties gagnées par chaque équipe et le ratio indices données / bonnes cartes trouvées. 
+Via le menu déroulant *Select Data to Display* l'utilisateur peut choisir d'afficher différentes statistiques comme le nombre de parties jouées, les victoires par équipes, les indices donnés ainsi que les bonnes cartes trouvées via différents graphiques. 
