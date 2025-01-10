@@ -11,7 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class PageManager {
+public class PageManager extends Subject {
 
     private Stage primaryStage, spyStage;
     private static PageManager instance;
@@ -49,6 +49,8 @@ public class PageManager {
             primaryStage.setY(100);
 
             primaryStage.show();
+
+            this.notifierObservateurs();
         } catch (IOException e) {
             System.err.println("Failed to load guesserView.fxml: " + e.getMessage());
             e.printStackTrace();
@@ -75,6 +77,8 @@ public class PageManager {
             spyStage.setY(primaryStage.getY());
 
             spyStage.show();
+
+            this.notifierObservateurs();
         } catch (IOException e) {
             System.err.println("Failed to load spyView.fxml: " + e.getMessage());
             e.printStackTrace();

@@ -33,6 +33,7 @@ public class MenuBarController {
 
     @FXML
     private void AfficherStatistiques(ActionEvent event) {
+        pageManager.closeSpyView();
         pageManager.loadStatsView();
     }
 }

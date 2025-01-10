@@ -3,7 +3,7 @@ package codingweek.controllers;
 import codingweek.models.Board;
 import codingweek.models.Card;
 import codingweek.models.Game;
-
+import codingweek.models.PageManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -18,8 +18,10 @@ public class GuesserBoardController implements codingweek.Observer {
 
     private final Game game = Game.getInstance();
     private final Board board = game.getBoard();
+    private final PageManager pageManager = PageManager.getInstance();
 
     public void initialize() {
+        pageManager.ajouterObservateur(this);
         int gridSize = game.getBoardSize();
         populateBoard(gridSize);
         updateBackgroundColor();

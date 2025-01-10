@@ -1,5 +1,6 @@
 package codingweek.controllers;
 
+import codingweek.models.PageManager;
 import codingweek.models.Stats;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -49,7 +51,19 @@ public class StatsController {
     @FXML
     private NumberAxis numberAxis;
 
+    @FXML
+    private Button resumeButton;
+
     private Stats stats;
+    private PageManager pageManager;
+
+    public void initialize() {
+        pageManager = PageManager.getInstance();
+        resumeButton.setOnAction(e -> {
+            pageManager.loadGuesserView();
+            pageManager.loadSpyView();
+        });
+    }
 
     public void setStats(Stats stats) {
         this.stats = stats;
