@@ -16,15 +16,19 @@ TABLE DES MATIÈRES
      * [La page SPY](#la-page-spy)
      * [La page GAME OVER](#la-page-game-over)
      * [La page STATISTIQUES](#la-page-statistiques)
+   * [La planification](#la-planification)
 
-## Le groupe 
+vhu
+================= 
+
+# Le groupe 
 Le groupe 25 est composé des étudiants suivants : 
 - BICHE Martin 
 - PUGO Divya
 - QUILLIOT Ethan 
 - VIGNAU SICARD Gauthier
 
-## Exécution
+# Exécution
 
 Faire cette commande à la racine de ce projet :
 
@@ -125,3 +129,8 @@ L'utilisateur peut aussi cliquer sur le bouton *Show stats* pour afficher les st
 Cette page affiche les statistiques de jeu des équipes.
 Elle affiche le nombre de parties jouées, le nombre de parties gagnées par chaque équipe et le ratio indices données / bonnes cartes trouvées. 
 Via le menu déroulant *Select Data to Display* l'utilisateur peut choisir d'afficher différentes statistiques comme le nombre de parties jouées, les victoires par équipes, les indices donnés ainsi que les bonnes cartes trouvées via différents graphiques. 
+
+# La planification
+
+En cliquant sur ce lien : [Releases](./releases), vous pourrez avoir accès à la planification de notre projet sur la semaine de Coding Week. 
+Chaque fichier correspond au *release* d'une journée de la semaine, avec les tâches effectuées par demi-journée ainsi que les objectifs pour le lendemain. 
