@@ -110,7 +110,7 @@ L'utilisateur n'a plus qu'à cliquer sur le bouton *Accueil* pour revenir à la 
 
 # La page STATISTIQUES
 
-![Page STATISTIQUES](./figures/STATS.png)
+![Page STATISTIQUES](./figures/STATS.jpg)
 
 Cette page affiche les statistiques de jeu des équipes.
 Elle affiche le nombre de parties jouées, le nombre de parties gagnées par chaque équipe et le ratio indices données / bonnes cartes trouvées. 
