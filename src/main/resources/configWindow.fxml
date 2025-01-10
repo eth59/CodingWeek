@@ -29,7 +29,11 @@
                 <Label text="Time limit (in seconds):" style = "-fx-text-fill: white;" />
                 <TextField fx:id="timeLimitInput" promptText="Enter a time limit" text="illimité"/>
             </HBox>
-            <Button text="Start Game" onAction="#onStartGame" />
+            <Button text="Start Game" onAction="#onStartGame"
+                    style="-fx-background-color:  rgb(120,169,62);
+                           -fx-text-fill: white;
+                           -fx-font-size: 18px;
+                           -fx-background-radius: 20;"/>
             <HBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <Button text="Return Menu" fx:id="returnMenuButton"
                     style="-fx-background-color: rgb(180, 73, 55);
