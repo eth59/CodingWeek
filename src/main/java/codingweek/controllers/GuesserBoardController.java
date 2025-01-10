@@ -5,6 +5,7 @@ import codingweek.models.Card;
 import codingweek.models.Game;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -31,6 +32,41 @@ public class GuesserBoardController implements codingweek.Observer {
     @Override
     public void reagir() {
         updateBackgroundColor();
+        updateRevealedTiles();
+    }
+
+    private void updateRevealedTiles() {
+        List<Card> cards = board.getCards();
+        int gridSize = game.getBoardSize();
+    
+        int cardIndex = 0;
+        for (int row = 0; row < gridSize; row++) {
+            for (int col = 0; col < gridSize; col++) {
+                Card card = cards.get(cardIndex++);
+                if (card.isRevealed()) {
+                    Node cardPane = (Node) getNodeFromGridPane(boardGrid, col, row);
+    
+                    if (cardPane != null) {
+                        String backgroundColor = convertColorToCSS(card.getColor());
+                        cardPane.setStyle("-fx-border-color: black; -fx-background-color: " +
+                                backgroundColor +
+                                "; -fx-padding: 10;" +
+                                "-fx-background-radius: 15; " +
+                                "-fx-border-radius: 15;");
+                    }
+                }
+            }
+        }
+
+    }
+
+    private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
+        for (Node node : gridPane.getChildren()) {
+            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return node;
+            }
+        }
+        return null;
     }
 
     private void populateBoard(int gridSize) {

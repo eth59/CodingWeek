@@ -2,27 +2,27 @@ package codingweek.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import codingweek.models.Game;
+import codingweek.models.GameSave;
 import codingweek.models.PageManager;
 
 public class MenuBarController {
 
     private PageManager pageManager;
-    private Game game;
+    private GameSave gamesave;
 
     public void initialize() {
         pageManager = PageManager.getInstance();
-        game = Game.getInstance();
+        gamesave = GameSave.getInstance();
     }
 
     @FXML
     private void Charger(ActionEvent event) {
-        game.loadGame();
+        gamesave.loadGame();
     }
 
     @FXML
     private void Sauvegarder(ActionEvent event) {
-        game.saveGame();
+        gamesave.saveGame();
     }
 
     @FXML

@@ -2,18 +2,20 @@ package codingweek.models;
 import codingweek.Observer;
 
 import javafx.scene.paint.Color;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Key {
+public class Key implements Serializable {
 
     // Singleton instance
     private static Key instance;
 
     // Grid to represent the grid
-    private Color[][] grille;
+    public String[][] grille;
 
     // Grid dimensions from Game
     private int lignes;
@@ -31,7 +33,7 @@ public class Key {
     public void newKey() {
         this.lignes = game.getBoardSize();
         this.colonnes = game.getBoardSize();
-        grille = new Color[lignes][colonnes];
+        grille = new String[lignes][colonnes];
         initialiserGrille();
         assignColorsToCards(); // Assign colors directly to cards
     }
@@ -60,30 +62,30 @@ public class Key {
     }
 
     private void initialiserGrille() {
-        List<Color> couleurs = new ArrayList<>();
+        List<String> couleurs = new ArrayList<>();
         boolean blueTurn = Game.getInstance().isBlueTurn();
         int totalCards = lignes * colonnes; // Dynamically calculate the number of cards
     
         // Add blue and red team colors
         for (int i = 0; i < (totalCards / 3); i++) { // Adjust ratio as needed
-            couleurs.add(Color.web(Card.BLUE_COLOR));
-            couleurs.add(Color.web(Card.RED_COLOR));
+            couleurs.add("blue");
+            couleurs.add("red");
         }
-        couleurs.add(Color.BLACK);
+        couleurs.add("black");
     
         // Ensure the starting team's extra card
         if (blueTurn) {
             System.out.println("extra for blue");
-            couleurs.add(Color.web(Card.BLUE_COLOR));
+            couleurs.add("blue");
         } else {
             System.out.println("extra for red");
-            couleurs.add(Color.web(Card.RED_COLOR));
+            couleurs.add("red");
         }
 
         // Fill remaining spaces with neutral colors
         int nombreNeutres = totalCards - couleurs.size();
         for (int i = 0; i < nombreNeutres; i++) {
-            couleurs.add(Color.web(Card.NEUTRAL_COLOR));
+            couleurs.add("neutral");
         }
     
         // Shuffle and assign colors to the grid
@@ -116,7 +118,15 @@ public class Key {
 
     public Color getCouleur(int ligne, int colonne) {
         if (ligne >= 0 && ligne < lignes && colonne >= 0 && colonne < colonnes) {
-            return grille[ligne][colonne];
+            if (grille[ligne][colonne].equals("blue")) {
+                return Color.web(Card.BLUE_COLOR);
+            } else if (grille[ligne][colonne].equals("red")) {
+                return Color.web(Card.RED_COLOR);
+            } else if (grille[ligne][colonne].equals("black")) {
+                return Color.BLACK;
+            } else if (grille[ligne][colonne].equals("neutral")) {
+                return Color.web(Card.NEUTRAL_COLOR);
+            }
         }
         return Color.TRANSPARENT;
     }
