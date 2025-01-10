@@ -10,11 +10,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Button;
+
 
 import java.io.IOException;
 import java.util.Map;
 
 public class ConfigWindowController {
+
+    @FXML
+    private Button returnMenuButton;
 
     @FXML
     private TextField boardSizeInput, timeLimitInput;
@@ -37,6 +42,10 @@ public class ConfigWindowController {
 
     @FXML
     public void initialize() {
+        returnMenuButton.setOnAction(e -> {
+            System.out.println("Le bouton Retour menu a été cliqué !");
+            pageManager.loadMenuWindowView();
+        });
         // Affecte et affiche les categories du JSON dans le dropdown
         try {
             Map<String, ?> categories = JsonReader.getCategories("mots.json");
