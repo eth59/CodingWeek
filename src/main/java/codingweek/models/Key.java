@@ -48,6 +48,8 @@ public class Key implements Serializable {
 
     public int getLignes() { return lignes; }
     public int getColonnes() { return colonnes; }
+    public void setLignes(int lignes) { this.lignes = lignes; }
+    public void setColonnes(int colonnes) { this.colonnes = colonnes; }
 
     // Register a card as an observer
     public void addObserver(Observer observer) {

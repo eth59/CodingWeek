@@ -75,6 +75,8 @@ public class GameSave implements Serializable {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(selectedFile))) {
                 GameSave loadedGame = (GameSave) ois.readObject();
                 this.key.grille = loadedGame.key.grille;
+                this.key.setLignes(loadedGame.key.getLignes());
+                this.key.setColonnes(loadedGame.key.getColonnes());
                 this.game.loadGame(loadedGame.game);
             } catch (Exception e) {
                 System.err.println("Erreur lors du chargement de la partie : " + e.getMessage());
