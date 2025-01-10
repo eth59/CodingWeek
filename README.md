@@ -8,6 +8,7 @@ TABLE DES MATIÈRES
 
    * [Le groupe](#le-groupe)
    * [Exécution](#exécution)
+   * [La vidéo de présentation de notre projet](@la-vidéo-de-présentation-de-notre-projet)
    * [Le jeu](#le-jeu)
      * [La page ACCUEIL](#la-page-accueil)
      * [La page ADD CARD](#la-page-add-card)
@@ -16,6 +17,7 @@ TABLE DES MATIÈRES
      * [La page SPY](#la-page-spy)
      * [La page GAME OVER](#la-page-game-over)
      * [La page STATISTIQUES](#la-page-statistiques)
+   * [Les tests](#les-tests)
    * [La planification](#la-planification)
    * [Le diagramme de classes](#le-diagramme-de-classes)
 
@@ -26,6 +28,10 @@ Le groupe 25 est composé des étudiants suivants :
 - PUGO Divya
 - QUILLIOT Ethan 
 - VIGNAU SICARD Gauthier
+
+# La vidéo de présentation de notre projet
+
+CLiquez sur ce lien pour accéder à la vidéo de présentation de notre projet : [Vidéo de présentation](https://www.youtube.com/watch?v=3QJ1Z1v1j8A)
 
 # Exécution
 
@@ -147,6 +153,11 @@ Ces statistiques sont celles de l'équipe bleue.
 Cette page affiche le nombre de cartes sensées être retournées lorsqu'un indice est donné et le nombre de cartes correctes retournées lors de ce tour.
 Ces statistiques sont celles de l'équipe rouge.
 
+# Les tests
+
+Nous avons effectué des tests unitaires sur les classes de notre projet. 
+Vous pourrez les retrouver dans le dossier [tests](./src/test/java/testscodingweek/testsmodels).
+
 # La planification
 
 En cliquant sur ce lien : [Roadmap](./roadmap), vous pourrez avoir accès à la planification de notre projet sur la semaine de Coding Week. 
@@ -156,4 +167,5 @@ Chaque fichier correspond au *release* d'une journée de la semaine, avec les t�
 
 ![Diagramme de classes](./figures/main.png)
 
-![Diagramme de classes](./diagram/main.plantuml)
+Le code de ce diagramme se trouve dans le fichier [main.plantuml](./diagram/main.plantuml).
+
