@@ -9,18 +9,21 @@ TABLE DES MATIERES
    * [Execution](#execution)
    * [Le jeu](#le-jeu)
      * [La page ACCUEIL](#la-page-accueil)
-   * [La page ADD CARD](#la-page-add-card)
-   * [La page CONFIGURATION](#la-page-configuration)
-   * [La page GUESSER](#la-page-guesser)
-   * [La page SPY](#la-page-spy)
-   * [La page GAME OVER](#la-page-game-over)
-   * [La page STATISTIQUES](#la-page-statistiques)
+     * [La page ADD CARD](#la-page-add-card)
+     * [La page CONFIGURATION](#la-page-configuration)
+     * [La page GUESSER](#la-page-guesser)
+     * [La page SPY](#la-page-spy)
+     * [La page GAME OVER](#la-page-game-over)
+     * [La page STATISTIQUES](#la-page-statistiques)
 
 ## Execution
 
 Faire cette commande à la racine de ce projet :
 
 ``` java --module-path /path/to/javafx/lib --add-modules javafx.controls,javafx.fxml -jar grp25.jar ```
+
+#### /!\ **Attention** /!\ :
+Il faut un fichier mots.json dans le même dossier que le jar pour que celui-ci puisse récupérer les catégories, mots et images pour jouer.
 
 
 # Le jeu
@@ -69,7 +72,7 @@ Plusieurs actions sont possibles :
 Le temps restant pour jouer est affiché en haut à droite de la page, avec un sablier qui se vide et tourne sur lui-même. 
 La couleur du fond de la page est celle de l'équipe qui doit jouer. 
 
-**La page SPY**
+# La page SPY
 
 ![Page SPY](./figures/SPY.png)
 
@@ -84,7 +87,7 @@ Plusieurs actions sont possibles :
 La grille se met à jour à chaque fois que le **GUESSER** joue afin que le **SPY** puisse voir les cases découvertes. 
 La couleur du fond de la page est celle de l'équipe qui doit jouer.
 
-**La page GAME OVER**
+# La page GAME OVER
 
 ![Page GAME OVER](./figures/GAMEOVERBLUE.png) 
 
@@ -96,9 +99,7 @@ L'utilisateur n'a plus qu'à cliquer sur le bouton *Accueil* pour revenir à la 
 Cette page s'affiche lorsque la partie est terminée et que l'équipe rouge a perdu.
 L'utilisateur n'a plus qu'à cliquer sur le bouton *Accueil* pour revenir à la page d'accueil. 
 
-**La page STATISTIQUES** 
+# La page STATISTIQUES 
 
 ![Page STATISTIQUES](./figures/STATS.png)
 
-#### /!\ **Attention** /!\ :
-Il faut un fichier mots.json dans le même dossier que le jar pour que celui-ci puisse récupérer les catégories, mots et images pour jouer.
