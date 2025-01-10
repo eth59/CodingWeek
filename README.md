@@ -47,7 +47,7 @@ Pour ajouter une carte, il doit renseigner la catégorie associée à la carte, 
 
 # La page CONFIGURATION
 
-![Page CONFIGURATION](./figures/CONFIG.png)
+![Page CONFIGURATION](./figures/CONFIG.png) 
 
 Cette page permet à l'utilisateur de configurer sa partie. 
 Il doit renseigner la taille de la grille (un entier compris entre 3 et 6 inclus), la catégorie avec laquelle il souhaite jouer. 
