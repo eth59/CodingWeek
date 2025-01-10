@@ -153,3 +153,5 @@ Chaque fichier correspond au *release* d'une journ√©e de la semaine, avec les t√
 # Le diagramme de classes
 
 ![Diagramme de classes](./figures/main.png)
+
+![Diagramme de classes](./diagram/main.plantuml)
